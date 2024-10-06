@@ -40,7 +40,7 @@ const ReminderItem = (props) => {
           { dueDate }
         </div>
       </div>
-      <button aria-label="delete reminder" className="delete-button" onClick={ deleteReminder }>✕</button>
+      <button type="button" className="btn-close" aria-label="Delete Reminder" onClick={ deleteReminder }></button>
     </li>
     );
 };
