@@ -1,0 +1,66 @@
+.app {
+  margin: 1rem;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-form {
+  width: 100%;
+  max-width: 40ch;
+  margin-bottom: 2rem;
+}
+
+label {
+  margin-top: 1rem;
+}
+
+.app-form button {
+  margin-top: 1rem;
+}
+
+.delete-button {
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  width: 1.5rem;
+}
+
+.list-item {
+  display: inline-block;
+  margin-right: 2.5rem;
+}
+
+.list-group {
+  width: 100%;
+  max-width: 60ch;
+  padding-top: .5rem;
+  border-top: 2px solid #c1c8ce;
+}
+
+.list-group-item {
+  position: relative;
+}
+
+.reminder {
+  padding-bottom: .5rem;
+}
+
+.duedate {
+  font-size: smaller;
+}
+
+.past .duedate {
+  color: red;
+}
+
+.today .duedate {
+  color: red;
+}
