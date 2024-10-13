@@ -31,7 +31,7 @@ const ReminderItem = (props) => {
   }
 
   return (
-    <li key={ props.id } className={ "list-group-item " + dateClass }>
+    <li key={ props.id } className={ "list-group-item " + dateClass } ref={ props.scrollref }>
       <div className="list-item">
         <div className="reminder">
           { props.text }

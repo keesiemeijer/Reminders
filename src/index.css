@@ -49,6 +49,20 @@ label {
 
 .list-group-item {
   position: relative;
+  background-color: white;
+  transition: background-color 1s ease;
+}
+
+.list-group-item.newReminder {
+  background-color: moccasin;
+  transition: background-color 0.5s ease;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  * {
+    transition-duration: 1ms !important;
+  }
+
 }
 
 .reminder {
