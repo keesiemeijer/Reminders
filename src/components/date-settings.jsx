@@ -33,7 +33,7 @@ const DateSettings = () => {
           <div className="form-check">
             <input id="showDate" name="date" type="checkbox" className="form-check-input" onChange={ onChangeDateSettings } defaultChecked={ settings.date } />
             <label htmlFor="showDate" className="form-check-label">
-              Show date
+              Show date (with date format below)
             </label>
           </div>
         </div>
