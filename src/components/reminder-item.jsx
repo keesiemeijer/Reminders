@@ -6,6 +6,9 @@ import isToday from 'dayjs/plugin/isToday';
 
 import { useDispatch } from "react-redux";
 import { removeReminder } from "../features/reminderSlice";
+import ReminderDate from "./reminder-date";
+
+import { RelativeDateClass } from "./date";
 
 const ReminderItem = (props) => {
   const dispatch = useDispatch();
@@ -15,20 +18,7 @@ const ReminderItem = (props) => {
     }))
   };
 
-  dayjs.extend(relativeTime);
-  dayjs.extend(isToday);
-
-  let dateClass = 'future';
-  let dueDate = dayjs(props.dueDate + ' 23:59').fromNow();
-
-  if (dayjs(props.dueDate).isToday()) {
-    dueDate = 'today';
-    dateClass = 'today';
-  }
-
-  if (dayjs(props.dueDate).isBefore(dayjs(), 'day')) {
-    dateClass = 'past';
-  }
+  const dateClass = RelativeDateClass(props.dueDate);
 
   return (
     <li key={ props.id } className={ "list-group-item " + dateClass } ref={ props.scrollref }>
@@ -36,9 +26,7 @@ const ReminderItem = (props) => {
         <div className="reminder">
           { props.text }
         </div>
-        <div className="duedate">
-          { dueDate }
-        </div>
+        <ReminderDate dueDate={ props.dueDate } />
       </div>
       <button type="button" className="btn-close" aria-label="Delete Reminder" onClick={ deleteReminder }></button>
     </li>

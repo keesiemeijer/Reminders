@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { addReminder, selectReminders } from "../features/reminderSlice";
+import { addReminder, selectReminders, selectHighestReminderID } from "../features/reminderSlice";
 import ReminderItem from "./reminder-item";
 
 const Reminders = () => {
   const dispatch = useDispatch();
 
   const reminders = useSelector(selectReminders);
+  const reminderLatestID = useSelector(selectHighestReminderID);
   const reminderCount = reminders.length;
-  const reminderLatestID = Math.max.apply(null, reminders.map(item => item.id));
 
   // User preferences
   const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");

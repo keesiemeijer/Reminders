@@ -2,13 +2,15 @@ import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const location = useLocation();
-  const reminders = ('/' === location.pathname);
-  const settings = ('/settings' === location.pathname);
+
+  let link = <Link className="nav-link" to="/">Reminders</Link>
+  if ('/' === location.pathname) {
+    link = <Link className="nav-link" to="/settings">Settings</Link>
+  }
 
   return (
     <nav className="nav">
-      <Link className={ "nav-link" + (reminders ? ' active' : '') } to="/">Reminders</Link>
-      <Link className={ "nav-link" + (settings ? ' active' : '') } to="/settings">Settings</Link>
+      { link }
     </nav>
     );
 }

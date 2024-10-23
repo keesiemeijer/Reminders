@@ -5,33 +5,27 @@
   flex-direction: column;
   align-items: center;
 }
+
 .app-form {
   width: 100%;
   max-width: 40ch;
   margin-bottom: 2rem;
 }
 
-label {
+.app-form h3 {
+  margin-bottom: 1rem;
+}
+
+.reminders label {
   margin-top: 1rem;
-}
-
-nav.nav {
-  padding-left: 20px;
-  background-color: #f8f9fa;
-  
-}
-
-.nav-link.active {
-  color: #212529;
-  text-decoration: none;
-  cursor: default;
-}
-.nav-link:not(.active):hover {
-  text-decoration: underline;
 }
 
 .app-form button {
   margin-top: 2rem;
+}
+
+.date-options {
+  margin-bottom: 1rem;
 }
 
 .btn-close {
@@ -47,6 +41,21 @@ nav.nav {
   top: .8rem;
   width: .9rem;
   height: .9rem;
+}
+
+nav.nav {
+  padding-left: 20px;
+  background-color: #f8f9fa;
+}
+
+.nav-link.active {
+  color: #212529;
+  text-decoration: none;
+  cursor: default;
+}
+
+.nav-link:not(.active):hover {
+  text-decoration: underline;
 }
 
 .list-item {
@@ -72,13 +81,6 @@ nav.nav {
   transition: background-color 0.5s ease;
 }
 
-@media (prefers-reduced-motion:reduce) {
-  * {
-    transition-duration: 1ms !important;
-  }
-
-}
-
 .reminder {
   padding-bottom: .5rem;
 }
@@ -93,4 +95,11 @@ nav.nav {
 
 .today .duedate {
   color: red;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  * {
+    transition-duration: 1ms !important;
+  }
+
 }

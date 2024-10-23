@@ -1,7 +1,10 @@
+import DateSettings from "./date-settings";
+
 const Settings = () => {
+
   return (
     <div className="app-content settings">
-      <h3>No settings yet</h3>
+      <DateSettings />
     </div>
     );
 };

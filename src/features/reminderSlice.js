@@ -1,14 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  count: 0,
-  reminders: [],
-};
+// Inital state is an array of reminder objects
+const initialState = [];
 
 // Helper function to return array of reminders
 const getReminders = (state) => {
-  if (Array.isArray(state.reminders)) {
-    return state.reminders;
+  if (Array.isArray(state)) {
+    return state;
   }
   return [];
 }
@@ -24,7 +22,7 @@ const getHighestReminderID = (state) => {
 }
 
 export const reminderSlice = createSlice({
-  name: "reminder",
+  name: "reminders",
   initialState,
   reducers: {
     addReminder: (state, action) => {
@@ -35,23 +33,29 @@ export const reminderSlice = createSlice({
       };
 
       // Add reminder
-      state.reminders.push(reminder);
+      state.push(reminder);
 
       // Sort reminders by date
-      state.reminders.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+      state.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
     },
     removeReminder: (state, action) => {
       // Remove reminder
-      state.reminders = state.reminders.filter((reminder) => reminder.id !== action.payload.id);
+      return state.filter((reminder) => reminder.id !== action.payload.id);
     },
-  },
+    importReminders: (state, action) => {
+
+    }
+  }
 });
 
 // Export reducer actions
-export const {addReminder, removeReminder} = reminderSlice.actions;
+export const {addReminder, removeReminder, upateSettings} = reminderSlice.actions;
 
 // Export reminders
-export const selectReminders = state => getReminders(state.reminder);
+export const selectReminders = state => getReminders(state.reminders);
+
+// Export largest ID 
+export const selectHighestReminderID = state => getHighestReminderID(state.reminders);
 
 // export reducer
 export default reminderSlice.reducer;
