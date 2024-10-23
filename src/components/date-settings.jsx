@@ -20,8 +20,8 @@ const DateSettings = () => {
   }
 
   return (
-    <div className="app-content settings">
-      <form className="app-form date-settings">
+    <div className="date-settings">
+      <form className="app-form">
         <h3>Date Settings</h3>
         <div className="date-options">
           <div className="form-check">
