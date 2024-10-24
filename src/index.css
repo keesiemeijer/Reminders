@@ -96,10 +96,9 @@ nav.nav {
 .today .duedate {
   color: red;
 }
-.export-settings {
+.export-settings, .date-settings {
+  width: 100%;
   max-width: 40ch;
-  margin: 1rem;
-  padding: 20px;
 }
 code {
   display:block;
