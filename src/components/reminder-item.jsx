@@ -1,9 +1,5 @@
 import "./reminder-item.css";
 
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime';
-import isToday from 'dayjs/plugin/isToday';
-
 import { useDispatch } from "react-redux";
 import { removeReminder } from "../features/reminderSlice";
 import ReminderDate from "./reminder-date";
