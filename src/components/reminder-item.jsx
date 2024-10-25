@@ -1,10 +1,9 @@
-import "./reminder-item.css";
-
 import { useDispatch } from "react-redux";
 import { removeReminder } from "../features/reminderSlice";
+import { RelativeDateClass } from "../utils/date";
 import ReminderDate from "./reminder-date";
 
-import { RelativeDateClass } from "./date";
+import "./reminder-item.css";
 
 const ReminderItem = (props) => {
   const dispatch = useDispatch();

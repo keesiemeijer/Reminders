@@ -96,13 +96,23 @@ nav.nav {
 .today .duedate {
   color: red;
 }
-.export-settings, .date-settings {
+.export-settings, .date-settings, .import-settings {
   width: 100%;
   max-width: 40ch;
 }
+.import-settings {
+  margin-bottom: 1.5rem;
+}
+.export-settings button, .import-settings button {
+  margin-top: 2rem;
+}
 code {
   display:block;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  max-height: 12rem;
+  overflow:auto;
+  border: solid 2px #efefef;
+  padding: 1rem;
 }
 
 @media (prefers-reduced-motion:reduce) {

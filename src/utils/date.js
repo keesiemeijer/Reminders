@@ -1,12 +1,14 @@
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import isToday from 'dayjs/plugin/isToday';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { useSelector } from "react-redux";
 import { selectSettings } from "../features/settingsSlice";
 
 dayjs.extend(relativeTime);
 dayjs.extend(isToday);
+dayjs.extend(customParseFormat);
 
 export const RelativeDateClass = (date) => {
   let dateClass = 'future';
@@ -39,3 +41,8 @@ export const FormattedDate = (date) => {
 
   return dueDate.trim();
 };
+
+export const dateExists = (date, format = 'YYYY-MM-DD') => {
+  return dayjs(date, format, true).isValid() // false
+}; 
+

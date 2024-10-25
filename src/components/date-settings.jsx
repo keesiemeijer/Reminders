@@ -9,6 +9,7 @@ const DateSettings = () => {
     const newSetting = {};
     const settingName = e.target.name;
 
+    // Set values for new date setting
     if ("relativeDate" === settingName || "date" === settingName) {
       newSetting[settingName] = e.target.checked;
     } else if ("dateFormat" === settingName) {

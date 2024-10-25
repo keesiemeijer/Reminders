@@ -1,4 +1,4 @@
-import { FormattedDate } from "./date";
+import { FormattedDate } from "../utils/date";
 
 const ReminderDate = (props) => {
   const dueDate = FormattedDate(props.dueDate);

@@ -26,8 +26,8 @@ const ExportSettings = () => {
   }
 
   if (reminders.length > 0) {
-    help = "Use the data below to import reminders on another device";
-    button = <button type="button" className="btn btn-outline-secondary" aria-label="Copy data to clipboard" onClick={ copyReminderData }>Copy data to clipboard</button>;
+    help = "Use the reminder data below to import reminders on other devices";
+    button = <button type="button" className="btn btn-outline-secondary" aria-label="Copy data to clipboard" onClick={ copyReminderData }>Copy Reminder Data To Clipboard</button>;
     code = <code>{ json }</code>;
   }
 
@@ -37,8 +37,8 @@ const ExportSettings = () => {
       <p>
         { help }
       </p>
-      { button }
       { code }
+      { button }
       <ToastContainer />
     </div>
     );
