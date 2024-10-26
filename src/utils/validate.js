@@ -1,7 +1,7 @@
 import { dateExists } from "./date";
 
 export const isValidJSON = (value) => {
-  if (typeof value !== 'string') return false;
+  if (!isString(value)) return false;
 
   try {
     value = JSON.parse(value);
@@ -49,8 +49,13 @@ export const isValidReminder = (item) => {
   return true;
 };
 
+export const isValidSetting = (item) => {
+  // For now only check if it's an object
+  return isObject(item);
+};
+
 export const isValidDate = (date) => {
-  if (typeof date !== 'string') return false;
+  if (!isString(date)) return false;
 
   // Simple regex to weed out invalid date formats (YYYY-MM-DD)
   var regex_date = /^\d{4}\-\d{2}\-\d{2}$/;
@@ -60,8 +65,12 @@ export const isValidDate = (date) => {
 
   // Check for valid dates
   return dateExists(date);
-}
+};
 
 export const isObject = (item) => {
   return (typeof item === "object" && !Array.isArray(item) && item !== null);
-}
+};
+
+export const isString = (item) => {
+  return (typeof item === "string");
+};

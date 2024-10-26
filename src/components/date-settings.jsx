@@ -1,38 +1,49 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
 import { selectSettings, upateSettings } from "../features/settingsSlice";
 
 const DateSettings = () => {
   const dispatch = useDispatch();
   const settings = useSelector(selectSettings);
 
-  const onChangeDateSettings = (e) => {
-    const newSetting = {};
-    const settingName = e.target.name;
+  const [date, setDate] = useState(settings.date);
+  const [relativeDate, setRelativeDate] = useState(settings.relativeDate);
+  const [dateFormat, setDateFormat] = useState(settings.dateFormat);
 
-    // Set values for new date setting
-    if ("relativeDate" === settingName || "date" === settingName) {
-      newSetting[settingName] = e.target.checked;
-    } else if ("dateFormat" === settingName) {
-      newSetting[settingName] = e.target.value.trim();
-    }
+  const submitSettings = (e) => {
+    e.preventDefault();
+
+    // Sanitze date format on submit
+    const format = dateFormat.trim();
+    setDateFormat(format);
+
+    const setting = {
+      relativeDate: relativeDate,
+      date: date,
+      dateFormat: format
+    };
 
     // Update settings.
-    dispatch(upateSettings(newSetting));
-  }
+    dispatch(upateSettings(setting));
+
+    // Display message.
+    toast.info("Settings Updated");
+  };
 
   return (
     <div className="date-settings">
-      <form className="app-form">
-        <h3>Date Settings</h3>
+      <form className="app-form" onSubmit={ submitSettings }>
+        <h3>Settings</h3>
         <div className="date-options">
           <div className="form-check">
-            <input id="showRelativeDate" name="relativeDate" type="checkbox" className="form-check-input" onChange={ onChangeDateSettings } defaultChecked={ settings.relativeDate } />
+            <input id="showRelativeDate" name="relativeDate" type="checkbox" className="form-check-input" onChange={ e => setRelativeDate(e.target.checked) } defaultChecked={ relativeDate } />
             <label htmlFor="showRelativeDate" className="form-check-label">
               Show relative date (e.g., "in 2 days")
             </label>
           </div>
           <div className="form-check">
-            <input id="showDate" name="date" type="checkbox" className="form-check-input" onChange={ onChangeDateSettings } defaultChecked={ settings.date } />
+            <input id="showDate" name="date" type="checkbox" className="form-check-input" onChange={ e => setDate(e.target.checked) } defaultChecked={ date } />
             <label htmlFor="showDate" className="form-check-label">
               Show date (with date format below)
             </label>
@@ -40,10 +51,11 @@ const DateSettings = () => {
         </div>
         <div>
           <label htmlFor="dateFormat" className="form-label">Date Format</label>
-          <input id="dateFormat" name="dateFormat" type="text" className="form-control" aria-describedby="formatHelp" onChange={ onChangeDateSettings } value={ settings.dateFormat }
+          <input id="dateFormat" name="dateFormat" type="text" className="form-control" aria-describedby="formatHelp" onChange={ e => setDateFormat(e.target.value) } value={ dateFormat }
           />
           <small id="formatHelp" className="form-text text-muted">Example format: DD/MM/YYYY. <a href="https://day.js.org/docs/en/display/format">List of all available formats</a></small>
         </div>
+        <button type="submit" className="btn btn-primary" aria-label="Update settins">Update Settings</button>
       </form>
     </div>
     );

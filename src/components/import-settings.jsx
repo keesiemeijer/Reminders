@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { importReminders } from "../features/reminderSlice";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { isValidJSON } from "../utils/validate";
 
 const ImportSettings = () => {
@@ -31,9 +31,8 @@ const ImportSettings = () => {
         <div>
           <label htmlFor="importReminders">Reminder data</label>
           <textarea className="form-control" id="importReminders" rows="6" ref={ importInput } />
-          <button type="button" type="submit" className="btn btn-outline-secondary" aria-label="Import reminders">Import Reminder Data</button>
+          <button type="submit" className="btn btn-outline-secondary" aria-label="Import reminders">Import Reminder Data</button>
         </div>
-        <ToastContainer />
       </form>
     </div>
     );

@@ -1,9 +1,11 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { isValidSetting } from "../utils/validate";
 
 const initialState = {
   relativeDate: true,
   date: false,
-  dateFormat: 'DD/MM/YYYY'
+  dateFormat: 'DD/MM/YYYY',
+  defaultFormat: 'DD/MM/YYYY'
 };
 
 export const settingsSlice = createSlice({
@@ -11,10 +13,12 @@ export const settingsSlice = createSlice({
   initialState,
   reducers: {
     upateSettings: (state, action) => {
+      const payload = isValidSetting(action.payload) ? action.payload : {};
+
       // Merge payload with state
       return {
         ...state,
-        ...action.payload
+        ...payload
       };
     }
   }

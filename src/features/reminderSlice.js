@@ -55,7 +55,7 @@ export const reminderSlice = createSlice({
       // Validate reminders
       reminders = reminders.filter((item) => isValidReminder(item));
 
-      // Removes all properties not needed for a reminder
+      // Remove all properties not needed for a reminder (also removes id)
       reminders = reminders.map((data) => {
         return {
           'text': data.text,

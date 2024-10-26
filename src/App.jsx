@@ -4,6 +4,7 @@ import Reminders from './components/reminders';
 import Settings from './components/settings';
 import PageNotFound from "./components/404Page";
 import Navbar from "./components/navbar";
+import { ToastContainer} from 'react-toastify';
 
 import "./App.css";
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='/settings' element={ <Settings /> } />
         <Route path="*" element={ <PageNotFound /> } />
       </Routes>
+      <ToastContainer />
     </div>
     );
 }

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectReminders } from "../features/reminderSlice";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const ExportSettings = () => {
 
@@ -39,7 +39,6 @@ const ExportSettings = () => {
       </p>
       { code }
       { button }
-      <ToastContainer />
     </div>
     );
 };
