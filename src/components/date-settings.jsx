@@ -39,13 +39,13 @@ const DateSettings = () => {
           <div className="form-check">
             <input id="showRelativeDate" name="relativeDate" type="checkbox" className="form-check-input" onChange={ e => setRelativeDate(e.target.checked) } defaultChecked={ relativeDate } />
             <label htmlFor="showRelativeDate" className="form-check-label">
-              Show relative date (e.g., "in 2 days")
+              Show relative dates (e.g., "in 2 days")
             </label>
           </div>
           <div className="form-check">
             <input id="showDate" name="date" type="checkbox" className="form-check-input" onChange={ e => setDate(e.target.checked) } defaultChecked={ date } />
             <label htmlFor="showDate" className="form-check-label">
-              Show date (with date format below)
+              Show dates (with date format below)
             </label>
           </div>
         </div>
