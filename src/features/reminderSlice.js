@@ -10,28 +10,27 @@ const getReminders = (state) => {
     return state;
   }
   return [];
-}
+};
 
 // Helper function to get highest reminder ID
 const getHighestReminderID = (state) => {
   const reminders = getReminders(state);
   if (!reminders.length) {
-    return 0
+    return 0;
   }
-  const ids = reminders.map(a => a.id);
+  const ids = reminders.map((a) => a.id);
   return Math.max.apply(null, ids);
-}
+};
 
 export const reminderSlice = createSlice({
   name: "reminders",
   initialState,
   reducers: {
-
     addReminder: (state, action) => {
       const reminder = {
         id: getHighestReminderID(state) + 1,
         text: action.payload.text,
-        dueDate: action.payload.dueDate
+        dueDate: action.payload.dueDate,
       };
 
       if (isValidReminder(reminder)) {
@@ -58,17 +57,13 @@ export const reminderSlice = createSlice({
       // Remove all properties not needed for a reminder (also removes id)
       reminders = reminders.map((data) => {
         return {
-          'text': data.text,
-          'dueDate': data.dueDate
-        }
+          text: data.text,
+          dueDate: data.dueDate,
+        };
       });
 
       // Remove duplicates
-      reminders = reminders.filter(
-        (obj1, i, arr) => arr.findIndex(
-            obj2 => ['text', 'dueDate'].every(key => obj2[key] === obj1[key])
-          ) === i
-      )
+      reminders = reminders.filter((obj1, i, arr) => arr.findIndex((obj2) => ["text", "dueDate"].every((key) => obj2[key] === obj1[key])) === i);
 
       // Sort reminders by date
       reminders.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
@@ -76,23 +71,22 @@ export const reminderSlice = createSlice({
       // Add ids back
       state = reminders.map((item, index) => ({
         ...item,
-        id: index + 1
+        id: index + 1,
       }));
 
       return state;
-    }
-
-  }
+    },
+  },
 });
 
 // Export reducer actions
-export const {addReminder, removeReminder, importReminders} = reminderSlice.actions;
+export const { addReminder, removeReminder, importReminders } = reminderSlice.actions;
 
 // Export reminders
-export const selectReminders = state => getReminders(state.reminders);
+export const selectReminders = (state) => getReminders(state.reminders);
 
-// Export largest ID 
-export const selectHighestReminderID = state => getHighestReminderID(state.reminders);
+// Export largest ID
+export const selectHighestReminderID = (state) => getHighestReminderID(state.reminders);
 
 // export reducer
 export default reminderSlice.reducer;

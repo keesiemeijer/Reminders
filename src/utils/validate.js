@@ -5,7 +5,7 @@ export const isValidJSON = (value) => {
 
   try {
     value = JSON.parse(value);
-  } catch ( e ) {
+  } catch (e) {
     return false;
   }
 
@@ -14,35 +14,34 @@ export const isValidJSON = (value) => {
 };
 
 export const isValidReminder = (item) => {
-
   // Return false if the item is not an object
   if (!isObject(item)) {
-    console.log('not an object');
+    console.log("not an object");
     return false;
   }
 
   // Return false if a property doesn't exist (undefined)
   // Return false if a property value is empty (exceptions: [], {})
   if (!(Boolean(item.text) && Boolean(item.dueDate))) {
-    console.log('missing property');
+    console.log("missing property");
     return false;
   }
 
   // Return false if text value is not a string or empty
-  if ((typeof item.text !== 'string') || !item.text) {
-    console.log('not a string or empty text');
+  if (typeof item.text !== "string" || !item.text) {
+    console.log("not a string or empty text");
     return false;
   }
 
   // Return false if dueDate value is not a string or empty
-  if ((typeof item.dueDate !== 'string') || !item.dueDate) {
-    console.log('not a string or empty date');
+  if (typeof item.dueDate !== "string" || !item.dueDate) {
+    console.log("not a string or empty date");
     return false;
   }
 
   // Return false if dueDate is an invalid date
   if (!isValidDate(item.dueDate)) {
-    console.log('invalid date');
+    console.log("invalid date");
     return false;
   }
 
@@ -68,9 +67,9 @@ export const isValidDate = (date) => {
 };
 
 export const isObject = (item) => {
-  return (typeof item === "object" && !Array.isArray(item) && item !== null);
+  return typeof item === "object" && !Array.isArray(item) && item !== null;
 };
 
 export const isString = (item) => {
-  return (typeof item === "string");
+  return typeof item === "string";
 };

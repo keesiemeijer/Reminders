@@ -4,8 +4,8 @@ import { isValidSetting } from "../utils/validate";
 const initialState = {
   relativeDate: true,
   date: false,
-  dateFormat: 'DD/MM/YYYY',
-  defaultFormat: 'DD/MM/YYYY'
+  dateFormat: "DD/MM/YYYY",
+  defaultFormat: "DD/MM/YYYY",
 };
 
 export const settingsSlice = createSlice({
@@ -18,17 +18,17 @@ export const settingsSlice = createSlice({
       // Merge payload with state
       return {
         ...state,
-        ...payload
+        ...payload,
       };
-    }
-  }
+    },
+  },
 });
 
 // Export reducer actions
-export const {upateSettings} = settingsSlice.actions;
+export const { upateSettings } = settingsSlice.actions;
 
 // Export settings
-export const selectSettings = state => state.settings;
+export const selectSettings = (state) => state.settings;
 
 // export reducer
 export default settingsSlice.reducer;
