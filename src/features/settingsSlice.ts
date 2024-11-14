@@ -1,7 +1,15 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { isValidSetting } from "../utils/validate";
+import type { RootState } from '../app/store'
 
-const initialState = {
+export interface Setting {
+  relativeDate: boolean,
+  date: boolean,
+  dateFormat: string,
+  defaultFormat: string,
+}
+
+const initialState: Setting = {
   relativeDate: true,
   date: false,
   dateFormat: "DD/MM/YYYY",
@@ -28,7 +36,7 @@ export const settingsSlice = createSlice({
 export const { upateSettings } = settingsSlice.actions;
 
 // Export settings
-export const selectSettings = (state) => state.settings;
+export const selectSettings = (state: RootState) => state.settings;
 
 // export reducer
 export default settingsSlice.reducer;

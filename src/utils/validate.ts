@@ -1,6 +1,8 @@
 import { dateExists } from "./date";
+import { Reminder } from "../features/reminderSlice";
+import { Setting } from "../features/settingsSlice";
 
-export const isValidJSON = (value) => {
+export const isValidJSON = (value: string) => {
   if (!isString(value)) return false;
 
   try {
@@ -13,7 +15,7 @@ export const isValidJSON = (value) => {
   return typeof value === "object" && value !== null;
 };
 
-export const isValidReminder = (item) => {
+export const isValidReminder = (item: Reminder) => {
   // Return false if the item is not an object
   if (!isObject(item)) {
     console.log("not an object");
@@ -48,12 +50,12 @@ export const isValidReminder = (item) => {
   return true;
 };
 
-export const isValidSetting = (item) => {
+export const isValidSetting = (item: Setting) => {
   // For now only check if it's an object
   return isObject(item);
 };
 
-export const isValidDate = (date) => {
+export const isValidDate = (date: string) => {
   if (!isString(date)) return false;
 
   // Simple regex to weed out invalid date formats (YYYY-MM-DD)
@@ -66,10 +68,10 @@ export const isValidDate = (date) => {
   return dateExists(date);
 };
 
-export const isObject = (item) => {
+export const isObject = (item: object) => {
   return typeof item === "object" && !Array.isArray(item) && item !== null;
 };
 
-export const isString = (item) => {
+export const isString = (item: string) => {
   return typeof item === "string";
 };

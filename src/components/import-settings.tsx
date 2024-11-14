@@ -1,18 +1,23 @@
-import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import React, { useRef } from "react";
+import { useAppDispatch } from "../app/hooks";
 import { importReminders } from "../features/reminderSlice";
 import { toast } from "react-toastify";
 import { isValidJSON } from "../utils/validate";
 
 const ImportSettings = () => {
-  const dispatch = useDispatch();
-  const importInput = useRef("");
+  const dispatch = useAppDispatch();
+  const importInput = useRef<HTMLTextAreaElement>(null);
 
-  const submitImport = (e) => {
+  const submitImport = (e: React.FormEvent<HTMLFormElement>) => {
     // Form was submitted
     e.preventDefault();
+    let json = "";
 
-    let json = importInput.current.value;
+    // current' is possibly 'null'
+    if (importInput.current !== null) {
+      json = importInput.current.value;
+    }
+
     json = json && isValidJSON(json) ? JSON.parse(json) : false;
 
     if (json && Array.isArray(json)) {
@@ -30,7 +35,7 @@ const ImportSettings = () => {
       <form className="app-form" onSubmit={submitImport}>
         <div>
           <label htmlFor="importReminders">Reminder data</label>
-          <textarea className="form-control" id="importReminders" rows="6" ref={importInput} />
+          <textarea className="form-control" ref={importInput} id="importReminders" rows={6} />
           <button type="submit" className="btn btn-outline-secondary" aria-label="Import reminders">
             Import Reminder Data
           </button>

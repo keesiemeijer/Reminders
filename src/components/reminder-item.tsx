@@ -1,13 +1,21 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../app/hooks";
 import { removeReminder } from "../features/reminderSlice";
 import { RelativeDateClass } from "../utils/date";
 import ReminderDate from "./reminder-date";
 
 import "./reminder-item.css";
 
-const ReminderItem = (props) => {
-  const dispatch = useDispatch();
-  const deleteReminder = (e) => {
+interface ReminderItemProps {
+  key: number;
+  text: string;
+  id: number;
+  dueDate: string;
+  scrollref: React.MutableRefObject<HTMLLIElement | null> | null;
+}
+
+const ReminderItem = (props: ReminderItemProps) => {
+  const dispatch = useAppDispatch();
+  const deleteReminder = (_e: React.MouseEvent<HTMLElement>) => {
     dispatch(
       removeReminder({
         id: props.id,

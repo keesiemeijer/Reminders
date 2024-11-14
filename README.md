@@ -1,5 +1,6 @@
 # Reminders
-Simple reminders app made with React, Redux Toolkit and Redux Persist
+
+Simple reminders app made with React, Typescript, Redux Toolkit and Redux Persist
 
 Check out the [Reminders web app demo](https://keesiemeijer.github.io/Reminders/).
 

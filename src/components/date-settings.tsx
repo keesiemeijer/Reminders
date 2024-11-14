@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { toast } from "react-toastify";
 import { selectSettings, upateSettings } from "../features/settingsSlice";
 
 const DateSettings = () => {
-  const dispatch = useDispatch();
-  const settings = useSelector(selectSettings);
+  const dispatch = useAppDispatch();
+  const settings = useAppSelector(selectSettings);
 
   const [date, setDate] = useState(settings.date);
   const [relativeDate, setRelativeDate] = useState(settings.relativeDate);
   const [dateFormat, setDateFormat] = useState(settings.dateFormat);
 
-  const submitSettings = (e) => {
+  const submitSettings = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Sanitze date format on submit

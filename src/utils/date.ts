@@ -10,7 +10,7 @@ dayjs.extend(relativeTime);
 dayjs.extend(isToday);
 dayjs.extend(customParseFormat);
 
-export const RelativeDateClass = (date) => {
+export const RelativeDateClass = (date: string) => {
   let dateClass = "future";
 
   if (dayjs(date).isToday()) {
@@ -24,7 +24,7 @@ export const RelativeDateClass = (date) => {
   return dateClass;
 };
 
-export const FormattedDate = (date) => {
+export const FormattedDate = (date: string) => {
   const settings = useSelector(selectSettings);
 
   let dueDate = "";
@@ -42,6 +42,6 @@ export const FormattedDate = (date) => {
   return dueDate.trim();
 };
 
-export const dateExists = (date, format = "YYYY-MM-DD") => {
+export const dateExists = (date: string, format = "YYYY-MM-DD") => {
   return dayjs(date, format, true).isValid(); // false
 };

@@ -1,41 +1,44 @@
-import { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useRef } from "react";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 import { addReminder, selectReminders, selectHighestReminderID } from "../features/reminderSlice";
 import ReminderItem from "./reminder-item";
 
 const Reminders = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const reminders = useSelector(selectReminders);
-  const reminderLatestID = useSelector(selectHighestReminderID);
+  const reminders = useAppSelector(selectReminders);
+  const reminderLatestID = useAppSelector(selectHighestReminderID);
   const reminderCount = reminders.length;
 
   // User preferences
   const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const userScrollSetting = !mediaQuery || mediaQuery.matches ? "instant" : "smooth";
+  const userScrollSetting: ScrollBehavior = !mediaQuery || mediaQuery.matches ? "instant" : "smooth";
 
   // App settings
   const newReminderDispatched = useRef(false);
-  const scrollBehavior = useRef(userScrollSetting);
+  const userScrollBehavior = useRef(userScrollSetting);
 
   // HTML elements
-  const reminderInput = useRef("");
-  const dateInput = useRef("");
-  const newReminderItem = useRef(null);
+  const reminderInput = useRef<HTMLInputElement>(null);
+  const dateInput = useRef<HTMLInputElement>(null);
+  const newReminderItem = useRef<HTMLLIElement | null>(null);
 
   useEffect(() => {
-    if (newReminderDispatched.current && newReminderItem.current) {
+    if (newReminderDispatched.current && newReminderItem.current !== null) {
       // Scroll to new reminder after re-render
       newReminderItem.current.scrollIntoView({
-        behavior: scrollBehavior.current,
+        behavior: userScrollBehavior.current,
       });
 
       // Add class to highlight new reminder
       newReminderItem.current.classList.add("newReminder");
+
       setTimeout(function () {
-        // Remove class to highlighted new reminder
-        newReminderItem.current.classList.remove("newReminder");
+        if (newReminderItem.current !== null) {
+          // Remove class to highlighted new reminder
+          newReminderItem.current.classList.remove("newReminder");
+        }
         // Remove reference to scrolled element
         newReminderItem.current = null;
       }, 1000);
@@ -45,11 +48,14 @@ const Reminders = () => {
     newReminderDispatched.current = false;
   }, [reminderCount]);
 
-  const submitReminder = (e) => {
+  const submitReminder = (e: React.FormEvent<HTMLFormElement>) => {
     // Form was submitted
     e.preventDefault();
 
-    if (reminderInput.current.value && dateInput.current.value) {
+    // For Typescript
+    const notNull = reminderInput.current !== null && dateInput.current !== null;
+
+    if (notNull && reminderInput.current.value && dateInput.current.value) {
       // Add new reminder
       dispatch(
         addReminder({
@@ -75,9 +81,9 @@ const Reminders = () => {
       <form className="app-form" onSubmit={submitReminder}>
         <div className="form-group">
           <label htmlFor="reminder-text">Reminder</label>
-          <input type="text" id="reminder-text" className="form-control" name="reminderText" ref={reminderInput} required="required" />
+          <input type="text" id="reminder-text" className="form-control" name="reminderText" ref={reminderInput} required={true} />
           <label htmlFor="reminder-date">Reminder Date</label>
-          <input type="date" id="reminder-date" className="form-control" name="reminderDueDate" ref={dateInput} required="required" />
+          <input type="date" id="reminder-date" className="form-control" name="reminderDueDate" ref={dateInput} required={true} />
           <button type="submit" className="btn btn-success">
             Add Reminder
           </button>

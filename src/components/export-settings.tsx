@@ -6,19 +6,21 @@ const ExportSettings = () => {
   const reminders = useSelector(selectReminders);
   let json = JSON.stringify(reminders);
 
-  let button = "";
-  let code = "";
+  // https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
+  let button: React.ReactElement | null = null;
+  let code: React.ReactElement | null = null;
+
   let help = "There are no reminders yet";
   const copySuccess = "Copied data to clipboard";
   const copyError = "Unable to copy data to clipboard";
 
-  const copyReminderData = (e) => {
+  const copyReminderData = (_e: React.MouseEvent<HTMLElement>) => {
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(json).then(
         function () {
           toast.info(copySuccess);
         },
-        function (err) {
+        function (_err) {
           toast.error(copyError);
         }
       );
