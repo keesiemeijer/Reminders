@@ -16,11 +16,7 @@ interface ReminderItemProps {
 const ReminderItem = (props: ReminderItemProps) => {
   const dispatch = useAppDispatch();
   const deleteReminder = (_e: React.MouseEvent<HTMLElement>) => {
-    dispatch(
-      removeReminder({
-        id: props.id,
-      })
-    );
+    dispatch(removeReminder(props.id));
   };
 
   const dateClass = RelativeDateClass(props.dueDate);

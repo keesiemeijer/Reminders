@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isValidReminder } from "../utils/validate";
+import type { PayloadAction } from "@reduxjs/toolkit";
+
 import type { RootState } from "../app/store";
+import { isValidReminder } from "../utils/validate";
+import { removeIDs } from "../utils/utils";
 
 // Inital state is an array of reminder objects
 
@@ -34,15 +37,12 @@ export const reminderSlice = createSlice({
   name: "reminders",
   initialState,
   reducers: {
-    addReminder: (state, action) => {
-      const reminder: Reminder = {
-        id: getHighestReminderID(state) + 1,
-        text: action.payload.text,
-        dueDate: action.payload.dueDate,
-      };
+    addReminder: (state, action: PayloadAction<Reminder>) => {
+      const reminder: Reminder = action.payload;
+      reminder.id = getHighestReminderID(state) + 1;
 
       if (isValidReminder(reminder)) {
-        // Add reminder
+        // Add valid reminder
         state.push(reminder);
       }
 
@@ -50,27 +50,22 @@ export const reminderSlice = createSlice({
       state.sort((a, b) => new Date(a.dueDate).valueOf() - new Date(b.dueDate).valueOf());
     },
 
-    removeReminder: (state, action) => {
+    removeReminder: (state, action: PayloadAction<number>) => {
       // Remove reminder
-      return state.filter((reminder) => reminder.id !== action.payload.id);
+      return state.filter((reminder) => reminder.id !== action.payload);
     },
 
-    importReminders: (state, action) => {
+    importReminders: (state, action: PayloadAction<any[]>) => {
       // Merge payload with state
       let reminders = [...state, ...action.payload];
 
       // Validate reminders
       reminders = reminders.filter((item) => isValidReminder(item));
 
-      // Remove all properties not needed for a reminder (also removes id)
-      reminders = reminders.map((data) => {
-        return {
-          text: data.text,
-          dueDate: data.dueDate,
-        };
-      });
+      // Removes id and all other properties not needed for a reminder
+      reminders = removeIDs(reminders);
 
-      // Remove duplicates
+      // Removes duplicate reminders
       reminders = reminders.filter((obj1, i, arr) => arr.findIndex((obj2) => ["text", "dueDate"].every((key) => obj2[key] === obj1[key])) === i);
 
       // Sort reminders by date

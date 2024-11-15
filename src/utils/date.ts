@@ -3,7 +3,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import isToday from "dayjs/plugin/isToday";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../app/hooks";
 import { selectSettings } from "../features/settingsSlice";
 
 dayjs.extend(relativeTime);
@@ -25,7 +25,7 @@ export const RelativeDateClass = (date: string) => {
 };
 
 export const FormattedDate = (date: string) => {
-  const settings = useSelector(selectSettings);
+  const settings = useAppSelector(selectSettings);
 
   let dueDate = "";
   if (settings.relativeDate) {

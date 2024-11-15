@@ -18,10 +18,10 @@ const ImportSettings = () => {
       json = importInput.current.value;
     }
 
-    json = json && isValidJSON(json) ? JSON.parse(json) : false;
+    const reminders = json && isValidJSON(json) ? JSON.parse(json) : false;
 
-    if (json && Array.isArray(json)) {
-      dispatch(importReminders(json));
+    if (reminders && Array.isArray(reminders)) {
+      dispatch(importReminders(reminders));
       toast.info("Reminders imported");
     } else {
       toast.error("No reminders imported (data invalid)");

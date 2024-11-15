@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../app/hooks";
 import { selectReminders } from "../features/reminderSlice";
 import { toast } from "react-toastify";
+import { removeIDs } from "../utils/utils";
 
 const ExportSettings = () => {
-  const reminders = useSelector(selectReminders);
-  let json = JSON.stringify(reminders);
+  const reminders = useAppSelector(selectReminders);
+  const remindersWithoutID = removeIDs(reminders);
+
+  let json = JSON.stringify(remindersWithoutID);
 
   // https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
   let button: React.ReactElement | null = null;
@@ -29,7 +32,7 @@ const ExportSettings = () => {
     }
   };
 
-  if (reminders.length > 0) {
+  if (remindersWithoutID.length > 0) {
     help = "Use the reminder data below to import reminders on other devices";
     button = (
       <button type="button" className="btn btn-outline-secondary" aria-label="Copy data to clipboard" onClick={copyReminderData}>

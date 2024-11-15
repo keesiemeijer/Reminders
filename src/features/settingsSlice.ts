@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+
+import type { RootState } from "../app/store";
 import { isValidSetting } from "../utils/validate";
-import type { RootState } from '../app/store'
 
 export interface Setting {
-  relativeDate: boolean,
-  date: boolean,
-  dateFormat: string,
-  defaultFormat: string,
+  relativeDate: boolean;
+  date: boolean;
+  dateFormat: string;
+  defaultFormat?: string;
 }
 
 const initialState: Setting = {
@@ -20,7 +22,7 @@ export const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    upateSettings: (state, action) => {
+    upateSettings: (state, action: PayloadAction<Setting>) => {
       const payload = isValidSetting(action.payload) ? action.payload : {};
 
       // Merge payload with state

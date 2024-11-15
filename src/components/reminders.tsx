@@ -59,6 +59,7 @@ const Reminders = () => {
       // Add new reminder
       dispatch(
         addReminder({
+          id: 0, // id will be set in reducer
           text: reminderInput.current.value,
           dueDate: dateInput.current.value,
         })

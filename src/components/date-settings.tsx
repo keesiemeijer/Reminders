@@ -73,7 +73,7 @@ const DateSettings = () => {
             Example format: DD/MM/YYYY. <a href="https://day.js.org/docs/en/display/format">List of all available formats</a>
           </small>
         </div>
-        <button type="submit" className="btn btn-primary" aria-label="Update settins">
+        <button type="submit" className="btn btn-primary" aria-label="Update settings">
           Update Settings
         </button>
       </form>
