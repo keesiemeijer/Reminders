@@ -9,17 +9,17 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Reminders />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-      <ToastContainer />
-    </div>
-  );
+    return (
+        <div className="App">
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Reminders />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="*" element={<PageNotFound />} />
+            </Routes>
+            <ToastContainer />
+        </div>
+    );
 }
 
 export default App;

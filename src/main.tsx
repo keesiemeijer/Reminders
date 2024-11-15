@@ -16,19 +16,19 @@ if (!container) throw new Error("Failed to find the root element");
 const root = createRoot(container);
 
 root.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <BrowserRouter
-        basename="/Reminders"
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true,
-        }}
-      >
-        <PersistGate loading={null} persistor={persistor}>
-          <App />
-        </PersistGate>
-      </BrowserRouter>
-    </React.StrictMode>
-  </Provider>
+    <Provider store={store}>
+        <React.StrictMode>
+            <BrowserRouter
+                basename="/Reminders"
+                future={{
+                    v7_startTransition: true,
+                    v7_relativeSplatPath: true,
+                }}
+            >
+                <PersistGate loading={null} persistor={persistor}>
+                    <App />
+                </PersistGate>
+            </BrowserRouter>
+        </React.StrictMode>
+    </Provider>
 );

@@ -11,37 +11,37 @@ dayjs.extend(isToday);
 dayjs.extend(customParseFormat);
 
 export const RelativeDateClass = (date: string) => {
-  let dateClass = "future";
+    let dateClass = "future";
 
-  if (dayjs(date).isToday()) {
-    dateClass = "today";
-  }
+    if (dayjs(date).isToday()) {
+        dateClass = "today";
+    }
 
-  if (dayjs(date).isBefore(dayjs(), "day")) {
-    dateClass = "past";
-  }
+    if (dayjs(date).isBefore(dayjs(), "day")) {
+        dateClass = "past";
+    }
 
-  return dateClass;
+    return dateClass;
 };
 
 export const FormattedDate = (date: string) => {
-  const settings = useAppSelector(selectSettings);
+    const settings = useAppSelector(selectSettings);
 
-  let dueDate = "";
-  if (settings.relativeDate) {
-    dueDate = dayjs(date + " 23:59").fromNow();
-    if (dayjs(date).isToday()) {
-      dueDate = "today";
+    let dueDate = "";
+    if (settings.relativeDate) {
+        dueDate = dayjs(date + " 23:59").fromNow();
+        if (dayjs(date).isToday()) {
+            dueDate = "today";
+        }
     }
-  }
 
-  if (settings.date) {
-    dueDate += " " + dayjs(date).format(settings.dateFormat);
-  }
+    if (settings.date) {
+        dueDate += " " + dayjs(date).format(settings.dateFormat);
+    }
 
-  return dueDate.trim();
+    return dueDate.trim();
 };
 
 export const dateExists = (date: string, format = "YYYY-MM-DD") => {
-  return dayjs(date, format, true).isValid(); // false
+    return dayjs(date, format, true).isValid();
 };
