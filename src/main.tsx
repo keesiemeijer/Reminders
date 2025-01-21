@@ -7,8 +7,12 @@ import React from "react";
 import App from "./App";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
+
+// Scroll to top on every navigation
+import ScrollToTop from "./components/scrollToTop";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("Failed to find the root element");
@@ -26,6 +30,7 @@ root.render(
                 }}
             >
                 <PersistGate loading={null} persistor={persistor}>
+                    <ScrollToTop />
                     <App />
                 </PersistGate>
             </BrowserRouter>

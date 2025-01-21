@@ -3,7 +3,6 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import remindersReducer from "../features/reminderSlice";
-import settingsReducer from "../features/settingsSlice";
 
 const persistConfig = {
     key: "root",
@@ -12,7 +11,6 @@ const persistConfig = {
 
 // combine all reducers
 const reducers = combineReducers({
-    settings: settingsReducer,
     reminders: remindersReducer,
 });
 

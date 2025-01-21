@@ -1,11 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+
 import { useAppDispatch } from "../app/hooks";
+import { TypeSettingContext } from "../contexts/type-setting-context";
 import { importReminders } from "../features/reminderSlice";
 import { toast } from "react-toastify";
 import { isValidJSON } from "../utils/validate";
 
 const ImportSettings = () => {
     const dispatch = useAppDispatch();
+    const typeSettings = useContext(TypeSettingContext);
+
     const importInput = useRef<HTMLTextAreaElement>(null);
 
     const submitImport = (e: React.FormEvent<HTMLFormElement>) => {
@@ -21,7 +25,12 @@ const ImportSettings = () => {
         const reminders = json && isValidJSON(json) ? JSON.parse(json) : false;
 
         if (reminders && Array.isArray(reminders)) {
-            dispatch(importReminders(reminders));
+            const payload = {
+                type: typeSettings["type"],
+                reminders: reminders,
+            };
+
+            dispatch(importReminders(payload));
             toast.info("Reminders imported");
         } else {
             toast.error("No reminders imported (data invalid)");
@@ -30,12 +39,16 @@ const ImportSettings = () => {
 
     return (
         <div className="import-settings">
-            <h3>Import Reminders</h3>
-            <p>Import reminders from other devices</p>
+            <h3>Import List Items</h3>
+            <p>Import list items from other devices</p>
             <form className="app-form" onSubmit={submitImport}>
-                <div>
-                    <label htmlFor="importReminders">Reminder data</label>
+                <div className="form-section">
+                    <label htmlFor="importReminders" className="form-label">
+                        Reminder data
+                    </label>
                     <textarea className="form-control" ref={importInput} id="importReminders" rows={6} />
+                </div>
+                <div className="form-section">
                     <button type="submit" className="btn btn-outline-secondary" aria-label="Import reminders">
                         Import Reminder Data
                     </button>

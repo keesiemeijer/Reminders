@@ -1,9 +1,10 @@
 import { dateExists } from "./date";
-import { Reminder } from "../features/reminderSlice";
-import { Setting } from "../features/settingsSlice";
+import { Reminder, ReminderType } from "../features/reminderSlice";
 
-export const isValidJSON = (value: string) => {
-    if (!isString(value)) return false;
+export const isValidJSON = (value: string): boolean => {
+    if (typeof value !== "string" || !value) {
+        return false;
+    }
 
     try {
         value = JSON.parse(value);
@@ -15,7 +16,64 @@ export const isValidJSON = (value: string) => {
     return typeof value === "object" && value !== null;
 };
 
-export const isValidReminder = (item: Reminder, checkID = true) => {
+export const isValidTypeObject = (item: ReminderType): boolean => {
+    // Return false if the item is not an object
+    if (!isObject(item)) {
+        console.log("not an object");
+        return false;
+    }
+
+    // All types
+    const strings = ["type", "title", "dateFormat"];
+    const booleans = ["orderByDate", "relativeDate", "date"];
+    const arrays = ["reminders"];
+
+    return strings.concat(booleans, arrays).every(function (key) {
+        if (!item.hasOwnProperty(key)) {
+            console.log("property doesn't exist");
+            return false;
+        }
+
+        if (strings.indexOf(key) > -1) {
+            if (typeof item[key as keyof ReminderType] !== "string") {
+                console.log("not a string");
+                return false;
+            }
+        }
+
+        if (booleans.indexOf(key) > -1) {
+            if (typeof item[key as keyof ReminderType] !== "boolean") {
+                console.log("not a boolean");
+                return false;
+            }
+        }
+
+        if (arrays.indexOf(key) > -1) {
+            if (!Array.isArray(item[key as keyof ReminderType])) {
+                console.log("not an array");
+                return false;
+            }
+        }
+
+        return true;
+    });
+};
+
+export const isValidReminderType = (reminderType: string, state: ReminderType[]): boolean => {
+    if (typeof reminderType !== "string" || !reminderType) {
+        return false;
+    }
+
+    // find type in state
+    let typeObj = state.find((x) => x.type === reminderType);
+    if (typeObj && isValidTypeObject(typeObj)) {
+        return true;
+    }
+
+    return false;
+};
+
+export const isValidReminder = (item: Reminder, checkID = true): boolean => {
     // Return false if the item is not an object
     if (!isObject(item)) {
         console.log("not an object");
@@ -56,13 +114,10 @@ export const isValidReminder = (item: Reminder, checkID = true) => {
     return true;
 };
 
-export const isValidSetting = (item: Setting) => {
-    // For now only check if it's an object
-    return isObject(item);
-};
-
-export const isValidDate = (date: string) => {
-    if (!isString(date)) return false;
+export const isValidDate = (date: string): boolean => {
+    if (typeof date !== "string" || !date) {
+        return false;
+    }
 
     // Simple regex to weed out invalid date formats (YYYY-MM-DD)
     var regex_date = /^\d{4}\-\d{2}\-\d{2}$/;
@@ -74,10 +129,6 @@ export const isValidDate = (date: string) => {
     return dateExists(date);
 };
 
-export const isObject = (item: object) => {
-    return typeof item === "object" && !Array.isArray(item) && item !== null;
-};
-
-export const isString = (item: string) => {
-    return typeof item === "string";
+export const isObject = (item: any) => {
+    return typeof item === "object" && !Array.isArray(item) && item !== null && item !== undefined;
 };

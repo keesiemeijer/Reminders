@@ -1,10 +1,16 @@
-import { useAppSelector } from "../app/hooks";
-import { selectReminders } from "../features/reminderSlice";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { useAppSelector } from "../app/hooks";
+import { TypeSettingContext } from "../contexts/type-setting-context";
+import { getRemindersByType } from "../utils/type";
 import { removeReminderIDs } from "../utils/utils";
 
 const ExportSettings = () => {
-    const reminders = useAppSelector(selectReminders);
+    const typeSettings = useContext(TypeSettingContext);
+    const allReminders = useAppSelector((state) => state.reminders);
+    const reminders = getRemindersByType(typeSettings["type"], allReminders);
 
     // Removes the id and all other properties not needed for a reminder
     const remindersWithoutID = removeReminderIDs(reminders);
@@ -15,7 +21,7 @@ const ExportSettings = () => {
     let button: React.ReactElement | null = null;
     let code: React.ReactElement | null = null;
 
-    let help = "There are no reminders yet";
+    let help: JSX.Element | string = "There are no list items to export yet";
     const copySuccess = "Copied data to clipboard";
     const copyError = "Unable to copy data to clipboard";
 
@@ -35,18 +41,25 @@ const ExportSettings = () => {
     };
 
     if (remindersWithoutID.length > 0) {
-        help = "Use the reminder data below to import reminders on other devices";
+        const typeLink = <Link to={"/?type=" + typeSettings["type"]}>{typeSettings["title"]}</Link>;
+        help = <>Use the list item data below to import ({typeLink}) list items on to other devices"</>;
         button = (
-            <button type="button" className="btn btn-outline-secondary" aria-label="Copy data to clipboard" onClick={copyReminderData}>
-                Copy Reminder Data To Clipboard
-            </button>
+            <div className="form-section">
+                <button type="button" className="btn btn-outline-secondary" aria-label="Copy data to clipboard" onClick={copyReminderData}>
+                    Copy list items To Clipboard
+                </button>
+            </div>
         );
-        code = <code>{json}</code>;
+        code = (
+            <div className="form-section">
+                <code>{json}</code>
+            </div>
+        );
     }
 
     return (
         <div className="export-settings">
-            <h3>Export Reminders</h3>
+            <h3>Export List Items</h3>
             <p>{help}</p>
             {code}
             {button}

@@ -1,14 +1,24 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 
-import { addReminder, selectReminders, selectHighestReminderID } from "../features/reminderSlice";
+import { addReminder } from "../features/reminderSlice";
+import { getHighestReminderID } from "../utils/utils";
+import { getRemindersByType } from "../utils/type";
 import ReminderItem from "./reminder-item";
+import { TypeSettingContext } from "../contexts/type-setting-context";
 
 const Reminders = () => {
     const dispatch = useAppDispatch();
 
-    const reminders = useAppSelector(selectReminders);
-    const reminderLatestID = useAppSelector(selectHighestReminderID);
+    const typeSettings = useContext(TypeSettingContext);
+    const reminderType = typeSettings.type;
+
+    // get reminders from all types
+    const allReminders = useAppSelector((state) => state.reminders);
+
+    const reminders = getRemindersByType(reminderType, allReminders);
+    const reminderLatestID = getHighestReminderID(reminders);
     const reminderCount = reminders.length;
 
     // User preferences
@@ -59,6 +69,7 @@ const Reminders = () => {
             // Add new reminder
             dispatch(
                 addReminder({
+                    type: reminderType,
                     id: 0, // id will be set in reducer
                     text: reminderInput.current.value,
                     dueDate: dateInput.current.value,
@@ -72,24 +83,45 @@ const Reminders = () => {
             // Set reminder added flag to true (for scrolling in useEffect).
             newReminderDispatched.current = true;
         } else {
-            alert("Invalid remider. Try again");
+            alert("Invalid reminder. Try again");
         }
     };
 
     return (
-        <div className="app-content reminders">
-            <h1>Reminders</h1>
-            <form className="app-form" onSubmit={submitReminder}>
-                <div className="form-group">
-                    <label htmlFor="reminder-text">Reminder</label>
-                    <input type="text" id="reminder-text" className="form-control" name="reminderText" ref={reminderInput} required={true} />
-                    <label htmlFor="reminder-date">Reminder Date</label>
-                    <input type="date" id="reminder-date" className="form-control" name="reminderDueDate" ref={dateInput} required={true} />
-                    <button type="submit" className="btn btn-success">
-                        Add Reminder
-                    </button>
-                </div>
-            </form>
+        <div className="app-content">
+            <div className="reminders-form">
+                <form className="app-form" onSubmit={submitReminder}>
+                    <h1>{typeSettings["title"]}</h1>
+                    {typeSettings["description"] && <p className="type-desc">{typeSettings["description"]}</p>}
+                    <ul className="nav nav-pills sub-navigation">
+                        <li className="nav-item">
+                            <Link className="nav-link settings" to={"/settings?type=" + reminderType}>
+                                Settings
+                            </Link>
+                        </li>
+                    </ul>
+
+                    <div className="form-group">
+                        <div className="form-section">
+                            <label htmlFor="reminder-text" className="form-label">
+                                Reminder
+                            </label>
+                            <input type="text" id="reminder-text" className="form-control" name="reminderText" ref={reminderInput} required={true} />
+                        </div>
+                        <div className="form-section">
+                            <label htmlFor="reminder-date" className="form-label">
+                                Reminder Date
+                            </label>
+                            <input type="date" id="reminder-date" className="form-control" name="reminderDueDate" ref={dateInput} required={true} />
+                        </div>
+                        <div className="form-section">
+                            <button type="submit" className="btn btn-success">
+                                Add Reminder
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <ul className="list-group list-group-flush">
                 {reminderCount > 0 &&
                     reminders.map((reminder) => (
@@ -97,6 +129,8 @@ const Reminders = () => {
                             key={reminder.id}
                             text={reminder.text}
                             id={reminder.id}
+                            type={reminderType}
+                            settings={typeSettings}
                             dueDate={reminder.dueDate}
                             scrollref={reminder.id === reminderLatestID ? newReminderItem : null}
                         />

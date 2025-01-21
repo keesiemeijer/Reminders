@@ -1,7 +1,8 @@
 import { FormattedDate } from "../utils/date";
+import { SettingsType } from "../features/reminderSlice";
 
-const ReminderDate = (props: { dueDate: string }) => {
-    const dueDate = FormattedDate(props.dueDate);
+const ReminderDate = (props: { dueDate: string; settings: SettingsType }) => {
+    const dueDate = FormattedDate(props.dueDate, props.settings);
 
     return <div className="duedate">{dueDate}</div>;
 };

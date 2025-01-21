@@ -3,14 +3,13 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import isToday from "dayjs/plugin/isToday";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
-import { useAppSelector } from "../app/hooks";
-import { selectSettings } from "../features/settingsSlice";
+import { SettingsType } from "../features/reminderSlice";
 
 dayjs.extend(relativeTime);
 dayjs.extend(isToday);
 dayjs.extend(customParseFormat);
 
-export const RelativeDateClass = (date: string) => {
+export const RelativeDateClass = (date: string): string => {
     let dateClass = "future";
 
     if (dayjs(date).isToday()) {
@@ -24,10 +23,9 @@ export const RelativeDateClass = (date: string) => {
     return dateClass;
 };
 
-export const FormattedDate = (date: string) => {
-    const settings = useAppSelector(selectSettings);
-
+export const FormattedDate = (date: string, settings: SettingsType): string => {
     let dueDate = "";
+
     if (settings.relativeDate) {
         dueDate = dayjs(date + " 23:59").fromNow();
         if (dayjs(date).isToday()) {
@@ -42,6 +40,6 @@ export const FormattedDate = (date: string) => {
     return dueDate.trim();
 };
 
-export const dateExists = (date: string, format = "YYYY-MM-DD") => {
+export const dateExists = (date: string, format = "YYYY-MM-DD"): boolean => {
     return dayjs(date, format, true).isValid();
 };
