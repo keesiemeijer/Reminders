@@ -62,10 +62,8 @@ const Reminders = () => {
         // Form was submitted
         e.preventDefault();
 
-        // For Typescript
-        const notNull = reminderInput.current !== null && dateInput.current !== null;
-
-        if (notNull && reminderInput.current.value && dateInput.current.value) {
+        // this sucks
+        if (reminderInput.current && dateInput.current) {
             // Add new reminder
             dispatch(
                 addReminder({

@@ -20,8 +20,8 @@ const ExportSettings = () => {
     // https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
     let button: React.ReactElement | null = null;
     let code: React.ReactElement | null = null;
+    let help: React.ReactElement | string = "There are no list items to export yet";
 
-    let help: JSX.Element | string = "There are no list items to export yet";
     const copySuccess = "Copied data to clipboard";
     const copyError = "Unable to copy data to clipboard";
 

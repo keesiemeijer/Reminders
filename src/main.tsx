@@ -22,13 +22,7 @@ const root = createRoot(container);
 root.render(
     <Provider store={store}>
         <React.StrictMode>
-            <BrowserRouter
-                basename="/Reminders"
-                future={{
-                    v7_startTransition: true,
-                    v7_relativeSplatPath: true,
-                }}
-            >
+            <BrowserRouter basename="/Reminders">
                 <PersistGate loading={null} persistor={persistor}>
                     <ScrollToTop />
                     <App />
