@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { FlattenedItem, TreeItems } from "./tree-types";
@@ -13,7 +12,6 @@ interface TreeNavProps {
 
 const TreeNav = (props: TreeNavProps) => {
     const flattenedItems = flattenTree(props.items);
-    const [edit, setEdit] = useState(false);
 
     let topLevelTitle = "";
     let parents: FlattenedItem[] = [];
