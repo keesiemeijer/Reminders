@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
-import remindersReducer from "../features/reminderSlice";
+import listsReducer from "../features/lists-slice";
 
 const persistConfig = {
     key: "root",
@@ -11,7 +11,7 @@ const persistConfig = {
 
 // combine all reducers
 const reducers = combineReducers({
-    reminders: remindersReducer,
+    lists: listsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -1,32 +1,31 @@
-import { isValidReminder } from "./validate";
-import { Reminder } from "../features/reminderSlice";
-
-export const removeReminderIDs = (items: Reminder[]): { text: string; dueDate: string }[] => {
-    if (!Array.isArray(items)) {
-        return [];
+export const isValidJSON = (value: string): boolean => {
+    if (typeof value !== "string" || !value) {
+        return false;
     }
 
-    // remove invalid reminders (this makes sure text and dueDate properties exist)
-    const reminders = items.filter((item) => isValidReminder(item, false));
+    try {
+        value = JSON.parse(value);
+    } catch (e) {
+        return false;
+    }
 
-    // Removes all properties not needed for a reminder (also removes id)
-    return reminders.map((data) => {
-        return {
-            text: data.text,
-            dueDate: data.dueDate,
-        };
-    });
+    // True if value is array or object.
+    return typeof value === "object" && value !== null;
 };
 
-// Helper function to get highest reminder ID
-export const getHighestReminderID = (items: Reminder[]): number => {
-    if (!Array.isArray(items) || !items.length) {
-        return 0;
-    }
-    const ids = items.map((a) => a.id);
-    return Math.max.apply(null, ids);
+export const isObject = (item: any) => {
+    return typeof item === "object" && !Array.isArray(item) && item !== null && item !== undefined;
 };
 
 export const removeTrailingSlashes = (value: string): string => {
     return value.replace(/\/+$/, "");
+};
+
+export const getIDs = <Type extends { id: any }>(items: Type[]): number[] => {
+    const ids: number[] = [];
+    if (!Array.isArray(items)) {
+        return ids;
+    }
+
+    return items.map((item) => Number(item.id));
 };

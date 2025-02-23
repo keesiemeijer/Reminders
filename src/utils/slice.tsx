@@ -1,5 +1,6 @@
-import { ReminderType } from "../features/reminderSlice";
-import { isObject, isValidTypeObject } from "../utils/validate";
+import { ListType } from "../features/lists-slice";
+import { isObject } from "./utils";
+import { isValidListObject } from "./type";
 
 export const getPayloadType = (payload: any): string => {
     if (!isObject(payload)) {
@@ -15,20 +16,20 @@ export const getPayloadType = (payload: any): string => {
 };
 
 // Function to get the state index of a type
-export const getIndexOfType = (payload: any, state: ReminderType[]): number => {
+export const getIndexOfListType = <Type extends ListType>(payload: any, state: Type[]): number => {
     const type = getPayloadType(payload);
     if ("" === type) {
         return -1;
     }
 
-    // Get index of reminder type
+    // Get index of list type
     const index = state.map((e) => e.type).indexOf(type);
     if (-1 === index) {
         // type doesn't exist
         return -1;
     }
 
-    if (isValidTypeObject(state[index])) {
+    if (isValidListObject(state[index])) {
         return index;
     }
 

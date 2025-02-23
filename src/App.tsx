@@ -5,16 +5,14 @@ import { ToastContainer } from "react-toastify";
 import { useAppSelector } from "./app/hooks";
 import { TypeSettingContext } from "./contexts/type-setting-context";
 
-import Reminders from "./components/reminders";
-import Settings from "./components/settings";
+import Lists from "./components/lists";
+import Settings from "./components/settings/settings";
 import PageNotFound from "./components/404Page";
 import Navbar from "./components/navbar";
 
-import { SettingDefault } from "./features/reminderSlice";
-import { sanitizePathname } from "./utils/path";
-import { getTypeSettingsObject, getFirstTypeObject } from "./utils/type";
-import { getTypeFromUrlParams } from "./utils/path";
-import { isValidReminderType } from "./utils/validate";
+import { SettingDefault } from "./features/lists-slice";
+import { sanitizePathname, getTypeFromUrlParams } from "./utils/path";
+import { getListSettings, getFirstListObject, isValidListType } from "./utils/type";
 
 function App() {
     // Redirect to single slash path (/path) if multiple slashes in path (//path//)
@@ -23,7 +21,7 @@ function App() {
     const location = useLocation();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-    const allReminders = useAppSelector((state) => state.reminders);
+    const lists = useAppSelector((state) => state.lists);
 
     const pathname = location.pathname;
     const sanitizedPathname = sanitizePathname(pathname);
@@ -31,22 +29,24 @@ function App() {
     // Valid routes
     const isValidRoute = ["/", "/settings", "/add-new-list"].includes(sanitizedPathname);
 
-    // Pages where reminder type is needed
-    const reminderTypePage = isValidRoute && "/add-new-list" !== sanitizedPathname;
+    // Pages where list items are needed
+    const listItemPage = isValidRoute && "/add-new-list" !== sanitizedPathname;
 
     let setSearchParam = "";
-    let reminderType = getTypeFromUrlParams();
+    let listType = getTypeFromUrlParams();
 
-    if (reminderType && isValidReminderType(reminderType, allReminders)) {
+    if (listType && isValidListType(listType, lists)) {
         // Valid type in url params
-        // Keep url param only on reminder type pages
-        setSearchParam = reminderTypePage ? reminderType : "";
+
+        // Keep url param only on list item pages
+        setSearchParam = listItemPage ? listType : "";
     } else {
-        const firstReminderType = getFirstTypeObject(allReminders);
         // No valid type found in url params
-        // Use first reminder type if reminder type page
-        reminderType = firstReminderType ? firstReminderType["type"] : "";
-        setSearchParam = reminderTypePage && reminderType ? reminderType : "";
+
+        // Use first list type for list item pages
+        const firstListType = getFirstListObject(lists);
+        listType = firstListType ? firstListType["type"] : "";
+        setSearchParam = listItemPage && listType ? listType : "";
     }
 
     // Do we need to redirect
@@ -56,7 +56,7 @@ function App() {
         navigateTo = sanitizedPathname + location.search;
     }
 
-    if (reminderTypePage && !reminderType) {
+    if (listItemPage && !listType) {
         // Rederect to add new list page
         setSearchParam = "";
         navigateTo = "/add-new-list";
@@ -78,7 +78,7 @@ function App() {
         }
 
         if (setSearchParam) {
-            searchParams.set("type", reminderType);
+            searchParams.set("type", listType);
             paramsChanged = true;
         }
 
@@ -89,25 +89,29 @@ function App() {
     }, []);
 
     // Decide what page we're on and add settings to context provider
-    let typeSettings;
+    let listSettings;
+    let listStyle = "";
     if ("/add-new-list" === sanitizedPathname) {
-        typeSettings = SettingDefault;
+        listSettings = SettingDefault;
     } else {
-        typeSettings = getTypeSettingsObject(reminderType, allReminders);
+        listSettings = getListSettings(listType, lists);
+        listStyle = listSettings.orderByDate ? "date" : "tree";
     }
 
-    console.log("type settings for this page", typeSettings);
+    console.log("type settings for this page", listSettings);
 
     return (
         <div className="App">
-            <TypeSettingContext.Provider value={typeSettings}>
+            <TypeSettingContext.Provider value={listSettings}>
                 <Navbar />
-                <Routes>
-                    <Route path="/" element={<Reminders />} />
-                    <Route path="/add-new-list" key="add-new" element={<Settings key="new-settting" page="add-new" />} />
-                    <Route path="/settings" key="update" element={<Settings key="update-setting" page="settings" />} />
-                    <Route path="*" element={<PageNotFound />} />
-                </Routes>
+                <div className="app-content">
+                    <Routes>
+                        <Route path="/" element={<Lists type={listStyle} />} />
+                        <Route path="/add-new-list" key="add-new" element={<Settings key="new-settting" page="add-new" />} />
+                        <Route path="/settings" key="update" element={<Settings key="update-setting" page="settings" />} />
+                        <Route path="*" element={<PageNotFound />} />
+                    </Routes>
+                </div>
                 <ToastContainer />
             </TypeSettingContext.Provider>
         </div>

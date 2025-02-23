@@ -1,12 +1,12 @@
 import { useRef, useContext } from "react";
 import { Modal } from "bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { toast } from "react-toastify";
 
-import { DeleteType } from "../features/reminderSlice";
-import { TypeSettingContext } from "../contexts/type-setting-context";
-import { getFirstTypeObject } from "../utils/type";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { DeleteListType } from "../../features/lists-slice";
+import { TypeSettingContext } from "../../contexts/type-setting-context";
+import { getFirstListObject } from "../../utils/type";
 
 const DeleteSettings = () => {
     const dispatch = useAppDispatch();
@@ -14,23 +14,23 @@ const DeleteSettings = () => {
     const modalRef = useRef<HTMLDivElement>(null);
     const typeSettings = useContext(TypeSettingContext);
     const listTitle = typeSettings["title"];
-    const allReminders = useAppSelector((state) => state.reminders);
+    const listsState = useAppSelector((state) => state.lists);
 
     const deleteList = () => {
         // Redirect to add new list if there are no types left after deletion
         let navigateTo = "/add-new-list";
 
         // Fake delete item
-        const newState = allReminders.filter((element) => element.type !== typeSettings["type"]);
+        const newState = listsState.filter((element) => element.type !== typeSettings["type"]);
         if (newState.length) {
-            const firstItem = getFirstTypeObject(newState);
+            const firstItem = getFirstListObject(newState);
             if (firstItem) {
                 // Redirect to first item
                 navigateTo = "/?type=" + firstItem["type"];
             }
         }
 
-        dispatch(DeleteType(typeSettings["type"]));
+        dispatch(DeleteListType(typeSettings["type"]));
         hideModal();
         toast.info("Deleted list: " + listTitle);
         navigate(navigateTo);
@@ -78,7 +78,9 @@ const DeleteSettings = () => {
                                     </h5>
                                     <button type="button" className="btn-close" onClick={hideModal} aria-label="Close"></button>
                                 </div>
-                                <div className="modal-body">Are you sure you want to delete this list? This action will delete the list and all its items.</div>
+                                <div className="modal-body">
+                                    Are you sure you want to delete the list: {typeSettings["title"]}? This action will delete this list and all its items.
+                                </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" onClick={hideModal}>
                                         Close

@@ -6,13 +6,10 @@
     align-items: center;
 }
 
-.export-settings,
-.date-settings,
-.import-settings,
-.delete-settings,
-.reminders-form {
+.settings,
+.lists {
     width: 100%;
-    max-width: 40ch;
+    max-width: 60ch;
 }
 
 .delete-settings {
@@ -51,13 +48,18 @@
     padding: 0;
     cursor: pointer;
     font-size: inherit;
-    position: absolute;
-    right: 1rem;
-    top: 0.8rem;
+
     width: 0.9rem;
     height: 0.9rem;
+    display: inline-block !important;
+    margin-left: 1rem;
+    margin-top: 0.3rem;
+    flex-shrink: 0;
 }
 
+.date-lists .btn-close {
+    margin-right: 0.5rem;
+}
 ul.nav.main {
     padding-left: 20px;
     background-color: #f8f9fa;
@@ -66,85 +68,190 @@ ul.nav.sub-navigation {
     margin-bottom: 1rem;
 }
 
-.nav-link.add-type::before {
+.nav-link.hide-form::before,
+.nav-link.add-type::before,
+.nav-link.add-items::before,
+.tree-footer-nav .add-item::before,
+.nav-link.dropdown-toggle::before,
+.nav-link.first-item::before,
+.tree-home::before,
+.nav-link.settings::before,
+.tree-item-actions .item-nav-link,
+.tree-item-actions .btn-handle {
     display: inline-block;
     width: 1.5rem;
     height: 1rem;
     content: "";
     vertical-align: -0.125em;
-    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>');
     mask-repeat: no-repeat;
     mask-size: 1rem 1rem;
     background-color: #0d6efd;
 }
+.nav-link.settings::before {
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/></svg>');
+}
+
+.tree-home::before {
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16"><path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/></svg>');
+}
+
+.nav-link.hide-form::before {
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/></svg>');
+}
+
+.nav-link.add-type::before,
+.nav-link.add-items::before {
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>');
+}
+
+.tree-footer-nav .add-item::before {
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"></path></svg>');
+}
 
 .nav-link.dropdown-toggle::before,
 .nav-link.first-item::before {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1rem;
-    content: "";
     vertical-align: -0.18rem;
     mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/></svg>');
-    mask-repeat: no-repeat;
-    mask-size: 1rem 1rem;
     font-weight: bold;
-    background-color: #0d6efd;
 }
 
 .nav-link.settings {
     padding-left: 0;
 }
 
-.nav-link.settings::before {
-    display: inline-block;
-    width: 1.25rem;
+.tree-list-item {
+    display: flex;
+    padding-right: 0;
+    transition: background-color 1s ease;
+}
+
+.tree-list-item .tree-item {
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+}
+
+.tree-item-actions {
+    display: flex;
+    padding-top: 0.3rem;
+}
+
+.tree-list-item span {
+    white-space: normal;
+}
+
+.tree-item-actions .item-nav-link {
+    width: 1rem;
     height: 1rem;
-    content: "";
-    vertical-align: -0.125rem;
+    line-height: inherit;
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/></svg>');
+    mask-size: 0.4rem 0.4rem;
+    mask-position: center center;
+    background-color: #7e7e7e;
+}
+
+.tree-item-actions .item-nav-link:hover {
+    mask-size: 1rem 1rem;
+}
+
+.tree-item-actions .btn-handle {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.3rem;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    padding: 0;
+    font-size: inherit;
+    line-height: inherit;
+    background-color: #7e7e7e;
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');
     mask-repeat: no-repeat;
     mask-size: 1rem 1rem;
-    background-color: #0d6efd;
-    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/></svg>');
+}
+
+.tree-list-tree {
+    padding-left: 0;
+}
+
+.date-lists .list-group-item {
+    display: flex;
 }
 
 .list-item {
     display: inline-block;
-    margin-right: 3rem;
+    width: 100%;
 }
 
-.list-group {
+#list-item-date {
+    max-width: 20ch;
+}
+
+.list-group,
+.tree-nav {
     width: 100%;
-    max-width: 60ch;
     border-top: 2px solid #7e7e7e;
     padding-top: 0.5em;
+}
+
+.breadcrumb-item.home,
+.breadcrumb-item.home a {
+    padding-right: 0;
+}
+
+.tree-lists .list-group {
+    border-top: none;
 }
 
 .list-group-item {
     position: relative;
     background-color: white;
+    padding-left: 0;
+    padding-right: 0;
+
     transition: background-color 1s ease;
 }
 
-.list-group-item.newReminder {
+.list-group-item.new-list-item,
+.tree-list-item.new-list-item {
     background-color: moccasin;
     transition: background-color 0.5s ease;
 }
 
-.reminder {
+.list-item-text {
     padding-bottom: 0.5rem;
 }
 
-.duedate {
+.list-item-date {
     font-size: smaller;
 }
 
-.past .duedate {
+.past .list-item-date {
     color: red;
 }
 
-.today .duedate {
+.today .list-item-date {
     color: red;
+}
+
+.sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
 }
 
 code {

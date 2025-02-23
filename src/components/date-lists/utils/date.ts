@@ -3,7 +3,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import isToday from "dayjs/plugin/isToday";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
-import { SettingsType } from "../features/reminderSlice";
+import { DateListSettings } from "../date-types";
 
 dayjs.extend(relativeTime);
 dayjs.extend(isToday);
@@ -23,21 +23,21 @@ export const RelativeDateClass = (date: string): string => {
     return dateClass;
 };
 
-export const FormattedDate = (date: string, settings: SettingsType): string => {
-    let dueDate = "";
+export const FormattedDate = (date: string, settings: DateListSettings): string => {
+    let dateString = "";
 
-    if (settings.relativeDate) {
-        dueDate = dayjs(date + " 23:59").fromNow();
+    if (settings.settings.showRelativeDate) {
+        dateString = dayjs(date + " 23:59").fromNow();
         if (dayjs(date).isToday()) {
-            dueDate = "today";
+            dateString = "today";
         }
     }
 
-    if (settings.date) {
-        dueDate += " " + dayjs(date).format(settings.dateFormat);
+    if (settings.settings.showDate) {
+        dateString += " " + dayjs(date).format(settings.settings.dateFormat);
     }
 
-    return dueDate.trim();
+    return dateString.trim();
 };
 
 export const dateExists = (date: string, format = "YYYY-MM-DD"): boolean => {

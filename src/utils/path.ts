@@ -16,10 +16,10 @@ export const getTypeFromUrlParams = (): string => {
         return "";
     }
 
-    const reminderType = searchParams.get("type");
+    const listType = searchParams.get("type");
 
-    if (typeof reminderType === "string") {
-        return slugify(reminderType).trim();
+    if (typeof listType === "string") {
+        return slugify(listType).trim();
     }
 
     return "";
