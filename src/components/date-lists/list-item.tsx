@@ -25,7 +25,7 @@ const ListItem = (props: ListItemProps) => {
                 <div className="list-item-text">{props.item.text}</div>
                 <ListItemDate date={props.item.date} settings={props.settings} />
             </div>
-            <button type="button" className="btn-close" aria-label="Delete List Item" onClick={deleteListItem}></button>
+            <button type="button" className="delete-item" tabIndex={0} aria-label="Delete List Item" onClick={deleteListItem}></button>
         </li>
     );
 };

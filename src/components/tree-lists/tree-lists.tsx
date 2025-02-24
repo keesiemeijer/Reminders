@@ -212,7 +212,7 @@ const TreeLists = () => {
                 <form className="app-form" onSubmit={submitListItem}>
                     <h1>{typeSettings["title"]}</h1>
                     {typeSettings["description"] && <p className="type-desc">{typeSettings["description"]}</p>}
-                    <ul className="nav nav-pills sub-navigation">
+                    <ul className="nav sub-navigation">
                         <li className="nav-item">
                             <Link className="nav-link settings" to={"/settings?type=" + listType}>
                                 Settings
