@@ -89,7 +89,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
                     <span className={styles.Text}>{value}</span>
                     {/* {!clone && onRemove && <Remove onClick={onRemove} />} */}
                     {clone && childCount && childCount > 1 ? <span className={styles.Count}>{childCount}</span> : null}
-                    {!clone && <button type="button" className="delete-item" aria-label="Delete List Item" onClick={onRemove}></button>}
+                    {!clone && <button type="button" className="delete-item" aria-label="Delete List Item" tabIndex={0} onClick={onRemove}></button>}
                 </div>
             </li>
         );
