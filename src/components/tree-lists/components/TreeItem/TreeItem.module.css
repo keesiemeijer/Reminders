@@ -80,12 +80,12 @@
 } */
 
 .TreeItem {
-    --vertical-padding: 10px;
+    --vertical-padding: 0.5rem;
 
     position: relative;
     display: flex;
     align-items: center;
-    padding: var(--vertical-padding) 10px;
+    padding: var(--vertical-padding) 0.5rem;
     background-color: #fff;
     border: 1px solid #dedede;
     color: #222;
@@ -95,9 +95,6 @@
 .Text {
     flex-grow: 1;
     padding-left: 0.5rem;
-    /* white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden; */
 }
 
 .Count {
