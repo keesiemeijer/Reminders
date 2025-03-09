@@ -1,3 +1,5 @@
+import objectHash from "object-hash";
+
 interface UseHistoryStateState {
     past: any[];
     present: any;
@@ -26,8 +28,8 @@ export const useHistoryStateReducer = (state: any, action: any) => {
         };
     } else if (action.type === "SET") {
         const { newPresent } = action;
-
-        if (JSON.stringify(action.newPresent) === JSON.stringify(present)) {
+        // Check hashes
+        if (objectHash(action.newPresent) === objectHash(present)) {
             return state;
         }
 

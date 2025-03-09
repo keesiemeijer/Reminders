@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
+import objectHash from "object-hash";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useHistoryState } from "../../app/hooks";
@@ -87,7 +88,7 @@ const TreeLists = () => {
             dispatch(updateTreeListItems({ type: listType, items: historyState }));
             historyButtonClicked.current = false;
         }
-    }, [JSON.stringify(historyState)]);
+    }, [objectHash(historyState)]);
 
     // Hook for when list item count changes
     useEffect(() => {
@@ -220,7 +221,7 @@ const TreeLists = () => {
                 {listItemCount > 0 && (
                     <SortableTree
                         treeItems={listItems}
-                        key={JSON.stringify(flattenedListItems)}
+                        key={objectHash(flattenedListItems)}
                         type={listType}
                         newListItem={newListItem}
                         latestListItemID={latestListItemID}
