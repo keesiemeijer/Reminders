@@ -48,6 +48,21 @@ ul.nav.sub-navigation {
     margin-bottom: 1rem;
 }
 
+.list-nav {
+    border-top: 2px solid #7e7e7e;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.list-nav:has(div.visible) {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 0.5em;
+}
+
+.list-group,
+.tree-nav {
+    width: 100%;
+}
+
 /* Links with icons */
 .nav-link.hide-form::before,
 .nav-link.add-type::before,
@@ -56,9 +71,11 @@ ul.nav.sub-navigation {
 .nav-link.dropdown-toggle::before,
 .nav-link.first-item::before,
 .tree-home::before,
-.nav-link.settings::before {
+.nav-link.nav-settings::before,
+.undo-action::before,
+.redo-action::before {
     display: inline-block;
-    width: 1.5rem;
+    width: 1.35rem;
     height: 1rem;
     content: "";
     vertical-align: -0.125em;
@@ -66,8 +83,22 @@ ul.nav.sub-navigation {
     mask-size: 1rem 1rem;
     background-color: #0d6efd;
 }
-.nav-link.settings::before {
+.nav-link.nav-settings::before {
     mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/></svg>');
+}
+
+.undo-action::before {
+    vertical-align: -0.18rem;
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/></svg>');
+}
+.undo-action.disabled::before,
+.redo-action.disabled::before {
+    background-color: rgba(33, 37, 41, 0.75);
+}
+
+.redo-action::before {
+    vertical-align: -0.18rem;
+    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/></svg>');
 }
 
 .tree-home::before {
@@ -94,7 +125,9 @@ ul.nav.sub-navigation {
     font-weight: bold;
 }
 
-.nav-link.settings {
+.nav-link.nav-settings,
+.nav-link.add-items,
+.nav-link.hide-form {
     padding-left: 0;
 }
 
@@ -126,7 +159,9 @@ li.tree-list-item span {
 
 /* Action HTML buttons stripped styles */
 .tree-item-actions .btn-handle,
-.delete-item {
+.delete-item,
+.undo-action,
+.redo-action {
     box-sizing: border-box;
     border: none;
     background-color: transparent;
@@ -199,20 +234,9 @@ li.tree-list-item span {
     max-width: 20ch;
 }
 
-.list-group,
-.tree-nav {
-    width: 100%;
-    border-top: 2px solid #7e7e7e;
-    padding-top: 0.5em;
-}
-
 .breadcrumb-item.home,
 .breadcrumb-item.home a {
     padding-right: 0;
-}
-
-.tree-lists .list-group {
-    border-top: none;
 }
 
 .list-group-item {
@@ -238,12 +262,26 @@ li.tree-list-item.new-list-item {
     font-size: smaller;
 }
 
-.past .list-item-date {
+/* .past .list-item-date {
     color: red;
 }
 
 .today .list-item-date {
     color: red;
+} */
+
+.undo-action,
+.redo-action {
+    color: #0d6efd;
+    padding-right: 1rem;
+}
+.undo-action.disabled,
+.redo-action.disabled {
+    color: rgba(33, 37, 41, 0.75);
+}
+.undo-action.hidden,
+.redo-action.hidden {
+    display: none;
 }
 
 .sr-only {
@@ -267,6 +305,66 @@ code {
     overflow: auto;
     border: solid 2px #efefef;
     padding: 1rem;
+}
+
+.color-popover .react-colorful {
+    width: 14ch;
+    height: 14ch;
+    min-width: 200px;
+    min-height: 200px;
+}
+.label-color-picker {
+    display: flex;
+}
+
+.picker {
+    position: relative;
+    margin-left: 1rem;
+}
+
+.swatch {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 8px;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.color-popover {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    border-radius: 9px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+.color-input-label {
+    display: flex;
+    padding-top: 0.25rem;
+    padding-bottom: 4px;
+    border: 1px solid #d6cfc6;
+    border-top: 0;
+    padding-right: 9px;
+    border-radius: 0 0 9px 9px;
+}
+.color-input-label span {
+    margin-left: 0.5rem;
+    margin-right: 0.25rem;
+}
+
+.color-popover input {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    /* outline-width: 1px;
+    outline-offset: -3px; */
+
+    /* border:none;
+    outline:none; */
+}
+.color-popover .react-colorful__last-control {
+    border-radius: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

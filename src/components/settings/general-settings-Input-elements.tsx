@@ -15,7 +15,7 @@ export const GeneralSettingsInputElements = (props: { settings: ListSettings; re
 
     if (props.newSetting) {
         titleInfo = "";
-        newInfo = "More list settings can be found in the individual settings for lists.";
+        newInfo = "More list settings can be found in the individual setting pages for lists.";
         orderByDateInfo = "";
         disabled = false;
     }

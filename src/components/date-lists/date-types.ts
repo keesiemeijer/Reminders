@@ -10,6 +10,10 @@ export interface DateListItem {
 export interface DateSettings {
     showRelativeDate: boolean;
     showDate: boolean;
+    usePastDateColor: boolean;
+    pastDateColor: string;
+    useTodayDateColor: boolean;
+    todayDateColor: string;
     dateFormat: string;
 }
 export interface DateListSettings extends ListSettings {

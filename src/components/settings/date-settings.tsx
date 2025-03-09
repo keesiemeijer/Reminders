@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -10,10 +10,14 @@ import { DateListSettings } from "../date-lists/date-types";
 
 import { getGeneralSettings } from "./utils/general-settings";
 import { GeneralSettingsInputElements } from "./general-settings-Input-elements";
+import { ColorPicker } from "../color-picker/color-picker";
 
 const DateFormSettings = () => {
     const dispatch = useAppDispatch();
     const typeSettings = useContext(TypeSettingContext);
+
+    const [pastColor, setPastColor] = useState(typeSettings.settings.pastDateColor);
+    const [todayColor, setTodayColor] = useState(typeSettings.settings.todayDateColor);
 
     let pageTitle = "Settings";
     let settingsInfo = "Settings for list: ";
@@ -26,6 +30,8 @@ const DateFormSettings = () => {
     const showDateInput = useRef<HTMLInputElement>(null);
     const showRelativeDateInput = useRef<HTMLInputElement>(null);
     const dateFormatInput = useRef<HTMLInputElement>(null);
+    const usePastDateColorInput = useRef<HTMLInputElement>(null);
+    const useTodayDateColorInput = useRef<HTMLInputElement>(null);
 
     const generalSettingsRefs = {
         titleInput: titleInput,
@@ -46,6 +52,8 @@ const DateFormSettings = () => {
             showRelativeDate: showRelativeDateInput,
             showDate: showDateInput,
             dateFormat: dateFormatInput,
+            usePastDateColor: usePastDateColorInput,
+            useTodayDateColor: useTodayDateColorInput,
         };
 
         // Get values from the form elements
@@ -55,7 +63,7 @@ const DateFormSettings = () => {
             // old value
             let value: string | boolean = settings.settings[key];
 
-            if (["showDate", "showRelativeDate"].includes(key)) {
+            if (["showDate", "showRelativeDate", "usePastDateColor", "useTodayDateColor"].includes(key)) {
                 // checkbox values
                 if (element.current) {
                     // new value
@@ -74,6 +82,8 @@ const DateFormSettings = () => {
             newDateSettings[key] = value;
         });
 
+        newDateSettings.pastDateColor = pastColor;
+        newDateSettings.todayDateColor = todayColor;
         // Merge new date list Settings
         const dateSettings: DateListSettings = { ...settings, settings: newDateSettings };
 
@@ -147,6 +157,40 @@ const DateFormSettings = () => {
                             <small id="formatHelp" className="form-text text-muted">
                                 Example format: DD/MM/YYYY. <a href="https://day.js.org/docs/en/display/format">List of all available formats</a>
                             </small>
+                        </div>
+                        <div className="form-section">
+                            <div className="form-check">
+                                <input
+                                    ref={usePastDateColorInput}
+                                    id="usePastDateColor"
+                                    name="usePastDateColor"
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    defaultChecked={typeSettings.settings.usePastDateColor}
+                                />
+                                <div className="label-color-picker">
+                                    <label htmlFor="usePastDateColor" className="form-check-label">
+                                        Text color for list items with a past date
+                                    </label>
+                                    <ColorPicker color={pastColor} onChange={setPastColor} />
+                                </div>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                    ref={useTodayDateColorInput}
+                                    id="useTodayDateColor"
+                                    name="useTodayDateColor"
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    defaultChecked={typeSettings.settings.useTodayDateColor}
+                                />
+                                <div className="label-color-picker">
+                                    <label htmlFor="useTodayDateColor" className="form-check-label">
+                                        Text color for list items with today's date
+                                    </label>
+                                    <ColorPicker color={todayColor} onChange={setTodayColor} />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="form-section">

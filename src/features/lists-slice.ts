@@ -2,14 +2,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { isValidDateListItem } from "../components/date-lists/utils/validate";
 import { mergeDateImportItems } from "../components/date-lists/utils/import";
+import { DateSettingsDefault } from "../components/date-lists/utils/default";
 import { DateListItem } from "../components/date-lists/date-types";
+
 import { isValidTreeListItem } from "../components/tree-lists/utils/validate";
 import { mergeTreeImportItems } from "../components/tree-lists/utils/import";
 import { updateTreeIndexes } from "../components/tree-lists/utils/tree";
-import { isValidListObject } from "../utils/type";
 import { FlattenedItem } from "../components/tree-lists/tree-types";
+
+import { isValidListObject, getHighesListItemID } from "../utils/type";
 import { getIndexOfListType } from "../utils/slice";
-import { getHighesListItemID } from "../utils/type";
 
 export interface ListSettings {
     type: string;
@@ -36,7 +38,7 @@ const initialType = {
     type: "reminders",
     title: "Reminders",
     items: [],
-    settings: { showRelativeDate: true, showDate: false, dateFormat: "DD/MM/YYYY" },
+    settings: DateSettingsDefault,
 };
 
 // Create default list type when first using this app
@@ -109,7 +111,7 @@ export const ListsSlice = createSlice({
 
             return state;
         },
-        updateTree: (state, action: PayloadAction<{ type: string; items: FlattenedItem[] }>) => {
+        updateTreeListItems: (state, action: PayloadAction<{ type: string; items: FlattenedItem[] }>) => {
             let tree: FlattenedItem[] = action.payload.items;
 
             const index = getIndexOfListType(action.payload, state);
@@ -121,6 +123,21 @@ export const ListsSlice = createSlice({
             const treeItems = tree.filter((item) => isValidTreeListItem(item));
 
             state[index] = { ...state[index], items: updateTreeIndexes(treeItems) };
+
+            return state;
+        },
+        updateDateListItems: (state, action: PayloadAction<{ type: string; items: DateListItem[] }>) => {
+            let items: DateListItem[] = action.payload.items;
+
+            const index = getIndexOfListType(action.payload, state);
+            if (-1 === index) {
+                // Not an existing type
+                return state;
+            }
+
+            const dateItems = items.filter((item) => isValidDateListItem(item));
+
+            state[index] = { ...state[index], items: dateItems };
 
             return state;
         },
@@ -175,7 +192,8 @@ export const {
     updateListType,
     AddNewListType,
     DeleteListType,
-    updateTree,
+    updateTreeListItems,
+    updateDateListItems,
 } = ListsSlice.actions;
 
 // export reducer

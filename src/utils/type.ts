@@ -138,12 +138,12 @@ export const isValidListObject = <Type extends ListType>(item: Type): boolean =>
     }
 
     if (!item.hasOwnProperty("items")) {
-        console.log("itmes - property doesn't exist");
+        console.log("items - property doesn't exist");
         return false;
     }
 
     if (!Array.isArray(item.items)) {
-        console.log("itmes - not an array");
+        console.log("items - not an array");
         return false;
     }
 

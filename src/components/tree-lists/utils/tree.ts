@@ -206,6 +206,18 @@ export function hasChildren(items: FlattenedItem[], id: UniqueIdentifier) {
     return children.length;
 }
 
+export function getFlattenedItem(items: FlattenedItem[], id: UniqueIdentifier): FlattenedItem | false {
+    if (!Array.isArray(items) || !items.length) {
+        return false;
+    }
+
+    const item = items.find((item) => id === item.id);
+    if (isValidTreeListItem(item)) {
+        return item;
+    }
+    return false;
+}
+
 export function getParentsOf(items: FlattenedItem[], id: UniqueIdentifier) {
     let allParents: FlattenedItem[] = [];
 

@@ -17,13 +17,16 @@ const ListItem = (props: ListItemProps) => {
         dispatch(removeListItems({ ids: [props.item.id], type: props.settings.type }));
     };
 
-    const dateClass = RelativeDateClass(props.item.date);
+    let dateClass = "";
+    if (props.settings.settings.usePastDateColor) {
+        dateClass = RelativeDateClass(props.item.date);
+    }
 
     return (
         <li key={props.item.id} className={"list-group-item " + dateClass} ref={props.newListItem}>
             <div className="list-item">
                 <div className="list-item-text">{props.item.text}</div>
-                <ListItemDate date={props.item.date} settings={props.settings} />
+                <ListItemDate date={props.item.date} settings={props.settings} dateType={dateClass} />
             </div>
             <button type="button" className="delete-item" tabIndex={0} aria-label="Delete List Item" onClick={deleteListItem}></button>
         </li>

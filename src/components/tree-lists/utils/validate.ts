@@ -1,6 +1,7 @@
 import { isObject } from "../../../utils/utils";
 import { FlattenedItem } from "../tree-types";
 import { TreeSettings } from "../tree-types";
+import { TreeSettingsDefault } from "./default";
 
 // User defined type guard
 export const isValidTreeListItem = (item: any): item is FlattenedItem => {
@@ -70,9 +71,21 @@ export const isValidTreeListItem = (item: any): item is FlattenedItem => {
 };
 
 export const isValidTreeSettingsObject = (item: TreeSettings): boolean => {
+    // For now it only checks for object
     if (!isObject(item)) {
-        console.log("not an object");
+        console.log("Tree settings is not an object");
         return false;
     }
+
+    // There are no tree settings yet
+    const types: string[] = [];
+
+    // Check type keys is the same as default keys
+    const defaults = Object.keys(TreeSettingsDefault);
+    if (types.sort().join("") !== defaults.sort().join("")) {
+        console.log(types, " - types doesn't match defaults");
+        return false;
+    }
+
     return true;
 };

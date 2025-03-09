@@ -31,7 +31,7 @@ import TreeFooterNav from "./tree-footer-nav";
 import TreeNav from "./tree-nav";
 
 import { useAppDispatch } from "../../app/hooks";
-import { updateTree, removeListItems } from "../../features/lists-slice";
+import { updateTreeListItems, removeListItems } from "../../features/lists-slice";
 import { getIDs } from "../../utils/utils";
 
 const measuring = {
@@ -72,6 +72,8 @@ interface Props {
     removable?: boolean;
     newListItem: React.RefObject<HTMLLIElement | null> | null;
     latestListItemID: number;
+    handleDragUpdate: (items: FlattenedItem[]) => void;
+    handleNavigate: () => void;
 }
 
 export function SortableTree(props: Props) {
@@ -168,7 +170,6 @@ export function SortableTree(props: Props) {
             onDragEnd={handleDragEnd}
             onDragCancel={handleDragCancel}
         >
-            <TreeNav items={items} topLevelID={topLevelID} type={props.type} />
             {flattenedItems.length > 0 && (
                 <ul className={"tree-list-tree list-group list-group-flush" + listClass}>
                     <SortableContext items={sortedIDs} strategy={verticalListSortingStrategy}>
@@ -185,6 +186,7 @@ export function SortableTree(props: Props) {
                                 collapsed={Boolean(collapsed && hasChildren)}
                                 onCollapse={collapsible && hasChildren ? () => handleCollapse(id) : undefined}
                                 onRemove={() => handleRemove(id)}
+                                onNavigate={props.handleNavigate}
                             />
                         ))}
                         {createPortal(
@@ -254,7 +256,8 @@ export function SortableTree(props: Props) {
             const sortedItems = arrayMove(clonedItems, activeIndex, overIndex);
             const newItems = buildTree(sortedItems);
             setItems(newItems);
-            dispatch(updateTree({ type: props.type, items: flattenTree(newItems) }));
+
+            props.handleDragUpdate(flattenTree(newItems));
         }
     }
 

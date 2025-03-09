@@ -3,6 +3,9 @@ import { dateExists } from "./date";
 import { isObject } from "../../../utils/utils";
 import { DateListItem } from "../date-types";
 import { DateSettings } from "../date-types";
+import { DateSettingsDefault } from "./default";
+
+import { isValidHex } from "../../../utils/utils";
 
 // User defined type guard
 export const isValidDateListItem = (item: any, checkID = true): item is DateListItem => {
@@ -67,10 +70,19 @@ export const isValidDateSettingsObject = (item: DateSettings): boolean => {
         return false;
     }
 
-    const strings = ["dateFormat"];
-    const booleans = ["showRelativeDate", "showDate"];
+    const strings = ["dateFormat", "pastDateColor", "todayDateColor"];
+    const booleans = ["showRelativeDate", "showDate", "usePastDateColor", "useTodayDateColor"];
+    const types = strings.concat(booleans);
 
-    return strings.concat(booleans).every(function (key) {
+    // Check type keys is the same as default keys
+    // Just to make sure we validate every property
+    const defaults = Object.keys(DateSettingsDefault);
+    if (types.sort().join("") !== defaults.sort().join("")) {
+        console.log(types, " - types doesn't match defaults");
+        return false;
+    }
+
+    return types.every(function (key) {
         if (!item.hasOwnProperty(key)) {
             console.log(key + " - property doesn't exist");
             return false;
@@ -79,10 +91,16 @@ export const isValidDateSettingsObject = (item: DateSettings): boolean => {
         const typeValue = item[key as keyof DateSettings];
 
         if (strings.indexOf(key) > -1) {
-            if (typeof typeValue !== "string") {
+            if (typeof typeValue === "string") {
+                if (["pastDateColor", "todayDateColor"].includes(key) && !isValidHex(typeValue)) {
+                    console.log(key + " - not a valid color String");
+                    return false;
+                }
+            } else {
                 console.log(key + " - not a string");
                 return false;
             }
+            // Todo: check for valid hexcolor for pastDateColor
         }
 
         if (booleans.indexOf(key) > -1) {

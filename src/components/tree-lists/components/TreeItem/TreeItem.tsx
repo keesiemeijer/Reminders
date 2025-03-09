@@ -24,6 +24,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
     newListItem: React.RefObject<HTMLLIElement | null> | null;
     onCollapse?(): void;
     onRemove?(): void;
+    onNavigate?(): void;
     wrapperRef?(node: HTMLLIElement): void;
 }
 
@@ -42,6 +43,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
             collapsed,
             onCollapse,
             onRemove,
+            onNavigate,
             style,
             id,
             type,
@@ -75,7 +77,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
             >
                 <div className={"tree-item " + styles.TreeItem} ref={ref} style={style}>
                     <div className={"tree-item-actions"}>
-                        <Link to={"/?type=" + type + "&id=" + id} className="item-nav-link" aria-label={"Go to item " + id}>
+                        <Link to={"/?type=" + type + "&id=" + id} className="item-nav-link" aria-label={"Go to item " + id} onClick={onNavigate}>
                             <span className="sr-only">Go to item {id}</span>
                         </Link>
                         <Handle {...handleProps} />

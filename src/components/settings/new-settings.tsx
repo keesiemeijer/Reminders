@@ -8,6 +8,8 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
 import { AddNewListType, ListSettings, ListType } from "../../features/lists-slice";
 import { isValidListObject, getListTypes } from "../../utils/type";
+import { DateSettingsDefault } from "../date-lists/utils/default";
+import { TreeSettingsDefault } from "../tree-lists/utils/default";
 
 import { getGeneralSettings } from "./utils/general-settings";
 import { GeneralSettingsInputElements } from "./general-settings-Input-elements";
@@ -69,7 +71,9 @@ const NewSettings = () => {
             settings["type"] = slug;
 
             if (settings.orderByDate) {
-                settings.settings = { showRelativeDate: true, showDate: false, dateFormat: "DD/MM/YYYY" };
+                settings.settings = DateSettingsDefault;
+            } else {
+                settings.settings = TreeSettingsDefault;
             }
 
             // Create a ListType object

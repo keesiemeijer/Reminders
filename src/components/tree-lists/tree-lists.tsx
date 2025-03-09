@@ -2,17 +2,20 @@ import React, { useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useHistoryState } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
 import { CollapseContext } from "../../contexts/collapse-context";
 
-import { addTreeListItem } from "../../features/lists-slice";
-import { TreeListType, TreeListSettings } from "./tree-types";
+import { addTreeListItem, updateTreeListItems } from "../../features/lists-slice";
 import { getListItemsByType, getHighesListItemID } from "../../utils/type";
+import HistoryNav from "../history-nav";
+import CollapseLink from "../collapseLink";
 
-import { TreeItem } from "./tree-types";
+import { TreeListType, TreeListSettings, FlattenedItem, TreeItem } from "./tree-types";
 import { SortableTree } from "./SortableTree";
 import { getTopLevelID } from "./utils/navigation";
-import { buildTree } from "./utils/tree";
+import { buildTree, getFlattenedItem } from "./utils/tree";
+import TreeNav from "./tree-nav";
 
 const TreeLists = () => {
     const dispatch = useAppDispatch();
@@ -38,7 +41,10 @@ const TreeLists = () => {
     // App settingss
     const userScrollBehavior = useRef(userScrollSetting);
     const isNewListItemDispatched = useRef(false);
-    const isFormCollapsedRef = useRef(false);
+
+    // History Settings
+    const historyButtonClicked = useRef(false);
+    const treeLinkClicked = useRef(false);
 
     // HTML elements
     const collapseLinkRef = useRef<HTMLAnchorElement>(null);
@@ -46,104 +52,48 @@ const TreeLists = () => {
     const collapseContainerRef = useRef<HTMLDivElement>(null);
     const newListItem = useRef<HTMLLIElement | null>(null);
 
+    // References for the form collapse link (context)
     const collapse = {
         collapseLink: collapseLinkRef,
         listItemInput: listItemInput,
         container: collapseContainerRef,
     };
 
+    // ID in url params
     const topLevelID = getTopLevelID(flattenedListItems);
+    let topLevelText = "";
 
-    const isFormCollapsed = () => {
-        return isFormCollapsedRef.current;
-    };
+    if (topLevelID > 0) {
+        const topLevelItem = getFlattenedItem(flattenedListItems, topLevelID);
+        topLevelText = topLevelItem ? topLevelItem.text : "";
+    }
 
-    // Function to toggle link between hiding form and adding items
-    const toggleLink = (toggle: string) => {
-        if (collapseLinkRef.current) {
-            if ("hide" === toggle) {
-                collapseLinkRef.current.classList.remove("add-items");
-                collapseLinkRef.current.classList.add("hide-form");
-                collapseLinkRef.current.innerHTML = "Hide Form";
-            } else {
-                collapseLinkRef.current.classList.add("add-items");
-                collapseLinkRef.current.classList.remove("hide-form");
-                collapseLinkRef.current.innerHTML = "Add Items";
-            }
-        }
-    };
+    // History Hook
+    let history = useHistoryState(flattenedListItems);
+    const { historyState, setHistory, resetHistory } = history;
 
+    if (treeLinkClicked.current) {
+        // Reset History with current list items
+        resetHistory(flattenedListItems);
+        // Set link clicked flag back to false
+        treeLinkClicked.current = false;
+    }
+
+    // Hook for when history items change
     useEffect(() => {
-        // Hook for Initial render
-        if (listItemCount > 0) {
-            // There are list items.
-            // Form is collapsed if there are list items
-            isFormCollapsedRef.current = true;
-        } else {
-            // There are no list items
-            // Hide the collapse link
-            if (collapseLinkRef.current) {
-                collapseLinkRef.current.style.cssText = "display: none;";
-            }
-            // Display collapse container
-            if (collapseContainerRef.current) {
-                collapseContainerRef.current.classList.add("show");
-            }
+        if (historyButtonClicked.current) {
+            // Redo or Undo button was clicked
+
+            dispatch(updateTreeListItems({ type: listType, items: historyState }));
+            historyButtonClicked.current = false;
         }
+    }, [JSON.stringify(historyState)]);
 
-        if (collapseContainerRef.current) {
-            // Bootstrap Collapse click events
-            collapseContainerRef.current.addEventListener("hide.bs.collapse", () => collapseClickEventCallack(true));
-            collapseContainerRef.current.addEventListener("show.bs.collapse", () => collapseClickEventCallack(false));
-        }
-    }, []);
-
-    const collapseClickEventCallack = (collapsed: boolean) => {
-        // Set isFormCollapsedRef
-        isFormCollapsedRef.current = collapsed;
-
-        if (collapsed) {
-            // The form is collapsed
-            // Set collapse link text to "Add List Items"
-            toggleLink("add");
-        } else {
-            if (flattenedListItems.length > 0) {
-                // The form is displayed and there are list items
-                // Set collapse link text to "hide form"
-                toggleLink("hide");
-            }
-        }
-    };
-
+    // Hook for when list item count changes
     useEffect(() => {
-        // Hook for list item count changes
-        if (listItemCount === 0) {
-            // There are no list items
-            if (collapseLinkRef.current) {
-                if (!isFormCollapsed()) {
-                    // Form is not collapsed
-                    // Hide link.
-                    collapseLinkRef.current.style.display = "none";
-                } else {
-                    // Form is collapsed
-                    // Trigger click to display form
-                    collapseLinkRef.current.click();
-                    // Hide link after form is displayed
-                    collapseLinkRef.current.style.display = "none";
-                }
-            }
-        } else if (listItemCount > 0) {
-            // There are list items
-            if (!isFormCollapsed() && collapseLinkRef.current) {
-                // Form is not collapsed
-                const refStyle = collapseLinkRef.current.style.display;
-                if ("none" === refStyle) {
-                    // Link is hidden
-                    // Unhide link and change text to "hide form"
-                    collapseLinkRef.current.style.display = "block";
-                    toggleLink("hide");
-                }
-            }
+        if (historyState.length !== listItemCount) {
+            // Update history if list item count is not the same as history item count.
+            setHistory(flattenedListItems);
         }
 
         // Scroll to new list item after re-render
@@ -206,60 +156,86 @@ const TreeLists = () => {
         }
     };
 
+    // Callback function for when Undo or Redo button is clicked
+    const handleHistoryUpdate = (action: () => void) => {
+        // undo or redo
+        action();
+        // Set flag to update history
+        historyButtonClicked.current = true;
+    };
+
+    // Callback function for when tree nav link was clicked
+    // Callback function for when tree item link was clicked
+    const resetHistoryState = () => {
+        // Set flag to reset history
+        treeLinkClicked.current = true;
+    };
+
+    // Callback function for when items were dragged
+    const handleDragUpdate = (items: FlattenedItem[]) => {
+        setHistory(items);
+        dispatch(updateTreeListItems({ type: listType, items: items }));
+    };
+
     return (
-        <div className="tree-lists">
-            <div className="list-item-form">
-                <form className="app-form" onSubmit={submitListItem}>
-                    <h1>{typeSettings["title"]}</h1>
-                    {typeSettings["description"] && <p className="type-desc">{typeSettings["description"]}</p>}
-                    <ul className="nav sub-navigation">
-                        <li className="nav-item">
-                            <Link className="nav-link settings" to={"/settings?type=" + listType}>
-                                Settings
-                            </Link>
-                        </li>
+        <CollapseContext.Provider value={collapse}>
+            <div className="tree-lists">
+                <div className="list-item-form">
+                    <form className="app-form" onSubmit={submitListItem}>
+                        <h1>{typeSettings["title"]}</h1>
+                        {typeSettings["description"] && <p className="type-desc">{typeSettings["description"]}</p>}
+                        <ul className="nav sub-navigation">
+                            <li className="nav-item">
+                                <Link className="nav-link nav-settings" to={"/settings?type=" + listType}>
+                                    Settings
+                                </Link>
+                            </li>
 
-                        <li>
-                            <Link
-                                className="nav-link add-items"
-                                data-bs-toggle="collapse"
-                                to="#form-collapse"
-                                role="button"
-                                aria-expanded="false"
-                                aria-controls="form-collapse"
-                                ref={collapseLinkRef}
-                            >
-                                Add Items
-                            </Link>
-                        </li>
-                    </ul>
+                            <li>
+                                <CollapseLink listItemCount={listItemCount} />
+                            </li>
+                        </ul>
 
-                    <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
-                        <div className="form-section">
-                            <label htmlFor="list-item-text" className="form-label">
-                                List Item
-                            </label>
-                            <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
+                        <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
+                            <div className="form-section">
+                                <label htmlFor="list-item-text" className="form-label">
+                                    List Item
+                                </label>
+                                <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
+                            </div>
+                            <div className="form-section">
+                                <button type="submit" className="btn btn-success">
+                                    Add List Item
+                                </button>
+                            </div>
                         </div>
-                        <div className="form-section">
-                            <button type="submit" className="btn btn-success">
-                                Add List Item
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            {listItemCount > 0 && (
-                <CollapseContext.Provider value={collapse}>
-                    <SortableTree treeItems={listItems} key={listItemCount} type={listType} newListItem={newListItem} latestListItemID={latestListItemID} />
-                </CollapseContext.Provider>
-            )}
-            {listItemCount === 0 && (
-                <div className="tree-nav">
-                    <p>There are no list items yet</p>
+                    </form>
                 </div>
-            )}
-        </div>
+
+                <div className="list-nav">
+                    <TreeNav items={listItems} topLevelID={topLevelID} type={listType} clearHistory={resetHistoryState} />
+                    <HistoryNav updateHistory={handleHistoryUpdate} history={history} />
+                </div>
+                {topLevelText && <h5 className="top-level-title">{topLevelText}</h5>}
+                {listItemCount > 0 && (
+                    <SortableTree
+                        treeItems={listItems}
+                        key={JSON.stringify(flattenedListItems)}
+                        type={listType}
+                        newListItem={newListItem}
+                        latestListItemID={latestListItemID}
+                        handleDragUpdate={handleDragUpdate}
+                        handleNavigate={resetHistoryState}
+                    />
+                )}
+
+                {listItemCount === 0 && (
+                    <div className="tree-nav">
+                        <p>There are no list items yet</p>
+                    </div>
+                )}
+            </div>
+        </CollapseContext.Provider>
     );
 };
 

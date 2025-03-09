@@ -8,6 +8,7 @@ interface TreeNavProps {
     items: TreeItems;
     topLevelID: number;
     type: string;
+    clearHistory: () => void;
 }
 
 const TreeNav = (props: TreeNavProps) => {
@@ -18,21 +19,16 @@ const TreeNav = (props: TreeNavProps) => {
 
     if (props.topLevelID > 0) {
         parents = getParentsOf(flattenedItems, props.topLevelID);
-
-        const topLevelItem = flattenedItems.find((item) => props.topLevelID === item.id);
-        if (isValidTreeListItem(topLevelItem)) {
-            topLevelTitle = topLevelItem.text;
-        }
     }
-
+    const visible = parents.length > 0 ? " visible" : "";
     return (
-        <div className="tree-nav">
+        <div className={"tree-nav" + visible}>
             {parents.length > 0 && (
                 <nav style={{ "--bs-breadcrumb-divider": "'>'" } as React.CSSProperties} aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         {parents.length > 0 && (
                             <li className="breadcrumb-item home" key={1}>
-                                <Link className="tree-home" to={"/?type=" + props.type}>
+                                <Link className="tree-home" to={"/?type=" + props.type} onClick={props.clearHistory}>
                                     <span className="sr-only">Home</span>
                                 </Link>
                             </li>
@@ -42,7 +38,9 @@ const TreeNav = (props: TreeNavProps) => {
                                 if (props.topLevelID !== item.id) {
                                     return (
                                         <li className="breadcrumb-item" key={index + 2}>
-                                            <Link to={"/?type=" + props.type + "&id=" + item.id}>{item.text}</Link>
+                                            <Link to={"/?type=" + props.type + "&id=" + item.id} onClick={props.clearHistory}>
+                                                {item.text}
+                                            </Link>
                                         </li>
                                     );
                                 } else {
@@ -54,7 +52,6 @@ const TreeNav = (props: TreeNavProps) => {
                                 }
                             })}
                     </ol>
-                    {topLevelTitle && <h5 className="top-level-title">{topLevelTitle}</h5>}
                 </nav>
             )}
         </div>
