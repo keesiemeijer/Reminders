@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 import { FlattenedItem, TreeItems } from "./tree-types";
 import { flattenTree, getParentsOf } from "./utils/tree";
-import { isValidTreeListItem } from "./utils/validate";
 
 interface TreeNavProps {
     items: TreeItems;
@@ -14,7 +13,6 @@ interface TreeNavProps {
 const TreeNav = (props: TreeNavProps) => {
     const flattenedItems = flattenTree(props.items);
 
-    let topLevelTitle = "";
     let parents: FlattenedItem[] = [];
 
     if (props.topLevelID > 0) {

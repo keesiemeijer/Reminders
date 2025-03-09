@@ -28,10 +28,9 @@ import { getTopLevelID, setDepthToZero } from "./utils/navigation";
 import { sortableTreeKeyboardCoordinates } from "./keyboardCoordinates";
 import { SortableTreeItem } from "./components/TreeItem";
 import TreeFooterNav from "./tree-footer-nav";
-import TreeNav from "./tree-nav";
 
 import { useAppDispatch } from "../../app/hooks";
-import { updateTreeListItems, removeListItems } from "../../features/lists-slice";
+import { removeListItems } from "../../features/lists-slice";
 import { getIDs } from "../../utils/utils";
 
 const measuring = {

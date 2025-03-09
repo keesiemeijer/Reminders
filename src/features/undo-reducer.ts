@@ -1,6 +1,3 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DateListItem } from "../components/date-lists/date-types";
-
 interface UseHistoryStateState {
     past: any[];
     present: any;
