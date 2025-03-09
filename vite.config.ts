@@ -4,9 +4,9 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
     plugins: [react()],
     base: "/Reminders",
-    // esbuild: {
-    //     drop: ["console", "debugger"],
-    // },
+    esbuild: {
+        drop: ["console", "debugger"],
+    },
     resolve: {
         alias: {
             "@": "/src",
