@@ -6,7 +6,7 @@ import type { FlattenedItem, TreeItem, TreeItems } from "../tree-types";
 export const iOS = /iPad|iPhone|iPod/.test(navigator.platform);
 
 import { getIDs } from "../../../utils/utils";
-import { isValidTreeListItem } from "./validate";
+import { isValidTreeListItem, sanitizeTreeItem } from "./validate";
 
 function getDragDepth(offset: number, indentationWidth: number) {
     return Math.round(offset / indentationWidth);
@@ -213,7 +213,7 @@ export function getFlattenedItem(items: FlattenedItem[], id: UniqueIdentifier): 
 
     const item = items.find((item) => id === item.id);
     if (isValidTreeListItem(item)) {
-        return item;
+        return sanitizeTreeItem(item);
     }
     return false;
 }
@@ -224,7 +224,7 @@ export function getParentsOf(items: FlattenedItem[], id: UniqueIdentifier) {
     const search = (items: FlattenedItem[], id: UniqueIdentifier) => {
         const parent = items.find((item) => id === item.id);
         if (isValidTreeListItem(parent)) {
-            allParents = [...allParents, parent];
+            allParents = [...allParents, sanitizeTreeItem(parent)];
             if (parent.parentID) {
                 search(items, parent.parentID);
             }

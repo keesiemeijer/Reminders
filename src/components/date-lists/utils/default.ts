@@ -1,4 +1,4 @@
-import { DateSettings } from "../date-types";
+import { DateSettings, DateListItem } from "../date-types";
 
 export const DateSettingsDefault: DateSettings = {
     showRelativeDate: true,
@@ -8,4 +8,10 @@ export const DateSettingsDefault: DateSettings = {
     pastDateColor: "#ff0000",
     useTodayDateColor: true,
     todayDateColor: "#ff8c00",
+};
+
+export const DateListItemDefault: DateListItem = {
+    id: 0,
+    text: "",
+    date: "",
 };

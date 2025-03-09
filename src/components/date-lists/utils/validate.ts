@@ -3,7 +3,7 @@ import { dateExists } from "./date";
 import { isObject } from "../../../utils/utils";
 import { DateListItem } from "../date-types";
 import { DateSettings } from "../date-types";
-import { DateSettingsDefault } from "./default";
+import { DateSettingsDefault, DateListItemDefault } from "./default";
 
 import { isValidHex } from "../../../utils/utils";
 
@@ -126,4 +126,12 @@ export const isValidDate = (date: string): boolean => {
 
     // Check for valid dates
     return dateExists(date);
+};
+
+export const sanitizeDateItem = (item: DateListItem): DateListItem => {
+    const validKeys = Object.keys(DateListItemDefault);
+    // Removes all properties not in  DateListItemDefault
+    Object.keys(item).forEach((key) => validKeys.includes(key) || delete item[key as keyof DateListItem]);
+
+    return item;
 };

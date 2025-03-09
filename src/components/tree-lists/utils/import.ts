@@ -3,7 +3,7 @@ import { isObject } from "../../../utils/utils";
 
 import { TreeItem, FlattenedItem } from "../tree-types";
 
-import { isValidTreeListItem } from "./validate";
+import { isValidTreeListItem, sanitizeTreeItem } from "./validate";
 import { getChildrenByID } from "./tree";
 
 export const mergeTreeImportItems = (stateItems: any[], importItems: any[]): any[] => {
@@ -24,6 +24,9 @@ export const mergeTreeImportItems = (stateItems: any[], importItems: any[]): any
 
     // Remove invalid items
     listItems = listItems.filter((item) => isValidTreeListItem(item));
+
+    // Remove invalid properties
+    listItems = listItems.map((item) => sanitizeTreeItem(item));
 
     // Sets valid parentID and hasChildren properties
     listItems = setParents(listItems);

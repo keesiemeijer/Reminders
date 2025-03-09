@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { isValidDateListItem } from "../components/date-lists/utils/validate";
+import { isValidDateListItem, sanitizeDateItem } from "../components/date-lists/utils/validate";
 import { mergeDateImportItems } from "../components/date-lists/utils/import";
 import { DateSettingsDefault } from "../components/date-lists/utils/default";
 import { DateListItem } from "../components/date-lists/date-types";
 
-import { isValidTreeListItem } from "../components/tree-lists/utils/validate";
+import { isValidTreeListItem, sanitizeTreeItem } from "../components/tree-lists/utils/validate";
 import { mergeTreeImportItems } from "../components/tree-lists/utils/import";
 import { updateTreeIndexes } from "../components/tree-lists/utils/tree";
 import { FlattenedItem } from "../components/tree-lists/tree-types";
@@ -85,7 +85,7 @@ export const ListsSlice = createSlice({
 
             if (isValidDateListItem(listItem)) {
                 // Add valid listItem
-                state[index].items.push(listItem);
+                state[index].items.push(sanitizeDateItem(listItem));
             }
 
             state[index].items.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
@@ -103,7 +103,7 @@ export const ListsSlice = createSlice({
             listItem.id = getHighesListItemID<FlattenedItem>(state[index].items) + 1;
 
             if (isValidTreeListItem(listItem)) {
-                state[index].items.unshift(listItem);
+                state[index].items.unshift(sanitizeTreeItem(listItem));
             }
 
             // Udates item indexes
@@ -120,7 +120,8 @@ export const ListsSlice = createSlice({
                 return state;
             }
 
-            const treeItems = tree.filter((item) => isValidTreeListItem(item));
+            let treeItems = tree.filter((item) => isValidTreeListItem(item));
+            treeItems = treeItems.map((item) => sanitizeTreeItem(item));
 
             state[index] = { ...state[index], items: updateTreeIndexes(treeItems) };
 
@@ -135,7 +136,8 @@ export const ListsSlice = createSlice({
                 return state;
             }
 
-            const dateItems = items.filter((item) => isValidDateListItem(item));
+            let dateItems = items.filter((item) => isValidDateListItem(item));
+            dateItems = dateItems.map((item) => sanitizeDateItem(item));
 
             state[index] = { ...state[index], items: dateItems };
 

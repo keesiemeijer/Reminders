@@ -1,7 +1,9 @@
 import { ListSettings, SettingDefault, ListType } from "../features/lists-slice";
-import { isValidDateListItem, isValidDateSettingsObject } from "../components/date-lists/utils/validate";
-import { isValidTreeListItem, isValidTreeSettingsObject } from "../components/tree-lists/utils/validate";
+import { isValidDateListItem, isValidDateSettingsObject, sanitizeDateItem } from "../components/date-lists/utils/validate";
+import { isValidTreeListItem, isValidTreeSettingsObject, sanitizeTreeItem } from "../components/tree-lists/utils/validate";
 import { isObject } from "./utils";
+import { DateListItem } from "../components/date-lists/date-types";
+import { FlattenedItem } from "../components/tree-lists/tree-types";
 
 export const getListItemsByType = <Type extends ListType>(listType: string, state: Type[]): any[] => {
     // Returns a valid type object or false
@@ -13,8 +15,10 @@ export const getListItemsByType = <Type extends ListType>(listType: string, stat
     let items: any = [];
     if (typeObject.orderByDate) {
         items = typeObject.items.filter((item) => isValidDateListItem(item));
+        items = items.map((item: DateListItem) => sanitizeDateItem(item));
     } else {
         items = typeObject.items.filter((item) => isValidTreeListItem(item));
+        items = items.map((item: FlattenedItem) => sanitizeTreeItem(item));
     }
 
     // Return validated list items only

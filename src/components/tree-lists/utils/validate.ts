@@ -1,7 +1,7 @@
 import { isObject } from "../../../utils/utils";
 import { FlattenedItem } from "../tree-types";
 import { TreeSettings } from "../tree-types";
-import { TreeSettingsDefault } from "./default";
+import { TreeSettingsDefault, FlattenedItemDefault } from "./default";
 
 // User defined type guard
 export const isValidTreeListItem = (item: any): item is FlattenedItem => {
@@ -88,4 +88,12 @@ export const isValidTreeSettingsObject = (item: TreeSettings): boolean => {
     }
 
     return true;
+};
+
+export const sanitizeTreeItem = (item: FlattenedItem): FlattenedItem => {
+    const validKeys = Object.keys(FlattenedItemDefault);
+    // Removes all properties not in  FlattenedItemDefault
+    Object.keys(item).forEach((key) => validKeys.includes(key) || delete item[key as keyof FlattenedItem]);
+
+    return item;
 };

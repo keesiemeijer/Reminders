@@ -1,4 +1,4 @@
-import { isValidDateListItem } from "./validate";
+import { isValidDateListItem, sanitizeDateItem } from "./validate";
 import { convertDateItemsForExport } from "./export";
 
 export const mergeDateImportItems = (stateItems: any[], importItems: any[]): any[] => {
@@ -13,6 +13,7 @@ export const mergeDateImportItems = (stateItems: any[], importItems: any[]): any
 
     // Remove invalid list items
     listItems = listItems.filter((item) => isValidDateListItem(item, false));
+    listItems = listItems.map((item) => sanitizeDateItem(item));
 
     // Removes id (and all other properties not needed for a list item)
     listItems = convertDateItemsForExport(listItems);
