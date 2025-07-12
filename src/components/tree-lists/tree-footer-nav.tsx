@@ -1,10 +1,12 @@
 import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CollapseContext } from "../../contexts/collapse-context";
+import { useTranslation } from "react-i18next";
 
 const TreeFooterNav = (props: { type: string; id: number }) => {
     const collapse = useContext(CollapseContext);
     const FooterLinkRef = useRef<HTMLAnchorElement>(null);
+    const { t } = useTranslation("tree-lists");
 
     let linkTo = "/?type=" + props.type;
     if (props.id > 0) {
@@ -31,8 +33,8 @@ const TreeFooterNav = (props: { type: string; id: number }) => {
     };
     return (
         <div className="tree-footer-nav">
-            <Link className={"add-item"} to={linkTo} onClick={handleClick} ref={FooterLinkRef} title="Add Item" aria-label="Add Item">
-                <span className="sr-only">Add Item</span>
+            <Link className={"add-item"} to={linkTo} onClick={handleClick} ref={FooterLinkRef} title={t("add-item")} aria-label={t("add-item")}>
+                <span className="sr-only">{t("add-item")}</span>
             </Link>
         </div>
     );

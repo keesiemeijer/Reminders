@@ -1,5 +1,6 @@
 import React, { forwardRef, HTMLAttributes } from "react";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 import { Action, Handle } from "../Item";
 
@@ -54,6 +55,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
         },
         ref
     ) => {
+        const { t } = useTranslation("tree-lists");
         return (
             <li
                 className={
@@ -77,8 +79,8 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
             >
                 <div className={"tree-item " + styles.TreeItem} ref={ref} style={style}>
                     <div className={"tree-item-actions"}>
-                        <Link to={"/?type=" + type + "&id=" + id} className="item-nav-link" aria-label={"Go to item " + id} onClick={onNavigate}>
-                            <span className="sr-only">Go to item {id}</span>
+                        <Link to={"/?type=" + type + "&id=" + id} className="item-nav-link" aria-label={t("go-to-item-id", { id: id })} onClick={onNavigate}>
+                            <span className="sr-only">{t("go-to-item-id", { id: id })}</span>
                         </Link>
                         <Handle {...handleProps} />
 
@@ -91,7 +93,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
                     <span className={styles.Text}>{value}</span>
                     {/* {!clone && onRemove && <Remove onClick={onRemove} />} */}
                     {clone && childCount && childCount > 1 ? <span className={styles.Count}>{childCount}</span> : null}
-                    {!clone && <button type="button" className="delete-item" aria-label="Delete List Item" tabIndex={0} onClick={onRemove}></button>}
+                    {!clone && <button type="button" className="delete-item" aria-label={t("delete-list-item")} tabIndex={0} onClick={onRemove}></button>}
                 </div>
             </li>
         );

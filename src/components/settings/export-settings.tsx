@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Trans, useTranslation } from "react-i18next";
 
 import { useAppSelector } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
@@ -13,6 +14,7 @@ import { convertTreeItemsForExport } from "../tree-lists/utils/export";
 const ExportSettings = () => {
     const typeSettings = useContext(TypeSettingContext);
     const listsState = useAppSelector((state) => state.lists);
+    const { t } = useTranslation("settings");
 
     let listItems: any;
     let listItemsWithoutID: any;
@@ -32,10 +34,10 @@ const ExportSettings = () => {
     // https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
     let button: React.ReactElement | null = null;
     let code: React.ReactElement | null = null;
-    let help: React.ReactElement | string = "There are no list items to export yet";
+    let help: React.ReactElement | string = t("there-are-no-list-items-to-export-yet");
 
-    const copySuccess = "Copied data to clipboard";
-    const copyError = "Unable to copy data to clipboard";
+    const copySuccess = t("copied-data-to-clipboard");
+    const copyError = t("unable-to-copy-data-to-clipboard");
 
     const copyListItemData = (_e: React.MouseEvent<HTMLElement>) => {
         if (navigator.clipboard && window.isSecureContext) {
@@ -53,12 +55,17 @@ const ExportSettings = () => {
     };
 
     if (listItemsWithoutID.length > 0) {
-        const typeLink = <Link to={"/?type=" + typeSettings["type"]}>{typeSettings["title"]}</Link>;
-        help = <>Use the list item data below to import ({typeLink}) list items on to other devices"</>;
+        /* https://stackoverflow.com/questions/72030446/react-18-react-i18next-trans-component-interpolation-issue */
+        help = (
+            <Trans t={t} i18nKey="export-list-items-on-to-other-devices" values={{ list: typeSettings.title }}>
+                Use the list item data below to import (<Link to={"/?type=" + typeSettings.type}>list</Link>) list items on to other devices
+            </Trans>
+        );
+
         button = (
             <div className="form-section">
-                <button type="button" className="btn btn-outline-secondary" aria-label="Copy data to clipboard" onClick={copyListItemData}>
-                    Copy list item data To Clipboard
+                <button type="button" className="btn btn-outline-secondary" aria-label={t("copy-list-item-data-to-clipboard")} onClick={copyListItemData}>
+                    {t("copy-list-item-data-to-clipboard")}
                 </button>
             </div>
         );
@@ -71,7 +78,7 @@ const ExportSettings = () => {
 
     return (
         <div className="export-settings">
-            <h3>Export List Items</h3>
+            <h3>{t("export-list-items")}</h3>
             <p>{help}</p>
             {code}
             {button}

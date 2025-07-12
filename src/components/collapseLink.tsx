@@ -1,4 +1,6 @@
 import { useEffect, useRef, useContext } from "react";
+import { useTranslation } from "react-i18next";
+
 import { Link } from "react-router-dom";
 
 import { CollapseContext } from "../contexts/collapse-context";
@@ -7,6 +9,7 @@ interface CollapseLinkProps {
 }
 
 const CollapseLink = (props: CollapseLinkProps) => {
+    const { t } = useTranslation("common");
     const collapse = useContext(CollapseContext);
     const isFormCollapsedRef = useRef(false);
 
@@ -39,11 +42,11 @@ const CollapseLink = (props: CollapseLinkProps) => {
             if ("hide" === toggle) {
                 collapse.collapseLink.current.classList.remove("add-items");
                 collapse.collapseLink.current.classList.add("hide-form");
-                collapse.collapseLink.current.innerHTML = "Hide Form";
+                collapse.collapseLink.current.innerHTML = t("hide-form");
             } else {
                 collapse.collapseLink.current.classList.add("add-items");
                 collapse.collapseLink.current.classList.remove("hide-form");
-                collapse.collapseLink.current.innerHTML = "Add Items";
+                collapse.collapseLink.current.innerHTML = t("add-items");
             }
         }
     };
@@ -115,7 +118,7 @@ const CollapseLink = (props: CollapseLinkProps) => {
             aria-controls="form-collapse"
             ref={collapse.collapseLink}
         >
-            Add Items
+            {t("add-items")}
         </Link>
     );
 };

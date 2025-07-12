@@ -2,6 +2,7 @@ import { useRef, useContext } from "react";
 import { Modal } from "bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Trans, useTranslation } from "react-i18next";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { DeleteListType } from "../../features/lists-slice";
@@ -13,6 +14,7 @@ const DeleteSettings = () => {
     const navigate = useNavigate();
     const modalRef = useRef<HTMLDivElement>(null);
     const typeSettings = useContext(TypeSettingContext);
+    const { t } = useTranslation("settings");
     const listTitle = typeSettings["title"];
     const listsState = useAppSelector((state) => state.lists);
 
@@ -59,34 +61,39 @@ const DeleteSettings = () => {
 
     return (
         <div className="delete-settings">
-            <h3>Danger Zone</h3>
+            <h3>{t("danger-zone")}</h3>
             <div>
                 <p>
-                    Delete this list (<Link to={"/?type=" + typeSettings["type"]}>{typeSettings["title"]}</Link>.) This will delete the list and all it's items
+                    {/* https://stackoverflow.com/questions/72030446/react-18-react-i18next-trans-component-interpolation-issue */}
+                    <Trans t={t} i18nKey="delete-this-list" values={{ list: typeSettings.title }}>
+                        Delete this list (<Link to={"/?type=" + typeSettings.type}>list</Link>)
+                    </Trans>{" "}
+                    {t("this-will-delete-the-list-and-all-its-items")}
                 </p>
 
                 <div className="delete-modal">
-                    <button type="button" className="btn btn-outline-danger" aria-label="Delete list" onClick={showModal}>
-                        Delete List
+                    <button type="button" className="btn btn-outline-danger" aria-label={t("delete-list")} onClick={showModal}>
+                        {t("delete-list")}
                     </button>
                     <div className="modal fade" ref={modalRef} tabIndex={-1}>
                         <div className="modal-dialog">
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title" id="staticBackdropLabel">
-                                        Delete List
+                                        {t("delete-list")}
                                     </h5>
                                     <button type="button" className="btn-close" onClick={hideModal} aria-label="Close"></button>
                                 </div>
                                 <div className="modal-body">
-                                    Are you sure you want to delete the list: {typeSettings["title"]}? This action will delete this list and all its items.
+                                    {t("are-you-sure-you-want-to-delete-the-list", { list: typeSettings["title"] })}?{" "}
+                                    {t("this-action-will-delete-this-list-and-all-its-items")}.
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" onClick={hideModal}>
-                                        Close
+                                        {t("close")}
                                     </button>
                                     <button type="button" className="btn btn-danger" onClick={deleteList}>
-                                        Delete List
+                                        {t("delete-list")}
                                     </button>
                                 </div>
                             </div>

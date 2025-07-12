@@ -1,6 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Trans, useTranslation } from "react-i18next";
 
 import { useAppDispatch } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
@@ -14,14 +15,15 @@ import { ColorPicker } from "../color-picker/color-picker";
 
 const DateFormSettings = () => {
     const dispatch = useAppDispatch();
+    const { t } = useTranslation("date-settings");
+
     const typeSettings = useContext(TypeSettingContext);
 
     const [pastColor, setPastColor] = useState(typeSettings.settings.pastDateColor);
     const [todayColor, setTodayColor] = useState(typeSettings.settings.todayDateColor);
 
-    let pageTitle = "Settings";
-    let settingsInfo = "Settings for list: ";
-    let buttonText = "Update Settings";
+    let pageTitle = t("settings");
+    let buttonText = t("update-settings");
 
     // HTML elements
     const titleInput = useRef<HTMLInputElement>(null);
@@ -93,10 +95,10 @@ const DateFormSettings = () => {
             // Update type settings
             dispatch(updateListType(dateSettings));
             // Display message.
-            toast.info("Settings Updated");
+            toast.info(t("settings-updated"));
         } else {
             // Something went wrong
-            toast.error("Could not update settings");
+            toast.error(t("could-not-update-settings"));
         }
     };
 
@@ -104,16 +106,18 @@ const DateFormSettings = () => {
         <div className="date-settings">
             <form className="app-form" onSubmit={submitSettings}>
                 <h1>{pageTitle}</h1>
-                {settingsInfo && (
-                    <p>
-                        {settingsInfo} <Link to={"/?type=" + typeSettings.type}>{typeSettings.title}</Link>
-                    </p>
-                )}
+                <p>
+                    {/* https://stackoverflow.com/questions/72030446/react-18-react-i18next-trans-component-interpolation-issue */}
+                    <Trans t={t} i18nKey="settings-for-list" values={{ list: typeSettings.title }}>
+                        Settings for list: <Link to={"/?type=" + typeSettings.type}>list</Link>
+                    </Trans>
+                </p>
+
                 <div className="form-group">
                     <GeneralSettingsInputElements refs={generalSettingsRefs} newSetting={false} settings={typeSettings} />
                     <div className="date-settings">
                         <div className="form-section">
-                            <p className="form-label">Date Options</p>
+                            <p className="form-label">{t("date-options")}</p>
                             <div className="form-check">
                                 <input
                                     ref={showRelativeDateInput}
@@ -124,7 +128,7 @@ const DateFormSettings = () => {
                                     defaultChecked={typeSettings.settings.showRelativeDate}
                                 />
                                 <label htmlFor="showRelativeDate" className="form-check-label">
-                                    Show relative dates (e.g., "in 2 days")
+                                    {t("show-relative-dates-eg-in-2-days")}
                                 </label>
                             </div>
                             <div className="form-check">
@@ -137,13 +141,13 @@ const DateFormSettings = () => {
                                     defaultChecked={typeSettings.settings.showDate}
                                 />
                                 <label htmlFor="showDate" className="form-check-label">
-                                    Show dates (with date format below)
+                                    {t("show-dates-with-date-format-below")}
                                 </label>
                             </div>
                         </div>
                         <div className="form-section">
                             <label htmlFor="dateFormat" className="form-label">
-                                Date Format
+                                {t("date-format")}
                             </label>
                             <input
                                 ref={dateFormatInput}
@@ -155,7 +159,7 @@ const DateFormSettings = () => {
                                 aria-describedby="formatHelp"
                             />
                             <small id="formatHelp" className="form-text text-muted">
-                                Example format: DD/MM/YYYY. <a href="https://day.js.org/docs/en/display/format">List of all available formats</a>
+                                {t("example-format-ddmmyyyy")} <a href="https://day.js.org/docs/en/display/format">{t("list-of-all-available-formats")}</a>
                             </small>
                         </div>
                         <div className="form-section">
@@ -170,7 +174,7 @@ const DateFormSettings = () => {
                                 />
                                 <div className="label-color-picker">
                                     <label htmlFor="usePastDateColor" className="form-check-label">
-                                        Text color for list items with a past date
+                                        {t("text-color-for-list-items-with-a-past-date")}
                                     </label>
                                     <ColorPicker color={pastColor} onChange={setPastColor} />
                                 </div>
@@ -186,7 +190,7 @@ const DateFormSettings = () => {
                                 />
                                 <div className="label-color-picker">
                                     <label htmlFor="useTodayDateColor" className="form-check-label">
-                                        Text color for list items with today's date
+                                        {t("text-color-for-list-items-with-todays-date")}
                                     </label>
                                     <ColorPicker color={todayColor} onChange={setTodayColor} />
                                 </div>

@@ -1,4 +1,5 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { useAppSelector } from "../app/hooks";
 
@@ -6,6 +7,7 @@ import { sanitizePathname } from "../utils/path";
 import { getFirstListObject } from "../utils/type";
 
 const Navbar = () => {
+    const { t } = useTranslation("common");
     const location = useLocation();
     const [searchParams] = useSearchParams();
 
@@ -33,7 +35,7 @@ const Navbar = () => {
 
     const dropdown = (
         <Link className="nav-link dropdown-toggle" data-bs-toggle="dropdown" to={"/" + typeString}>
-            <span>Lists</span>
+            <span>{t("lists")}</span>
         </Link>
     );
 
@@ -68,7 +70,7 @@ const Navbar = () => {
             )}
             <li className="nav-item add">
                 <Link className="nav-link add-type" to="/add-new-list">
-                    Add List
+                    {t("add-list")}
                 </Link>
             </li>
         </ul>

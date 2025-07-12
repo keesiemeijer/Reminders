@@ -4,6 +4,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 import { store, persistor } from "./app/store";
 import React from "react";
+import "./i18n";
 import App from "./App";
 
 import "bootstrap/dist/css/bootstrap.min.css";

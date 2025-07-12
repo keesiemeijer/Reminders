@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface HistoryNavProps {
     updateHistory: (action: () => void) => void;
     history: {
@@ -13,6 +15,8 @@ interface HistoryNavProps {
 }
 
 const HistoryNav = (props: HistoryNavProps) => {
+    const { t } = useTranslation("common");
+
     let undoClass = "undo-action";
     let redoClass = "redo-action";
 
@@ -32,10 +36,10 @@ const HistoryNav = (props: HistoryNavProps) => {
     return (
         <div className={"history-nav" + containerClass}>
             <button disabled={!props.history.canUndo} className={undoClass} onClick={() => props.updateHistory(props.history.undoHistory)}>
-                Undo
+                {t("undo")}
             </button>
             <button disabled={!props.history.canRedo} className={redoClass} onClick={() => props.updateHistory(props.history.redoHistory)}>
-                Redo
+                {t("redo")}
             </button>
         </div>
     );

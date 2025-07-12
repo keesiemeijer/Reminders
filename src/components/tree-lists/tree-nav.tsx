@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { FlattenedItem, TreeItems } from "./tree-types";
 import { flattenTree, getParentsOf } from "./utils/tree";
@@ -11,6 +12,7 @@ interface TreeNavProps {
 }
 
 const TreeNav = (props: TreeNavProps) => {
+    const { t } = useTranslation("tree-lists");
     const flattenedItems = flattenTree(props.items);
 
     let parents: FlattenedItem[] = [];
@@ -27,7 +29,7 @@ const TreeNav = (props: TreeNavProps) => {
                         {parents.length > 0 && (
                             <li className="breadcrumb-item home" key={1}>
                                 <Link className="tree-home" to={"/?type=" + props.type} onClick={props.clearHistory}>
-                                    <span className="sr-only">Home</span>
+                                    <span className="sr-only">{t("home")}</span>
                                 </Link>
                             </li>
                         )}

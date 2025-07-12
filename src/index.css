@@ -367,6 +367,10 @@ code {
     border-radius: 0;
 }
 
+.date-buttons button {
+    margin-right: 0.5rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
     * {
         transition-duration: 1ms !important;

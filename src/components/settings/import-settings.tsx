@@ -1,4 +1,5 @@
 import React, { useRef, useContext } from "react";
+import { useTranslation } from "react-i18next";
 
 import { toast } from "react-toastify";
 
@@ -11,6 +12,7 @@ const ImportSettings = () => {
     const dispatch = useAppDispatch();
     const typeSettings = useContext(TypeSettingContext);
     const importInput = useRef<HTMLTextAreaElement>(null);
+    const { t } = useTranslation("settings");
 
     const submitImport = (e: React.FormEvent<HTMLFormElement>) => {
         // Form was submitted
@@ -36,26 +38,26 @@ const ImportSettings = () => {
                 dispatch(importTreeListItems(payload));
             }
 
-            toast.info("List Items imported");
+            toast.info(t("list-items-imported"));
         } else {
-            toast.error("No List Items imported (data invalid)");
+            toast.error(t("no-list-items-imported-data-invalid"));
         }
     };
 
     return (
         <div className="import-settings">
-            <h3>Import List Items</h3>
-            <p>Import list items from other devices</p>
+            <h3>{t("import-list-items")}</h3>
+            <p>{t("import-list-items-from-other-devices")}</p>
             <form className="app-form" onSubmit={submitImport}>
                 <div className="form-section">
                     <label htmlFor="importListItems" className="form-label">
-                        List item data
+                        {t("list-item-data")}
                     </label>
                     <textarea className="form-control" ref={importInput} id="importListItems" rows={6} />
                 </div>
                 <div className="form-section">
-                    <button type="submit" className="btn btn-outline-secondary" aria-label="Import list items">
-                        Import List Item Data
+                    <button type="submit" className="btn btn-outline-secondary" aria-label={t("import-list-items")}>
+                        {t("import-list-item-data")}
                     </button>
                 </div>
             </form>

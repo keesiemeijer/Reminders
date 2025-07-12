@@ -1,4 +1,5 @@
 import { useContext, useRef } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,15 +14,16 @@ import { TreeListSettings } from "../tree-lists/tree-types";
 const TreeSettings = () => {
     const dispatch = useAppDispatch();
     const typeSettings = useContext(TypeSettingContext);
+    const { t } = useTranslation("tree-settings");
 
-    let pageTitle = "Settings";
-    let settingsInfo = "Settings for list: ";
-    let buttonText = "Update Settings";
+    let pageTitle = t("settings");
+    let buttonText = t("update-settings");
 
     // HTML elements
     const titleInput = useRef<HTMLInputElement>(null);
     const descInput = useRef<HTMLTextAreaElement>(null);
     const orderInput = useRef<HTMLInputElement>(null);
+    const settingsLink = <Link to={"/?type=" + typeSettings.type}>{typeSettings.title}</Link>;
 
     // Genneral Settings
     const generalSettingsRefs = {
@@ -50,10 +52,10 @@ const TreeSettings = () => {
             // Update type settings
             dispatch(updateListType(treeSettings));
             // Display message.
-            toast.info("Settings Updated");
+            toast.info(t("settings-updated"));
         } else {
             // Something went wrong
-            toast.error("Could not update settings");
+            toast.error(t("could-not-update-settings"));
         }
     };
 
@@ -61,15 +63,16 @@ const TreeSettings = () => {
         <div className="date-settings">
             <form className="app-form" onSubmit={submitSettings}>
                 <h1>{pageTitle}</h1>
-                {settingsInfo && (
-                    <p>
-                        {settingsInfo} <Link to={"/?type=" + typeSettings.type}>{typeSettings.title}</Link>
-                    </p>
-                )}
+                <p>
+                    {/* https://stackoverflow.com/questions/72030446/react-18-react-i18next-trans-component-interpolation-issue */}
+                    <Trans t={t} i18nKey="settings-for-list" values={{ list: typeSettings.title }}>
+                        Settings for list: <Link to={"/?type=" + typeSettings.type}>list</Link>
+                    </Trans>
+                </p>
                 <div className="form-group">
                     <GeneralSettingsInputElements refs={generalSettingsRefs} newSetting={false} settings={typeSettings} />
                     <div className="form-section">
-                        <button type="submit" className="btn btn-primary" aria-label="Update settings">
+                        <button type="submit" className="btn btn-primary" aria-label={t("update-settings")}>
                             {buttonText}
                         </button>
                     </div>

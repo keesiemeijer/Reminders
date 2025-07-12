@@ -1,5 +1,6 @@
 import { useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { toast } from "react-toastify";
 import slugify from "@sindresorhus/slugify";
@@ -17,13 +18,14 @@ import { GeneralSettingsInputElements } from "./general-settings-Input-elements"
 const NewSettings = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { t } = useTranslation("new-settings");
 
     const typeSettings = useContext(TypeSettingContext);
     const listsState = useAppSelector((state) => state.lists);
 
-    let pageTitle = "Add New List";
+    let pageTitle = t("add-new-list");
     let settingsInfo = "";
-    let buttonText = "Add New List";
+    let buttonText = t("add-new-list");
 
     // HTML elements
     const titleInput = useRef<HTMLInputElement>(null);
@@ -50,9 +52,9 @@ const NewSettings = () => {
         const slugExists = listTypes.includes(slug);
 
         if (!slug || slugExists) {
-            let error = "Title already exists.";
+            let error = t("title-already-exists");
             if (!slug) {
-                error = "Title is invalid.";
+                error = t("title-is-invalid");
             }
 
             if (generalSettingsRefs.titleInput.current !== null) {
@@ -62,7 +64,7 @@ const NewSettings = () => {
 
             toast.error(
                 <p>
-                    Could not add new list.
+                    {t("could-not-add-new-list")}
                     <br />
                     {error}
                 </p>
@@ -109,8 +111,8 @@ const NewSettings = () => {
                 <div className="form-group">
                     <GeneralSettingsInputElements refs={generalSettingsRefs} newSetting={true} settings={typeSettings} />
                     <div className="form-section">
-                        <button type="submit" className="btn btn-primary" aria-label="Update settings">
-                            {buttonText}
+                        <button type="submit" className="btn btn-primary" aria-label={t("add-new-list")}>
+                            {t("add-new-list")}
                         </button>
                     </div>
                 </div>

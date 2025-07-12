@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../app/hooks";
 import { removeListItems } from "../../features/lists-slice";
 import { DateListSettings } from "./date-types";
@@ -13,6 +14,7 @@ interface ListItemProps {
 
 const ListItem = (props: ListItemProps) => {
     const dispatch = useAppDispatch();
+    const { t } = useTranslation("date-lists");
     const deleteListItem = (_e: React.MouseEvent<HTMLElement>) => {
         dispatch(removeListItems({ ids: [props.item.id], type: props.settings.type }));
     };
@@ -28,7 +30,7 @@ const ListItem = (props: ListItemProps) => {
                 <div className="list-item-text">{props.item.text}</div>
                 <ListItemDate date={props.item.date} settings={props.settings} dateType={dateClass} />
             </div>
-            <button type="button" className="delete-item" tabIndex={0} aria-label="Delete List Item" onClick={deleteListItem}></button>
+            <button type="button" className="delete-item" tabIndex={0} aria-label={t("delete-list-item")} onClick={deleteListItem}></button>
         </li>
     );
 };

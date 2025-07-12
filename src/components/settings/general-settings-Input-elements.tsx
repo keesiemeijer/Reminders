@@ -1,21 +1,23 @@
 import { ListSettings } from "../../features/lists-slice";
 import { GeneralSettingsRefs } from "./utils/general-settings";
+import { useTranslation } from "react-i18next";
 
 export const GeneralSettingsInputElements = (props: { settings: ListSettings; refs: GeneralSettingsRefs; newSetting: boolean }) => {
-    let titleInfo = "The title can't be edited";
+    const { t } = useTranslation("settings");
+    let titleInfo = t("the-title-cant-be-edited");
     let disabled = true;
     let orderByDateInfo;
     let newInfo = "";
 
     if (props.settings.orderByDate) {
-        orderByDateInfo = "Date ordered lists can't be changed to manual ordered lists";
+        orderByDateInfo = t("date-ordered-lists-cant-be-changed-to-manual-ordered-lists");
     } else {
-        orderByDateInfo = "Manual ordereded lists can't be changed to date ordered lists";
+        orderByDateInfo = t("manual-ordereded-lists-cant-be-changed-to-date-ordered-lists");
     }
 
     if (props.newSetting) {
         titleInfo = "";
-        newInfo = "More list settings can be found in the individual setting pages for lists.";
+        newInfo = t("more-list-settings-can-be-found-in-the-individual-setting-pages-for-lists");
         orderByDateInfo = "";
         disabled = false;
     }
@@ -24,7 +26,7 @@ export const GeneralSettingsInputElements = (props: { settings: ListSettings; re
         <div className="general-settings">
             <div className="form-section">
                 <label htmlFor="title" className="form-label">
-                    Title
+                    {t("title")}
                 </label>
                 <input
                     ref={props.refs.titleInput}
@@ -36,7 +38,7 @@ export const GeneralSettingsInputElements = (props: { settings: ListSettings; re
                     aria-describedby="titleHelp"
                     disabled={disabled}
                     pattern=".*\S+.*"
-                    onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity("Please provide a title")}
+                    onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity(t("please-provide-a-title"))}
                     onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
                     required={true}
                 />
@@ -46,12 +48,12 @@ export const GeneralSettingsInputElements = (props: { settings: ListSettings; re
             </div>
             <div className="form-section">
                 <label htmlFor="description" className="form-label">
-                    Description
+                    {t("description")}
                 </label>
                 <textarea className="form-control" ref={props.refs.descInput} id="description" rows={3} defaultValue={props.settings.description} />
             </div>
             <div className="form-section">
-                <p className="form-label">List Style</p>
+                <p className="form-label">{t("list-style")}</p>
                 <div className="form-check">
                     <input
                         className="form-check-input"
@@ -63,7 +65,7 @@ export const GeneralSettingsInputElements = (props: { settings: ListSettings; re
                         disabled={disabled}
                     />
                     <label className="form-check-label" htmlFor="orderedbydate">
-                        Date Odered List
+                        {t("date-ordered-list")}
                     </label>
                 </div>
                 <div className="form-check">
@@ -76,7 +78,7 @@ export const GeneralSettingsInputElements = (props: { settings: ListSettings; re
                         disabled={disabled}
                     />
                     <label className="form-check-label" htmlFor="orderedmanually">
-                        Manual Ordered List
+                        {t("manual-ordered-list")}
                     </label>
                 </div>
                 {orderByDateInfo && (

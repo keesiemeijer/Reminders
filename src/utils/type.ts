@@ -87,7 +87,17 @@ export const isValidListSettingsObject = (item: ListSettings): boolean => {
     const booleans = ["orderByDate"];
     const objects = ["settings"];
 
-    const validSetting = strings.concat(booleans, objects).every(function (key) {
+    const types = strings.concat(booleans, objects);
+
+    // Check type keys is the same as default keys
+    // Just to make sure we validate every property
+    const defaults = Object.keys(SettingDefault);
+    if (types.sort().join("") !== defaults.sort().join("")) {
+        console.log(types, " - types doesn't match defaults");
+        return false;
+    }
+
+    const validSetting = types.every(function (key) {
         if (!item.hasOwnProperty(key)) {
             console.log(key + " - property doesn't exist");
             return false;

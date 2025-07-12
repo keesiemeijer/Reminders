@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { CollapseContext } from "../../contexts/collapse-context";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
@@ -11,11 +12,13 @@ import { useHistoryState } from "../../app/hooks";
 import HistoryNav from "../history-nav";
 
 import { DateListItem, DateListSettings, DateListType } from "./date-types";
+import DateButtons from "./date-buttons";
 
 import DateList from "./list";
 
 const DateLists = () => {
     const dispatch = useAppDispatch();
+    const { t } = useTranslation("date-lists");
 
     const typeSettings: DateListSettings = useContext(TypeSettingContext);
     const listType = typeSettings.type;
@@ -123,7 +126,7 @@ const DateLists = () => {
             // Set list item added flag to true (for scrolling in useEffect).
             isNewListItemDispatched.current = true;
         } else {
-            alert("Invalid List Item. Try again");
+            alert(t("invalid-list-item-try-again"));
         }
     };
 
@@ -145,10 +148,9 @@ const DateLists = () => {
                         <ul className="nav sub-navigation">
                             <li className="nav-item">
                                 <Link className="nav-link nav-settings" to={"/settings?type=" + listType}>
-                                    Settings
+                                    {t("settings")}
                                 </Link>
                             </li>
-
                             <li>
                                 <CollapseLink listItemCount={listItemCount} />
                             </li>
@@ -157,19 +159,22 @@ const DateLists = () => {
                         <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
                             <div className="form-section">
                                 <label htmlFor="list-item-text" className="form-label">
-                                    List Item
+                                    {t("list-item")}
                                 </label>
                                 <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
                             </div>
                             <div className="form-section">
                                 <label htmlFor="list-item-date" className="form-label">
-                                    List Item Date
+                                    {t("list-item-date")}
                                 </label>
                                 <input type="date" id="list-item-date" className="form-control" name="listItemDate" ref={dateInput} required={true} />
                             </div>
                             <div className="form-section">
+                                <DateButtons dateInput={dateInput} />
+                            </div>
+                            <div className="form-section">
                                 <button type="submit" className="btn btn-success">
-                                    Add List Item
+                                    {t("add-list-item")}
                                 </button>
                             </div>
                         </div>
@@ -179,7 +184,7 @@ const DateLists = () => {
                     <HistoryNav updateHistory={handleHistoryUpdate} history={history} />
                 </div>
                 <DateList listType={listType} settings={typeSettings} listItems={listItems} newListItem={newListItem} latestListItemID={latestListItemID} />
-                {listItemCount === 0 && <p>There are no list items yet</p>}
+                {listItemCount === 0 && <p>{t("there-are-no-list-items-yet")}</p>}
             </div>
         </CollapseContext.Provider>
     );

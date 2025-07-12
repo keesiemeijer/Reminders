@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import objectHash from "object-hash";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -20,6 +22,7 @@ import TreeNav from "./tree-nav";
 
 const TreeLists = () => {
     const dispatch = useAppDispatch();
+    const { t } = useTranslation("tree-lists");
 
     const typeSettings: TreeListSettings = useContext(TypeSettingContext);
     const listType = typeSettings.type;
@@ -153,7 +156,7 @@ const TreeLists = () => {
             // Set list item added flag to true (for scrolling in useEffect).
             isNewListItemDispatched.current = true;
         } else {
-            alert("Invalid List Item. Try again");
+            alert(t("invalid-list-item-try-again"));
         }
     };
 
@@ -188,7 +191,7 @@ const TreeLists = () => {
                         <ul className="nav sub-navigation">
                             <li className="nav-item">
                                 <Link className="nav-link nav-settings" to={"/settings?type=" + listType}>
-                                    Settings
+                                    {t("settings")}
                                 </Link>
                             </li>
 
@@ -200,13 +203,13 @@ const TreeLists = () => {
                         <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
                             <div className="form-section">
                                 <label htmlFor="list-item-text" className="form-label">
-                                    List Item
+                                    {t("list-item")}
                                 </label>
                                 <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
                             </div>
                             <div className="form-section">
                                 <button type="submit" className="btn btn-success">
-                                    Add List Item
+                                    {t("add-list-item")}
                                 </button>
                             </div>
                         </div>
@@ -232,7 +235,7 @@ const TreeLists = () => {
 
                 {listItemCount === 0 && (
                     <div className="tree-nav">
-                        <p>There are no list items yet</p>
+                        <p>{t("there-are-no-list-items-yet")}</p>
                     </div>
                 )}
             </div>
