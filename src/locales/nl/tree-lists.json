@@ -1,0 +1,11 @@
+{
+    "add-item": "Item toevoegen",
+    "settings": "Instellingen",
+    "list-item": "Lijstitem",
+    "add-list-item": "Lijstitem toevoegen",
+    "there-are-no-list-items-yet": "Er zijn nog geen items",
+    "invalid-list-item-try-again": "Ongeldig lijstitem. Probeer het opnieuw",
+    "home": "Home",
+    "go-to-item-id": "Ga naar item {{id}}",
+    "delete-list-item": "Lijstitem verwijderen"
+}

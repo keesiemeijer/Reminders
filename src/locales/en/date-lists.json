@@ -1,0 +1,21 @@
+{
+    "invalid-list-item-try-again": "Invalid List Item. Try again",
+    "list-item": "List Item",
+    "settings": "Settings",
+    "list-item-date": "List Item Date",
+    "add-list-item": "Add List Item",
+    "there-are-no-list-items-yet": "There are no list items yet",
+    "delete-list-item": "Delete List Item",
+    "today": "today",
+    "tomorrow": "tomorrow",
+    "intlRelativeTime-month": "{{val, relativetime(month)}}",
+    "intlRelativeTime-week": "{{val, relativetime(week)}}",
+    "intlRelativeTime-day": "{{val, relativetime(day)}}",
+    "intlRelativeTime-hour": "{{val, relativetime(hour)}}",
+    "month-WithCount_one": "{{count}} month",
+    "month-WithCount_other": "{{count}} months",
+    "week-WithCount_one": "{{count}} week",
+    "week-WithCount_other": "{{count}} weeks",
+    "day-WithCount_one": "{{count}} day",
+    "day-WithCount_other": "{{count}} days"
+}

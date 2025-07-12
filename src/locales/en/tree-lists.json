@@ -1,0 +1,11 @@
+{
+    "add-item": "Add Item",
+    "settings": "Settings",
+    "list-item": "List Item",
+    "add-list-item": "Add List Item",
+    "there-are-no-list-items-yet": "There are no list items yet",
+    "invalid-list-item-try-again": "Invalid List Item. Try again",
+    "home": "Home",
+    "go-to-item-id": "Go to item {{id}}",
+    "delete-list-item": "Delete List Item"
+}

@@ -1,0 +1,21 @@
+{
+    "invalid-list-item-try-again": "Ongeldig item. Probeer het opnieuw",
+    "list-item": "Item",
+    "settings": "Instellingen",
+    "list-item-date": "Datum",
+    "add-list-item": "Item toevoegen",
+    "there-are-no-list-items-yet": "Er zijn nog geen items",
+    "delete-list-item": "Item verwijderen",
+    "today": "vandaag",
+    "tomorrow": "morgen",
+    "intlRelativeTime-month": "{{val, relativetime(month)}}",
+    "intlRelativeTime-week": "{{val, relativetime(week)}}",
+    "intlRelativeTime-day": "{{val, relativetime(day)}}",
+    "intlRelativeTime-hour": "{{val, relativetime(hour)}}",
+    "month-WithCount_one": "{{count}} maand",
+    "month-WithCount_other": "{{count}} maanden",
+    "week-WithCount_one": "{{count}} week",
+    "week-WithCount_other": "{{count}} weken",
+    "day-WithCount_one": "{{count}} dag",
+    "day-WithCount_other": "{{count}} dagen"
+}

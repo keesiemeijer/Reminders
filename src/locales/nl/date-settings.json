@@ -1,0 +1,15 @@
+{
+    "date-options": "Datumopties",
+    "settings": "Instellingen",
+    "settings-for-list": "Instellingen voor lijst: <1>{{list}}</1>",
+    "update-settings": "Instellingen bijwerken",
+    "settings-updated": "Instellingen bijgewerkt",
+    "could-not-update-settings": "Kon instellingen niet bijwerken",
+    "show-dates-with-date-format-below": "Toon datums (met onderstaande datumformaat)",
+    "show-relative-dates-eg-in-2-days": "Toon relatieve datums (bijv. \"over 2 dagen\")",
+    "date-format": "Datumformaat",
+    "example-format-ddmmyyyy": "Voorbeeldformaat: DD/MM/JJJJ.",
+    "list-of-all-available-formats": "Lijst van alle beschikbare formaten",
+    "text-color-for-list-items-with-a-past-date": "Tekstkleur voor items met een datum in het verleden",
+    "text-color-for-list-items-with-todays-date": "Tekstkleur voor items met de datum van vandaag"
+}
