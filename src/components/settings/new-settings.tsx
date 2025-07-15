@@ -23,10 +23,6 @@ const NewSettings = () => {
     const typeSettings = useContext(TypeSettingContext);
     const listsState = useAppSelector((state) => state.lists);
 
-    let pageTitle = t("add-new-list");
-    let settingsInfo = "";
-    let buttonText = t("add-new-list");
-
     // HTML elements
     const titleInput = useRef<HTMLInputElement>(null);
     const descInput = useRef<HTMLTextAreaElement>(null);
@@ -102,12 +98,7 @@ const NewSettings = () => {
     return (
         <div className="date-settings">
             <form className="app-form" onSubmit={submitSettings}>
-                <h1>{pageTitle}</h1>
-                {settingsInfo && (
-                    <p>
-                        {settingsInfo} <Link to={"/?type=" + typeSettings.type}>{typeSettings.title}</Link>
-                    </p>
-                )}
+                <h1>{t("add-new-list")}</h1>
                 <div className="form-group">
                     <GeneralSettingsInputElements refs={generalSettingsRefs} newSetting={true} settings={typeSettings} />
                     <div className="form-section">
