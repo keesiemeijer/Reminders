@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -12,6 +12,7 @@ import { useHistoryState } from "../../app/hooks";
 import HistoryNav from "../history-nav";
 
 import { DateListItem, DateListSettings, DateListType } from "./date-types";
+import { FormattedRelativeDate } from "./utils/date";
 import DateButtons from "./date-buttons";
 
 import DateList from "./list";
@@ -19,6 +20,7 @@ import DateList from "./list";
 const DateLists = () => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation("date-lists");
+    const [date, setDate] = useState("");
 
     const typeSettings: DateListSettings = useContext(TypeSettingContext);
     const listType = typeSettings.type;
@@ -39,7 +41,6 @@ const DateLists = () => {
     const userScrollBehavior = useRef(userScrollSetting);
     const isNewListItemDispatched = useRef(false);
     const historyButtonClicked = useRef(false);
-    // const isFormCollapsedRef = useRef(false);
 
     // HTML elements
     const listItemInput = useRef<HTMLInputElement>(null);
@@ -47,6 +48,7 @@ const DateLists = () => {
     const newListItem = useRef<HTMLLIElement | null>(null);
     const collapseContainerRef = useRef<HTMLDivElement>(null);
     const collapseLinkRef = useRef<HTMLAnchorElement>(null);
+    const datePreview = useRef<HTMLParagraphElement>(null);
 
     // References for the form collapse link (context)
     const collapse = {
@@ -138,6 +140,15 @@ const DateLists = () => {
         historyButtonClicked.current = true;
     };
 
+    useEffect(() => {
+        if (!dateInput.current || !datePreview.current) {
+            return;
+        }
+
+        // Add date to preview
+        datePreview.current.innerHTML = FormattedRelativeDate(dateInput.current.value);
+    }, [date]);
+
     return (
         <CollapseContext.Provider value={collapse}>
             <div className="date-lists">
@@ -167,10 +178,21 @@ const DateLists = () => {
                                 <label htmlFor="list-item-date" className="form-label">
                                     {t("list-item-date")}
                                 </label>
-                                <input type="date" id="list-item-date" className="form-control" name="listItemDate" ref={dateInput} required={true} />
+                                <div className="date-container">
+                                    <input
+                                        type="date"
+                                        id="list-item-date"
+                                        className="form-control"
+                                        name="listItemDate"
+                                        ref={dateInput}
+                                        onChange={(e) => setDate(e.target.value)}
+                                        required={true}
+                                    />
+                                    <p className="date-preview" ref={datePreview}></p>
+                                </div>
                             </div>
                             <div className="form-section">
-                                <DateButtons dateInput={dateInput} />
+                                <DateButtons dateInput={dateInput} setDate={setDate} />
                             </div>
                             <div className="form-section">
                                 <button type="submit" className="btn btn-success">

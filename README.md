@@ -1,6 +1,6 @@
 # Reminders
 
-Lists app made with Vite, React, Typescript, Redux Toolkit, Redux Persist, i18next
+Date Lists app made with Vite, React, Typescript, Redux Toolkit, Redux Persist, i18next
 
 Create date or manually ordered lists online.
 

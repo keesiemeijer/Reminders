@@ -1,21 +1,46 @@
+import i18n from "i18next";
+
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import isToday from "dayjs/plugin/isToday";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
-import localeData from "dayjs/plugin/localeData";
-import localizedFormat from "dayjs/plugin/localizedFormat";
 
-import { DateListSettings } from "../date-types";
+import { DateSettingsDefault } from "./default";
+import { DateSettings } from "../date-types";
+import { isValidDate } from "./validate";
+
+// The next comment is used to trick the vscode i18n ally extension to use the right namespace
+// useTranslation("date-lists")
 
 dayjs.extend(relativeTime);
 dayjs.extend(isToday);
 dayjs.extend(customParseFormat);
 dayjs.extend(duration);
-dayjs.extend(localeData);
-dayjs.extend(localizedFormat);
+
+interface DateDuration {
+    type: string;
+    hour: number;
+    day: number;
+    month: number;
+    year: number;
+}
+
+interface LocalizedDate {
+    day: string;
+    month: string;
+    year: string;
+}
+
+export const dateExists = (date: string, format = "YYYY-MM-DD"): boolean => {
+    return dayjs(date, format, true).isValid();
+};
 
 export const RelativeDateClass = (date: string): string => {
+    if (!isValidDate(date)) {
+        return "";
+    }
+
     let dateClass = "future";
 
     if (dayjs(date).isToday()) {
@@ -29,35 +54,96 @@ export const RelativeDateClass = (date: string): string => {
     return dateClass;
 };
 
-export const dateAdd = (number: number, type: string): string => {
-    return dayjs()
-        .add(number, type as dayjs.ManipulateType)
-        .format("YYYY-MM-DD");
+export const dateAdd = (number: number, type: string, from = ""): string => {
+    if ("" !== from && !isValidDate(from)) {
+        return "";
+    }
+    const now = "" !== from ? dayjs(from) : dayjs();
+    return now.add(number, type as dayjs.ManipulateType).format("YYYY-MM-DD");
 };
 
-export interface DateDuration {
-    type: string;
-    hours: number;
-    days: number;
-    months: number;
-    years: number;
-}
+export const FormattedRelativeDate = (date: string): string => {
+    const settings = DateSettingsDefault;
+    return FormattedDate(date, settings);
+};
 
-export const getDurationObject = (date: string): DateDuration => {
-    const relDate = dayjs(date).startOf("day").add(12, "hour");
-    const now = dayjs().startOf("day").add(12, "hour");
+export const FormattedDate = (date: string, settings: DateSettings): string => {
+    if (!isValidDate(date)) {
+        return "";
+    }
 
-    const duration = dayjs.duration(relDate.diff(now));
+    // Can't use the useTranslation hook as this function can be called inside a hook (not allowed)
+    const t = i18n.t;
+    let dateString = "";
 
+    if (settings.showRelativeDate) {
+        const duration = getDurationObject(date);
+        const localDate = getLocalizedDate(duration);
+
+        const days = duration.day;
+        const months = duration.month;
+        const years = duration.year;
+
+        if (0 === years && 0 === months && 0 === days) {
+            // Today
+            dateString = t("intlRelativeTime-day-auto", { val: 0, ns: "date-lists" });
+        } else if (0 !== years && 0 === months && 0 === days) {
+            // Relative year
+            // Convert past dates back to negative number.
+            const relativeYear = duration.type === "past" ? -Math.abs(years) : years;
+            dateString = t("intlRelativeTime-year", { val: relativeYear, ns: "date-lists" });
+        } else if (0 === years && 0 !== months && 0 === days) {
+            // Relative month
+            // Convert past dates back to negative number.
+            const relativeMonth = duration.type === "past" ? -Math.abs(months) : months;
+            dateString = t("intlRelativeTime-month", { val: relativeMonth, ns: "date-lists" });
+        } else if (0 === years && 0 === months && 0 !== days) {
+            // Relative day
+            // Convert past dates back to negative number.
+            const relativeDay = duration.type === "past" ? -Math.abs(days) : days;
+            dateString = t("intlRelativeTime-day-auto", { val: relativeDay, ns: "date-lists" });
+        } else {
+            // Relative with multiple date units
+            if (years > 0 && months > 0 && days > 0) {
+                dateString = t("relative-year-month-day", { ...localDate, ns: "date-lists" });
+            } else if (years > 0 && months === 0 && days > 0) {
+                dateString = t("relative-year-day", { ...localDate, ns: "date-lists" });
+            } else if (years > 0 && months > 0 && days === 0) {
+                dateString = t("relative-year-month", { ...localDate, ns: "date-lists" });
+            } else if (years === 0 && months > 0 && days > 0) {
+                dateString = t("relative-month-day", { ...localDate, ns: "date-lists" });
+            }
+
+            // Relative future or past.
+            if (duration.type === "past") {
+                dateString = t("relative-date-past", { date: dateString, ns: "date-lists" });
+            } else {
+                dateString = t("relative-date-future", { date: dateString, ns: "date-lists" });
+            }
+        }
+    }
+
+    if (settings.showDate) {
+        dateString += " " + dayjs(date).format(settings.dateFormat);
+    }
+
+    return dateString.trim();
+};
+
+const getDurationObject = (date: string): DateDuration => {
+    // Normalize dates
+    const relativeDate = dayjs(date + " 12:00");
+    const now = dayjs().format("YYYY-MM-DD");
+    const today = dayjs(now + " 12:00");
+
+    const duration = dayjs.duration(relativeDate.diff(today));
     const durationObj: DateDuration = {
         type: "future",
-        hours: duration.get("hours"),
-        days: duration.get("days"),
-        months: duration.get("months"),
-        years: duration.get("years"),
+        hour: duration.get("hours"),
+        day: duration.get("days"),
+        month: duration.get("months"),
+        year: duration.get("years"),
     };
-    const globalLocaleData = dayjs.localeData();
-    console.log(globalLocaleData.longDateFormat("L"), "jdjdj");
 
     let key: keyof typeof durationObj;
     for (key in durationObj) {
@@ -72,65 +158,27 @@ export const getDurationObject = (date: string): DateDuration => {
     return durationObj;
 };
 
-export const FormattedDate = (date: string, settings: DateListSettings): string => {
-    let dateString = "";
+const getLocalizedDate = (date: DateDuration): LocalizedDate => {
+    const t = i18n.t;
 
-    if (settings.settings.showRelativeDate) {
-        if (dayjs(date).isToday()) {
-            //dateString = "today";
-        }
-        dateString = dayjs(date).startOf("day").fromNow();
-
-        const duration = getDurationObject(date);
-        const hours = duration.hours;
-        const days = duration.days;
-        const months = duration.months;
-        const years = duration.years;
-
-        const relObj = {
-            future: "in %s",
-            past: "%s ago",
-            h: "%d hour",
-            hh: "%d hours",
-            d: "% day",
-            dd: "%d days",
-            M: "%d month",
-            MM: "%d months",
-            y: "%d year",
-            yy: "%d years",
-        };
-
-        console.log(hours + " hours, " + days + " days, " + months + " months, " + years + "years");
-        let ddateString = "";
-        if (0 === days && 0 === months && 0 === years) {
-            // today
-            dateString = dayjs().fromNow();
-        } else {
-            // 1 year, 2 months, 3 days ago
-            // in 2 months and 1 day
-            if (years > 0) {
-                ddateString += years === 1 ? "y" : "yy";
-                ddateString += months > 0 || days > 0 ? ", " : "";
-            }
-
-            if (months > 0) {
-                ddateString += months === 1 ? "M" : "MM";
-                ddateString += days > 0 ? ", " : "";
-            }
-            if (days > 0) {
-                ddateString += days === 1 ? "d" : "dd";
-            }
-        }
-        console.log(ddateString, "helloodk");
+    let year = t("year-WithCount_one", { count: 1, ns: "date-lists" });
+    if (date.year !== 1) {
+        year = t("year-WithCount_other", { count: date.year, ns: "date-lists" });
     }
 
-    if (settings.settings.showDate) {
-        dateString += " " + dayjs(date).format(settings.settings.dateFormat);
+    let month = t("month-WithCount_one", { count: 1, ns: "date-lists" });
+    if (date.month !== 1) {
+        month = t("month-WithCount_other", { count: date.month, ns: "date-lists" });
     }
 
-    return dateString.trim();
-};
+    let day = t("day-WithCount_one", { count: 1, ns: "date-lists" });
+    if (date.day !== 1) {
+        day = t("day-WithCount_other", { count: date.day, ns: "date-lists" });
+    }
 
-export const dateExists = (date: string, format = "YYYY-MM-DD"): boolean => {
-    return dayjs(date, format, true).isValid();
+    return {
+        year: year,
+        month: month,
+        day: day,
+    };
 };

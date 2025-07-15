@@ -371,6 +371,18 @@ code {
     margin-right: 0.5rem;
 }
 
+.date-container .form-control {
+    display: inline-block;
+}
+.date-preview {
+    display: inline-block;
+    margin-left: 1rem;
+}
+#date-buttons-help {
+    display: block;
+    margin-bottom: 1rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
     * {
         transition-duration: 1ms !important;

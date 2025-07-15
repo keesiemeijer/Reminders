@@ -3,7 +3,7 @@ import { FormattedDate } from "./utils/date";
 import { isValidHex } from "../../utils/utils";
 
 const ListItemDate = (props: { date: string; settings: DateListSettings; dateType: string }) => {
-    const date = FormattedDate(props.date, props.settings);
+    const date = FormattedDate(props.date, props.settings.settings);
 
     const pastDatecolor = props.settings.settings.pastDateColor;
     const usePastColor = props.settings.settings.usePastDateColor;
