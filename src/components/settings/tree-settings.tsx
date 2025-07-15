@@ -23,7 +23,6 @@ const TreeSettings = () => {
     const titleInput = useRef<HTMLInputElement>(null);
     const descInput = useRef<HTMLTextAreaElement>(null);
     const orderInput = useRef<HTMLInputElement>(null);
-    const settingsLink = <Link to={"/?type=" + typeSettings.type}>{typeSettings.title}</Link>;
 
     // Genneral Settings
     const generalSettingsRefs = {
