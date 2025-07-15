@@ -1,0 +1,1 @@
+const t="Settings",s={settings:t,"settings-for-list":"Settings for list: <1>{{list}}</1>","update-settings":"Update Settings","settings-updated":"Settings Updated","could-not-update-settings":"Could not update settings"};export{s as default,t as settings};

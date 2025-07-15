@@ -1,0 +1,1 @@
+const e={"add-new-list":"Nieuwe lijst toevoegen","title-already-exists":"Titel bestaat al.","title-is-invalid":"Titel is ongeldig.","could-not-add-new-list":"Kon nieuwe lijst niet toevoegen."};export{e as default};
