@@ -7,8 +7,9 @@ import React from "react";
 import "./i18n";
 import App from "./App";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-//import "bootstrap";
+//import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/js/bootstrap.min.js";
+
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 

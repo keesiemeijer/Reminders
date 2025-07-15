@@ -1,14 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, lazy } from "react";
 import { Route, Routes, useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { useAppSelector } from "./app/hooks";
 import { TypeSettingContext } from "./contexts/type-setting-context";
 
-import Lists from "./components/lists";
-import Settings from "./components/settings/settings";
-import PageNotFound from "./components/404Page";
-import Navbar from "./components/navbar";
+// import Lists from "./components/lists";
+// import Settings from "./components/settings/settings";
+// import PageNotFound from "./components/404Page";
+// import Navbar from "./components/navbar";
+
+const Lists = lazy(() => import("./components/lists"));
+const Settings = lazy(() => import("./components/settings/settings"));
+const PageNotFound = lazy(() => import("./components/404Page"));
+const Navbar = lazy(() => import("./components/navbar"));
 
 import { SettingDefault } from "./features/lists-slice";
 import { sanitizePathname, getTypeFromUrlParams } from "./utils/path";
