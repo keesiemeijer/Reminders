@@ -32,7 +32,7 @@ const DateButtons = (props: DateButtonsProps) => {
         }
         // Update date input with picked date
         props.dateInput.current.value = inputDate;
-        props.dateInput.current.focus();
+        //props.dateInput.current.focus();
         props.setDate(inputDate);
     };
 
