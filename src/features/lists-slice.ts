@@ -71,6 +71,7 @@ export const ListsSlice = createSlice({
         DeleteListType: (state, action: PayloadAction<string>) => {
             return state.filter((element) => element.type !== action.payload);
         },
+
         addDateListItem: (state, action: PayloadAction<{ type: string; item: DateListItem }>) => {
             let listItem: DateListItem = action.payload.item;
 
@@ -90,6 +91,7 @@ export const ListsSlice = createSlice({
 
             state[index].items.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
         },
+
         addTreeListItem: (state, action: PayloadAction<{ type: string; item: FlattenedItem }>) => {
             let listItem: FlattenedItem = action.payload.item;
 
@@ -111,6 +113,7 @@ export const ListsSlice = createSlice({
 
             return state;
         },
+
         updateTreeListItems: (state, action: PayloadAction<{ type: string; items: FlattenedItem[] }>) => {
             let tree: FlattenedItem[] = action.payload.items;
 
@@ -140,6 +143,33 @@ export const ListsSlice = createSlice({
             dateItems = dateItems.map((item) => sanitizeDateItem(item));
 
             state[index] = { ...state[index], items: dateItems };
+
+            return state;
+        },
+        updateDateListItemText: (state, action: PayloadAction<{ type: string; id: number; text: string }>) => {
+            const index = getIndexOfListType(action.payload, state);
+            if (-1 === index) {
+                // Not an existing type
+                return state;
+            }
+
+            const itemIndex = state[index].items.findIndex((item) => item.id === action.payload.id);
+            if (itemIndex === -1) {
+                // Item not found
+                return state;
+            }
+
+            let item = state[index].items[itemIndex];
+            item.text = action.payload.text;
+            item = sanitizeDateItem(item);
+
+            // Ensure the updated item is still valid
+            if (!isValidDateListItem(item)) {
+                return state;
+            }
+
+            // Uptate the item
+            state[index].items[itemIndex] = item;
 
             return state;
         },
@@ -196,6 +226,7 @@ export const {
     DeleteListType,
     updateTreeListItems,
     updateDateListItems,
+    updateDateListItemText,
 } = ListsSlice.actions;
 
 // export reducer

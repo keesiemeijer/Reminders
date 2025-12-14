@@ -6,6 +6,8 @@
     "add-list-item": "Add List Item",
     "there-are-no-list-items-yet": "There are no list items yet",
     "delete-list-item": "Delete List Item",
+    "edit-list-item": "Edit List Item",
+    "save-list-item": "Save List Item",
     "pick-a-date": "Pick a Date",
     "quickly-pick-a-date-with-the-buttons-below": "Quickly pick a date with the buttons below",
     "relative-date-past": "{{date}} ago",

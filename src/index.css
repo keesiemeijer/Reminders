@@ -160,6 +160,7 @@ li.tree-list-item span {
 /* Action HTML buttons stripped styles */
 .tree-item-actions .btn-handle,
 .delete-item,
+.edit-item,
 .undo-action,
 .redo-action {
     box-sizing: border-box;
@@ -179,7 +180,8 @@ li.tree-list-item span {
 /* Action buttons background image */
 .tree-item-actions .item-nav-link,
 .tree-item-actions .btn-handle,
-.delete-item {
+.delete-item,
+.edit-item {
     width: 1.7rem;
     height: 1.7rem;
     background-repeat: no-repeat;
@@ -207,6 +209,29 @@ li.tree-list-item span {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%237e7e7e"  class="bi bi-x-lg" viewBox="0 0 16 16"><path stroke="%237e7e7e" stroke-width="1.2"  d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>');
     flex-shrink: 0;
     background-size: 0.9rem;
+}
+
+.list-group-item .delete-item:hover {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"  class="bi bi-x-lg" viewBox="0 0 16 16"><path stroke="white" stroke-width="1.2"  d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>');
+    background-color: red;
+    border-radius: 4px;
+}
+
+.list-group-item .edit-item.hide {
+    display: none;
+}
+.list-group-item .edit-item {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path stroke="green" stroke-width="1.2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>');
+    flex-shrink: 0;
+    margin-left: 0.3rem;
+    background-size: 0.9rem;
+    border-radius: 4px;
+}
+
+.list-group-item .edit-item:hover {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-lg" viewBox="0 0 16 16"><path stroke="white" stroke-width="1.2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>');
+    background-color: green;
+    margin-left: 0.3rem;
 }
 
 /* Focus  Styles*/
