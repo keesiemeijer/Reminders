@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 
 import { useAppSelector } from "./app/hooks";
 import { TypeSettingContext } from "./contexts/type-setting-context";
+import { UpgradeApp } from "./utils/upgrade";
 
 // import Lists from "./components/lists";
 // import Settings from "./components/settings/settings";
@@ -20,6 +21,9 @@ import { sanitizePathname, getTypeFromUrlParams } from "./utils/path";
 import { getListSettings, getFirstListObject, isValidListType } from "./utils/type";
 
 function App() {
+    // Run an upgrade routine if needed.
+    UpgradeApp();
+
     // Redirect to single slash path (/path) if multiple slashes in path (//path//)
     // Redirect when when search param type (?type=blabla) contains a type that doesn't exist.
 

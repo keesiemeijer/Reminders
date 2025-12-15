@@ -3,7 +3,7 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import listsReducer from "../features/lists-slice";
-
+import versionReducer from "../features/version-slice";
 const persistConfig = {
     key: "root",
     storage,
@@ -12,6 +12,7 @@ const persistConfig = {
 // combine all reducers
 const reducers = combineReducers({
     lists: listsReducer,
+    version: versionReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
