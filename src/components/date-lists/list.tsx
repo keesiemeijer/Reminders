@@ -13,10 +13,12 @@ interface ListProps {
 
 const DateList = (props: ListProps) => {
     const listItemCount = props.listItems.length;
+
+    const itemsSorted = props.settings.settings.listSort === "DESC" ? [...props.listItems].reverse() : props.listItems;
     return (
         <ul className="list-group list-group-flush">
             {listItemCount > 0 &&
-                props.listItems.map((item) => (
+                itemsSorted.map((item) => (
                     <ListItem key={item.id} item={item} settings={props.settings} newListItem={item.id === props.latestListItemID ? props.newListItem : null} />
                 ))}
         </ul>

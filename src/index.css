@@ -57,6 +57,9 @@ ul.nav.sub-navigation {
     border-bottom: 1px solid #dee2e6;
     margin-bottom: 0.5em;
 }
+.date-list-nav {
+    display: flex;
+}
 
 .list-group,
 .tree-nav {
@@ -161,6 +164,7 @@ li.tree-list-item span {
 .tree-item-actions .btn-handle,
 .delete-item,
 .edit-item,
+.sort-button,
 .undo-action,
 .redo-action {
     box-sizing: border-box;
@@ -181,7 +185,8 @@ li.tree-list-item span {
 .tree-item-actions .item-nav-link,
 .tree-item-actions .btn-handle,
 .delete-item,
-.edit-item {
+.edit-item,
+.sort-button {
     width: 1.7rem;
     height: 1.7rem;
     background-repeat: no-repeat;
@@ -200,6 +205,18 @@ li.tree-list-item span {
     background-size: 1rem 1rem;
 }
 
+.list-group-item .delete-item,
+.list-group-item .edit-item,
+.sort-button {
+    flex-shrink: 0;
+    background-size: 0.9rem;
+    border-radius: 4px;
+}
+
+.list-group-item .edit-item {
+    margin-left: 0.3rem;
+}
+
 .tree-item-actions .btn-handle {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%237e7e7e" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');
 }
@@ -207,8 +224,6 @@ li.tree-list-item span {
 .tree-list-item .delete-item,
 .list-group-item .delete-item {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%237e7e7e"  class="bi bi-x-lg" viewBox="0 0 16 16"><path stroke="%237e7e7e" stroke-width="1.2"  d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>');
-    flex-shrink: 0;
-    background-size: 0.9rem;
 }
 
 .list-group-item .delete-item:hover {
@@ -220,18 +235,22 @@ li.tree-list-item span {
 .list-group-item .edit-item.hide {
     display: none;
 }
+
 .list-group-item .edit-item {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path stroke="green" stroke-width="1.2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>');
-    flex-shrink: 0;
-    margin-left: 0.3rem;
-    background-size: 0.9rem;
-    border-radius: 4px;
+}
+
+.sort-button-ASC {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/></svg>');
+}
+
+.sort-button-DESC {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/></svg>');
 }
 
 .list-group-item .edit-item:hover {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-lg" viewBox="0 0 16 16"><path stroke="white" stroke-width="1.2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>');
     background-color: green;
-    margin-left: 0.3rem;
 }
 
 /* Focus  Styles*/
@@ -294,6 +313,10 @@ li.tree-list-item.new-list-item {
 .today .list-item-date {
     color: red;
 } */
+.history-nav {
+    display: inline-block;
+    width: 100%;
+}
 
 .undo-action,
 .redo-action {

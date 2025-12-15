@@ -15,6 +15,7 @@ export interface DateSettings {
     useTodayDateColor: boolean;
     todayDateColor: string;
     dateFormat: string;
+    listSort: "ASC" | "DESC";
 }
 export interface DateListSettings extends ListSettings {
     settings: DateSettings;

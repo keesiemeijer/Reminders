@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addDateListItem, updateDateListItems } from "../../features/lists-slice";
 import { getListItemsByType, getHighesListItemID } from "../../utils/type";
 import CollapseLink from "../collapseLink";
+import SortButton from "../sort-button";
 import { useHistoryState } from "../../app/hooks";
 import HistoryNav from "../history-nav";
 
@@ -202,8 +203,9 @@ const DateLists = () => {
                         </div>
                     </form>
                 </div>
-                <div className="list-nav">
+                <div className="list-nav date-list-nav">
                     <HistoryNav updateHistory={handleHistoryUpdate} history={history} />
+                    {listItemCount > 1 && <SortButton settings={typeSettings} />}
                 </div>
                 <DateList listType={listType} settings={typeSettings} listItems={listItems} newListItem={newListItem} latestListItemID={latestListItemID} />
                 {listItemCount === 0 && <p>{t("there-are-no-list-items-yet")}</p>}

@@ -70,7 +70,7 @@ export const isValidDateSettingsObject = (item: DateSettings): boolean => {
         return false;
     }
 
-    const strings = ["dateFormat", "pastDateColor", "todayDateColor"];
+    const strings = ["dateFormat", "pastDateColor", "todayDateColor", "listSort"];
     const booleans = ["showRelativeDate", "showDate", "usePastDateColor", "useTodayDateColor"];
     const types = strings.concat(booleans);
 
@@ -94,6 +94,10 @@ export const isValidDateSettingsObject = (item: DateSettings): boolean => {
             if (typeof typeValue === "string") {
                 if (["pastDateColor", "todayDateColor"].includes(key) && !isValidHex(typeValue)) {
                     console.log(key + " - not a valid color String");
+                    return false;
+                }
+                if (key === "listSort" && !["ASC", "DESC"].includes(typeValue)) {
+                    console.log(key + " - not a valid listSort value");
                     return false;
                 }
             } else {

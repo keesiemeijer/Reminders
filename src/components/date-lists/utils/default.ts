@@ -8,6 +8,7 @@ export const DateSettingsDefault: DateSettings = {
     pastDateColor: "#ff0000",
     useTodayDateColor: true,
     todayDateColor: "#ff8c00",
+    listSort: "ASC",
 };
 
 export const DateListItemDefault: DateListItem = {
