@@ -84,12 +84,14 @@ const DateFormSettings = () => {
             newDateSettings[key] = value;
         });
 
+        // The listSort setting remains the same
+        // This setting is changed when re-ordering list items
+        newDateSettings.listSort = typeSettings.settings.listSort;
+
         newDateSettings.pastDateColor = pastColor;
         newDateSettings.todayDateColor = todayColor;
         // Merge new date list Settings
         const dateSettings: DateListSettings = { ...settings, settings: newDateSettings };
-
-        console.log(dateSettings, "Final settings");
 
         if (isValidListSettingsObject(dateSettings)) {
             // Update type settings
