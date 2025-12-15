@@ -1,1 +1,0 @@
-const d="Undo",o="Redo",t="Lists",s={"404-page-not-found":"404 Page Not Found","add-items":"Add Items","hide-form":"Hide Form",undo:d,redo:o,"add-list":"Add List",lists:t};export{s as default,t as lists,o as redo,d as undo};

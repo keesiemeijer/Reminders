@@ -1,0 +1,1 @@
+const e="Ongedaan maken",n="Opnieuw uitvoeren",o="Lijsten",t={"404-page-not-found":"404 Pagina Niet Gevonden","add-items":"Items Toevoegen","hide-form":"Formulier Verbergen",undo:e,redo:n,"add-list":"Lijst Toevoegen","sort-list":"Lijst Sorteren",lists:o};export{t as default,o as lists,n as redo,e as undo};

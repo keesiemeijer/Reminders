@@ -1,0 +1,1 @@
+const o="Undo",t="Redo",d="Lists",s={"404-page-not-found":"404 Page Not Found","add-items":"Add Items","hide-form":"Hide Form",undo:o,redo:t,"add-list":"Add List","sort-list":"Sort List",lists:d};export{s as default,d as lists,t as redo,o as undo};
