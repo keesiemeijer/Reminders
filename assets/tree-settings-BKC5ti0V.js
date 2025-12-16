@@ -1,0 +1,1 @@
+const t="Настройки",s={settings:t,"settings-for-list":"Настройки для списка: <1>{{list}}</1>","update-settings":"Обновить настройки","settings-updated":"Настройки обновлены","could-not-update-settings":"Не удалось обновить настройки"};export{s as default,t as settings};

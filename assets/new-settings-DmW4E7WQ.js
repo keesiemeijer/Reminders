@@ -1,0 +1,1 @@
+const t={"add-new-list":"إضافة قائمة جديدة","title-already-exists":"العنوان موجود بالفعل.","title-is-invalid":"العنوان غير صالح.","could-not-add-new-list":"تعذر إضافة قائمة جديدة."};export{t as default};

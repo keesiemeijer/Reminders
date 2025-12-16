@@ -1,0 +1,1 @@
+const t={"add-new-list":"Добавить новый список","title-already-exists":"Название уже существует.","title-is-invalid":"Название недействительно.","could-not-add-new-list":"Не удалось добавить новый список."};export{t as default};

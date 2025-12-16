@@ -1,0 +1,1 @@
+const i={"add-new-list":"Aggiungi Nuova Lista","title-already-exists":"Il titolo esiste già.","title-is-invalid":"Il titolo non è valido.","could-not-add-new-list":"Impossibile aggiungere nuova lista."};export{i as default};

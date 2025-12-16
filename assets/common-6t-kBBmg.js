@@ -1,0 +1,1 @@
+const o="पूर्ववत करें",t="दोहराएं",s="सूचियां",d={"404-page-not-found":"404 पृष्ठ नहीं मिला","add-items":"आइटम जोड़ें","hide-form":"फॉर्म छिपाएं",undo:o,redo:t,"add-list":"सूची जोड़ें","sort-list":"सूची क्रमबद्ध करें",lists:s};export{d as default,s as lists,t as redo,o as undo};

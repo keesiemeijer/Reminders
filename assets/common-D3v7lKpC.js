@@ -1,0 +1,1 @@
+const e="Rückgängig",n="Wiederholen",t="Listen",o={"404-page-not-found":"404 Seite nicht gefunden","add-items":"Elemente hinzufügen","hide-form":"Formular ausblenden",undo:e,redo:n,"add-list":"Liste hinzufügen","sort-list":"Liste sortieren",lists:t};export{o as default,t as lists,n as redo,e as undo};

@@ -1,0 +1,1 @@
+const t="设置",e="主页",i={"add-item":"添加项目",settings:t,"list-item":"列表项目","add-list-item":"添加列表项目","there-are-no-list-items-yet":"还没有列表项目","invalid-list-item-try-again":"无效的列表项目。请重试",home:e,"go-to-item-id":"转到项目 {{id}}","delete-list-item":"删除列表项目"};export{i as default,e as home,t as settings};

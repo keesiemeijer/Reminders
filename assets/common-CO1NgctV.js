@@ -1,0 +1,1 @@
+const o="撤销",t="重做",s="列表",d={"404-page-not-found":"404 页面未找到","add-items":"添加项目","hide-form":"隐藏表单",undo:o,redo:t,"add-list":"添加列表","sort-list":"排序列表",lists:s};export{d as default,s as lists,t as redo,o as undo};

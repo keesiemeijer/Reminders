@@ -1,0 +1,1 @@
+const o="Desfazer",t="Refazer",a="Listas",s={"404-page-not-found":"404 Página Não Encontrada","add-items":"Adicionar Itens","hide-form":"Ocultar Formulário",undo:o,redo:t,"add-list":"Adicionar Lista","sort-list":"Ordenar Lista",lists:a};export{s as default,a as lists,t as redo,o as undo};

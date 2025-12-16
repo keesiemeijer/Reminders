@@ -1,0 +1,1 @@
+const o="Отменить",t="Повторить",s="Списки",d={"404-page-not-found":"404 Страница не найдена","add-items":"Добавить элементы","hide-form":"Скрыть форму",undo:o,redo:t,"add-list":"Добавить список","sort-list":"Сортировать список",lists:s};export{d as default,s as lists,t as redo,o as undo};
