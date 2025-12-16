@@ -9,8 +9,8 @@ i18n.use(LanguageDetector)
     .use(initReactI18next) // Initializes react-i18next
     .init({
         fallbackLng: "en", // Default language if not set
-        supportedLngs: ["en", "nl", "fr", "es"], // Supported languages
-        ns: ["date-lists", "tree-lists", "manual-list", "settings", "new-settings", "tree-settings", "date-settings", "common"], // Define namespaces for each page
+        supportedLngs: ["en", "nl", "fr", "es", "zh", "de", "pt", "ru", "it", "ar", "hi"], // Supported languages
+        ns: ["common", "date-lists", "date-settings", "new-settings", "settings", "tree-lists", "tree-settings"], // Define namespaces for each page
         defaultNS: "date-lists", // Default namespace
         interpolation: {
             escapeValue: false, // Disable escaping for simplicity
@@ -18,13 +18,3 @@ i18n.use(LanguageDetector)
     });
 
 export default i18n;
-
-// Todo: add more languages
-
-// Mandarin Chinese
-// Hindi
-// Arabic
-// Russian
-// Portuguese
-// German
-// Italian
