@@ -1,0 +1,15 @@
+{
+    "date-options": "Options de Date",
+    "settings": "Paramètres",
+    "settings-for-list": "Paramètres pour la liste : <1>{{list}}</1>",
+    "update-settings": "Mettre à Jour les Paramètres",
+    "settings-updated": "Paramètres Mis à Jour",
+    "could-not-update-settings": "Impossible de mettre à jour les paramètres",
+    "show-dates-with-date-format-below": "Afficher les dates (avec le format de date ci-dessous)",
+    "show-relative-dates-eg-in-2-days": "Afficher les dates relatives (par exemple, \"dans 2 jours\")",
+    "date-format": "Format de Date",
+    "example-format-ddmmyyyy": "Exemple de format : JJ/MM/AAAA.",
+    "list-of-all-available-formats": "Liste de tous les formats disponibles",
+    "text-color-for-list-items-with-a-past-date": "Couleur du texte pour les éléments de liste avec une date passée",
+    "text-color-for-list-items-with-todays-date": "Couleur du texte pour les éléments de liste avec la date d'aujourd'hui"
+}

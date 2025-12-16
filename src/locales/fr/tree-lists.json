@@ -1,0 +1,11 @@
+{
+    "add-item": "Ajouter un Élément",
+    "settings": "Paramètres",
+    "list-item": "Élément de Liste",
+    "add-list-item": "Ajouter un Élément de Liste",
+    "there-are-no-list-items-yet": "Il n'y a pas encore d'éléments de liste",
+    "invalid-list-item-try-again": "Élément de liste invalide. Réessayez",
+    "home": "Accueil",
+    "go-to-item-id": "Aller à l'élément {{id}}",
+    "delete-list-item": "Supprimer l'Élément de Liste"
+}
