@@ -1,0 +1,1 @@
+const t="Paramètres",e={settings:t,"settings-for-list":"Paramètres pour la liste : <1>{{list}}</1>","update-settings":"Mettre à Jour les Paramètres","settings-updated":"Paramètres Mis à Jour","could-not-update-settings":"Impossible de mettre à jour les paramètres"};export{e as default,t as settings};
