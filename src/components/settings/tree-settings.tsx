@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { useAppDispatch } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
-import { updateListType, ListSettings } from "../../features/lists-slice";
+import { updateListSettings, ListSettings } from "../../features/lists-slice";
 import { getGeneralSettings } from "./utils/general-settings";
 import { GeneralSettingsInputElements } from "./general-settings-Input-elements";
 import { isValidListSettingsObject } from "../../utils/type";
@@ -49,7 +49,7 @@ const TreeSettings = () => {
         console.log(treeSettings, "Final settings");
         if (isValidListSettingsObject(treeSettings)) {
             // Update type settings
-            dispatch(updateListType(treeSettings));
+            dispatch(updateListSettings(treeSettings));
             // Display message.
             toast.info(t("settings-updated"));
         } else {

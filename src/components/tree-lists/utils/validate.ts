@@ -97,3 +97,12 @@ export const sanitizeTreeItem = (item: FlattenedItem): FlattenedItem => {
 
     return item;
 };
+
+export const sanitizeTreeSettings = (item: TreeSettings): TreeSettings => {
+    const defaults = Object.keys(TreeSettingsDefault);
+
+    // Removes all properties not in  reeSettingsDefault
+    Object.keys(item).forEach((key) => defaults.includes(key) || delete item[key as keyof TreeSettings]);
+
+    return item;
+};

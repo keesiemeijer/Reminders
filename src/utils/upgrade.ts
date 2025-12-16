@@ -12,8 +12,8 @@ export const NewerAppSchemaVersionExists = (): boolean => {
     // Version saved in redux store
     const currentAppSchemaVersion = useAppSelector((state) => state.version.schema);
 
-    console.log("Current stored App Version:", currentAppSchemaVersion);
-    console.log("Defined App Version:", APP_SCHEMA_VERSION);
+    //console.log("Current stored App Version:", currentAppSchemaVersion);
+    //console.log("Defined App Version:", APP_SCHEMA_VERSION);
 
     if (currentAppSchemaVersion < APP_SCHEMA_VERSION) {
         //  console.log("New app version detected.");

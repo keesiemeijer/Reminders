@@ -1,6 +1,6 @@
 import { ListSettings, SettingDefault, ListType } from "../features/lists-slice";
-import { isValidDateListItem, isValidDateSettingsObject, sanitizeDateItem } from "../components/date-lists/utils/validate";
-import { isValidTreeListItem, isValidTreeSettingsObject, sanitizeTreeItem } from "../components/tree-lists/utils/validate";
+import { isValidDateListItem, isValidDateSettingsObject, sanitizeDateItem, sanitizeDateSettings } from "../components/date-lists/utils/validate";
+import { isValidTreeListItem, isValidTreeSettingsObject, sanitizeTreeItem, sanitizeTreeSettings } from "../components/tree-lists/utils/validate";
 import { isObject } from "./utils";
 import { DateListItem } from "../components/date-lists/date-types";
 import { FlattenedItem } from "../components/tree-lists/tree-types";
@@ -179,4 +179,19 @@ export const getHighesListItemID = <Type extends { id: any; text: string }>(item
     }
     const ids = items.map((a) => a.id);
     return Math.max.apply(null, ids);
+};
+
+export const sanitizeListSettingObject = (item: ListSettings): ListSettings => {
+    const defaults = Object.keys(SettingDefault);
+
+    // Removes all properties not in  DateSettingsDefault
+    Object.keys(item).forEach((key) => defaults.includes(key) || delete item[key as keyof ListSettings]);
+
+    if (item.orderByDate) {
+        item.settings = sanitizeDateSettings(item.settings);
+    } else {
+        item.settings = sanitizeTreeSettings(item.settings);
+    }
+
+    return item;
 };

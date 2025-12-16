@@ -139,3 +139,12 @@ export const sanitizeDateItem = (item: DateListItem): DateListItem => {
 
     return item;
 };
+
+export const sanitizeDateSettings = (item: DateSettings): DateSettings => {
+    const defaults = Object.keys(DateSettingsDefault);
+
+    // Removes all properties not in  DateSettingsDefault
+    Object.keys(item).forEach((key) => defaults.includes(key) || delete item[key as keyof DateSettings]);
+
+    return item;
+};

@@ -10,7 +10,7 @@ import { mergeTreeImportItems } from "../components/tree-lists/utils/import";
 import { updateTreeIndexes } from "../components/tree-lists/utils/tree";
 import { FlattenedItem } from "../components/tree-lists/tree-types";
 
-import { isValidListObject, getHighesListItemID } from "../utils/type";
+import { isValidListObject, getHighesListItemID, sanitizeListSettingObject } from "../utils/type";
 import { getIndexOfListType } from "../utils/slice";
 
 export interface ListSettings {
@@ -48,14 +48,16 @@ export const ListsSlice = createSlice({
     name: "lists",
     initialState,
     reducers: {
-        updateListType: (state, action: PayloadAction<ListSettings>) => {
+        updateListSettings: (state, action: PayloadAction<ListSettings>) => {
             const index = getIndexOfListType(action.payload, state);
             if (-1 === index) {
                 // Not an existing type
                 return state;
             }
+            // Remove invalid properties from settings object before updating
+            const sanitized = sanitizeListSettingObject(action.payload);
 
-            state[index] = { ...state[index], ...action.payload };
+            state[index] = { ...state[index], ...sanitized };
 
             return state;
         },
@@ -221,7 +223,7 @@ export const {
     removeListItems,
     importDateListItems,
     importTreeListItems,
-    updateListType,
+    updateListSettings,
     AddNewListType,
     DeleteListType,
     updateTreeListItems,

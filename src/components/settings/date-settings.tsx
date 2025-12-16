@@ -5,7 +5,7 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { useAppDispatch } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
-import { updateListType, ListSettings } from "../../features/lists-slice";
+import { updateListSettings, ListSettings } from "../../features/lists-slice";
 import { isValidListSettingsObject } from "../../utils/type";
 import { DateListSettings } from "../date-lists/date-types";
 
@@ -97,7 +97,7 @@ const DateFormSettings = () => {
 
         if (isValidListSettingsObject(dateTypeSettings)) {
             // Update type settings
-            dispatch(updateListType(dateTypeSettings));
+            dispatch(updateListSettings(dateTypeSettings));
             // Display message.
             toast.info(t("settings-updated"));
         } else {

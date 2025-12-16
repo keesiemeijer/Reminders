@@ -3,7 +3,8 @@ import { useAppDispatch } from "../app/hooks";
 import { useTranslation } from "react-i18next";
 
 import { DateListSettings } from "./date-lists/date-types";
-import { updateListType } from "../features/lists-slice";
+import { updateListSettings } from "../features/lists-slice";
+import { isValidListSettingsObject } from "../utils/type";
 
 interface SortButtonProps {
     settings: DateListSettings;
@@ -21,8 +22,10 @@ const SortButton = (props: SortButtonProps) => {
         const updatedSettings = { ...typeSettings.settings, listSort: newSortOrder };
         const newTypeSettings = { ...typeSettings, settings: updatedSettings };
 
-        // Update listSort setting in redux store
-        dispatch(updateListType(newTypeSettings));
+        if (isValidListSettingsObject(newTypeSettings)) {
+            // Update listSort setting in redux store
+            dispatch(updateListSettings(newTypeSettings));
+        }
         // Update local sort state
         setSort(newSortOrder);
     };
