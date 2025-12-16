@@ -1,0 +1,11 @@
+{
+    "add-item": "Adicionar Item",
+    "settings": "Configurações",
+    "list-item": "Item da Lista",
+    "add-list-item": "Adicionar Item da Lista",
+    "there-are-no-list-items-yet": "Ainda não há itens de lista",
+    "invalid-list-item-try-again": "Item de lista inválido. Tente novamente",
+    "home": "Início",
+    "go-to-item-id": "Ir para item {{id}}",
+    "delete-list-item": "Excluir Item da Lista"
+}

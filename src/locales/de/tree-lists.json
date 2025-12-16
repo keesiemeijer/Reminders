@@ -1,0 +1,11 @@
+{
+    "add-item": "Element hinzufügen",
+    "settings": "Einstellungen",
+    "list-item": "Listenelement",
+    "add-list-item": "Listenelement hinzufügen",
+    "there-are-no-list-items-yet": "Es gibt noch keine Listenelemente",
+    "invalid-list-item-try-again": "Ungültiges Listenelement. Versuchen Sie es erneut",
+    "home": "Startseite",
+    "go-to-item-id": "Zu Element {{id}} gehen",
+    "delete-list-item": "Listenelement löschen"
+}

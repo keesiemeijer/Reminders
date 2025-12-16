@@ -1,0 +1,11 @@
+{
+    "add-item": "添加项目",
+    "settings": "设置",
+    "list-item": "列表项目",
+    "add-list-item": "添加列表项目",
+    "there-are-no-list-items-yet": "还没有列表项目",
+    "invalid-list-item-try-again": "无效的列表项目。请重试",
+    "home": "主页",
+    "go-to-item-id": "转到项目 {{id}}",
+    "delete-list-item": "删除列表项目"
+}
