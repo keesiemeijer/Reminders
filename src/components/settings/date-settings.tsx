@@ -44,13 +44,14 @@ const DateFormSettings = () => {
     const submitSettings = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Get general setting values
+        // Get general setting values (from form): title, description, and orderByDate
         const generalSettings = getGeneralSettings(typeSettings, generalSettingsRefs);
 
-        // Merge general settings
-        const settings: ListSettings = { ...typeSettings, ...generalSettings };
+        // Merge with old date settings
+        const dateSettings: ListSettings = { ...typeSettings, ...generalSettings };
 
-        const newDateSettings: any = {
+        // Form settings
+        const formSettings: any = {
             showRelativeDate: showRelativeDateInput,
             showDate: showDateInput,
             dateFormat: dateFormatInput,
@@ -59,11 +60,11 @@ const DateFormSettings = () => {
         };
 
         // Get values from the form elements
-        Object.keys(newDateSettings).forEach(function (key) {
-            const element = newDateSettings[key];
+        Object.keys(formSettings).forEach(function (key) {
+            const element = formSettings[key];
 
             // old value
-            let value: string | boolean = settings.settings[key];
+            let value: string | boolean = dateSettings.settings[key];
 
             if (["showDate", "showRelativeDate", "usePastDateColor", "useTodayDateColor"].includes(key)) {
                 // checkbox values
@@ -81,21 +82,22 @@ const DateFormSettings = () => {
             }
 
             // Assign element values
-            newDateSettings[key] = value;
+            formSettings[key] = value;
         });
 
-        // The listSort setting remains the same
-        // This setting is changed when re-ordering list items
-        newDateSettings.listSort = typeSettings.settings.listSort;
+        // Set the color values from the form
+        formSettings.pastDateColor = pastColor;
+        formSettings.todayDateColor = todayColor;
 
-        newDateSettings.pastDateColor = pastColor;
-        newDateSettings.todayDateColor = todayColor;
-        // Merge new date list Settings
-        const dateSettings: DateListSettings = { ...settings, settings: newDateSettings };
+        // Merge form settings with old settings
+        const newDateSettings = { ...dateSettings.settings, ...formSettings };
 
-        if (isValidListSettingsObject(dateSettings)) {
+        // Merge new settings with date type settings
+        const dateTypeSettings: DateListSettings = { ...dateSettings, settings: newDateSettings };
+
+        if (isValidListSettingsObject(dateTypeSettings)) {
             // Update type settings
-            dispatch(updateListType(dateSettings));
+            dispatch(updateListType(dateTypeSettings));
             // Display message.
             toast.info(t("settings-updated"));
         } else {

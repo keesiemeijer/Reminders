@@ -18,3 +18,13 @@ i18n.use(LanguageDetector)
     });
 
 export default i18n;
+
+// Todo: add more languages
+
+// Mandarin Chinese
+// Hindi
+// Arabic
+// Russian
+// Portuguese
+// German
+// Italian
