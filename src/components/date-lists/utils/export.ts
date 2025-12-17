@@ -1,4 +1,4 @@
-import { DateListItem } from "../date-types";
+import { DateListItem } from "../types";
 import { isValidDateListItem } from "./validate";
 
 export const convertDateItemsForExport = (items: DateListItem[]): { text: string; date: string }[] => {

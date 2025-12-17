@@ -1,6 +1,6 @@
-import { DateListSettings } from "./date-types";
+import { DateListSettings } from "./types";
 
-import { DateListItem } from "./date-types";
+import { DateListItem } from "./types";
 import ListItem from "./list-item";
 
 interface ListProps {

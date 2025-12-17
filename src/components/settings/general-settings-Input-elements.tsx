@@ -1,4 +1,4 @@
-import { ListSettings } from "../../features/lists-slice";
+import { ListSettings } from "../../types";
 import { GeneralSettingsRefs } from "./utils/general-settings";
 import { useTranslation } from "react-i18next";
 

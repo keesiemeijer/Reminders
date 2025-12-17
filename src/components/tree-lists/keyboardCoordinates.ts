@@ -1,6 +1,6 @@
 import { closestCorners, getFirstCollision, KeyboardCode, KeyboardCoordinateGetter, DroppableContainer } from "@dnd-kit/core";
 
-import type { SensorContext } from "./tree-types";
+import type { SensorContext } from "./types";
 import { getProjection } from "./utils/tree";
 
 const directions: string[] = [KeyboardCode.Down, KeyboardCode.Right, KeyboardCode.Up, KeyboardCode.Left];

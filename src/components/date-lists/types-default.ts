@@ -1,5 +1,6 @@
-import { DateSettings, DateListItem } from "../date-types";
+import { DateSettings, DateListItem } from "./types";
 
+// Default date settings values
 export const DateSettingsDefault: DateSettings = {
     showRelativeDate: true,
     showDate: false,
@@ -11,6 +12,7 @@ export const DateSettingsDefault: DateSettings = {
     listSort: "ASC",
 };
 
+// Defaults date list item values
 export const DateListItemDefault: DateListItem = {
     id: 0,
     text: "",

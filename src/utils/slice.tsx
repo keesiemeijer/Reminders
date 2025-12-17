@@ -1,4 +1,4 @@
-import { ListType } from "../features/lists-slice";
+import { ListType } from "../types";
 import { isObject } from "./utils";
 import { isValidListObject } from "./type";
 

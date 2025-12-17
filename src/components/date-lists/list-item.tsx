@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../app/hooks";
 import { removeListItems, updateDateListItemText } from "../../features/lists-slice";
-import { DateListSettings } from "./date-types";
-import { DateListItem } from "./date-types";
+import { DateListSettings } from "./types";
+import { DateListItem } from "./types";
 import ListItemDate from "./list-item-date";
 import { RelativeDateClass } from "./utils/date";
 

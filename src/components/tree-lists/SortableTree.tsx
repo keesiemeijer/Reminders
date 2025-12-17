@@ -22,7 +22,7 @@ import {
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import type { FlattenedItem, SensorContext, TreeItems } from "./tree-types";
+import type { FlattenedItem, SensorContext, TreeItems } from "./types";
 import { buildTree, flattenTree, getProjection, getChildCount, removeChildrenOf, setProperty, getChildrenByID } from "./utils/tree";
 import { getTopLevelID, setDepthToZero } from "./utils/navigation";
 import { sortableTreeKeyboardCoordinates } from "./keyboardCoordinates";

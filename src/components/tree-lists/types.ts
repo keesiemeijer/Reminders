@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
 import type { UniqueIdentifier } from "@dnd-kit/core";
-import { ListSettings } from "../../features/lists-slice";
+import { ListSettings } from "../../types";
 
 export interface TreeItem {
     id: UniqueIdentifier;

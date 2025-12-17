@@ -1,17 +1,19 @@
 import { useContext, useRef, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Trans, useTranslation } from "react-i18next";
 
-import { useAppDispatch } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
-import { updateListSettings, ListSettings } from "../../features/lists-slice";
+import { useAppDispatch } from "../../app/hooks";
+import { updateListSettings } from "../../features/lists-slice";
 import { isValidListSettingsObject } from "../../utils/type";
-import { DateListSettings } from "../date-lists/date-types";
+import { ListSettings } from "../../types";
+
+import { DateListSettings } from "../date-lists/types";
+import { ColorPicker } from "../color-picker/color-picker";
 
 import { getGeneralSettings } from "./utils/general-settings";
 import { GeneralSettingsInputElements } from "./general-settings-Input-elements";
-import { ColorPicker } from "../color-picker/color-picker";
 
 const DateFormSettings = () => {
     const dispatch = useAppDispatch();

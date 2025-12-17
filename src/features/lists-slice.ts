@@ -1,38 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ListType, ListSettings } from "../types";
+import { SettingDefault } from "../types-defaults";
 
 import { isValidDateListItem, sanitizeDateItem } from "../components/date-lists/utils/validate";
 import { mergeDateImportItems } from "../components/date-lists/utils/import";
-import { DateSettingsDefault } from "../components/date-lists/utils/default";
-import { DateListItem } from "../components/date-lists/date-types";
+import { DateSettingsDefault } from "../components/date-lists/types-default";
+import { DateListItem } from "../components/date-lists/types";
 
 import { isValidTreeListItem, sanitizeTreeItem } from "../components/tree-lists/utils/validate";
 import { mergeTreeImportItems } from "../components/tree-lists/utils/import";
 import { updateTreeIndexes } from "../components/tree-lists/utils/tree";
-import { FlattenedItem } from "../components/tree-lists/tree-types";
+import { FlattenedItem } from "../components/tree-lists/types";
 
 import { isValidListObject, getHighesListItemID, sanitizeListSettingObject } from "../utils/type";
 import { getIndexOfListType } from "../utils/slice";
-
-export interface ListSettings {
-    type: string;
-    title: string;
-    description: string;
-    orderByDate: boolean;
-    settings: any;
-}
-
-// Generic interface used in generic functions
-export interface ListType extends ListSettings {
-    items: any[];
-}
-
-export const SettingDefault: ListSettings = {
-    type: "",
-    title: "",
-    description: "",
-    orderByDate: true,
-    settings: {},
-};
 
 const initialType = {
     type: "reminders",

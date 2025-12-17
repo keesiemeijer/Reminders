@@ -1,12 +1,6 @@
-import { ListSettings } from "../../features/lists-slice";
+import { ListSettings } from "../../types";
 
-// Date list item interface
-export interface DateListItem {
-    id: number;
-    text: string;
-    date: string;
-}
-
+// Interface for date settings
 export interface DateSettings {
     showRelativeDate: boolean;
     showDate: boolean;
@@ -17,11 +11,20 @@ export interface DateSettings {
     dateFormat: string;
     listSort: "ASC" | "DESC";
 }
+
+// Interface for date list type settings
 export interface DateListSettings extends ListSettings {
     settings: DateSettings;
 }
 
-// Interface used for date list types
+// Interface for date list types
 export interface DateListType extends DateListSettings {
     items: DateListItem[];
+}
+
+// Interface for date list items
+export interface DateListItem {
+    id: number;
+    text: string;
+    date: string;
 }

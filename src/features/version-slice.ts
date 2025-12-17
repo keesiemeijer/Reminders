@@ -1,10 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { APP_VERSION, APP_SCHEMA_VERSION } from "../app/version";
+import { AppVersion } from "../types";
 
-export interface AppVersion {
-    app: string;
-    schema: number;
-}
+// App version constants
+import { APP_VERSION, APP_SCHEMA_VERSION } from "../app/version";
 
 const initialState: AppVersion = {
     app: APP_VERSION,

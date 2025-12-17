@@ -1,4 +1,4 @@
-import { ListSettings } from "../../../features/lists-slice";
+import { ListSettings } from "../../../types";
 
 export interface GeneralSettingsRefs {
     titleInput: React.RefObject<HTMLInputElement | null> | null;

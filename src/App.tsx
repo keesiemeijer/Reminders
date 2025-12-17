@@ -16,7 +16,7 @@ const Settings = lazy(() => import("./components/settings/settings"));
 const PageNotFound = lazy(() => import("./components/404Page"));
 const Navbar = lazy(() => import("./components/navbar"));
 
-import { SettingDefault } from "./features/lists-slice";
+import { SettingDefault } from "./types-defaults";
 import { sanitizePathname, getTypeFromUrlParams } from "./utils/path";
 import { getListSettings, getFirstListObject, isValidListType } from "./utils/type";
 

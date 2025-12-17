@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Trans, useTranslation } from "react-i18next";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { DeleteListType } from "../../features/lists-slice";

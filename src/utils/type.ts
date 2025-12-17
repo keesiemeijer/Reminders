@@ -1,9 +1,10 @@
-import { ListSettings, SettingDefault, ListType } from "../features/lists-slice";
+import { SettingDefault } from "../types-defaults";
+import { ListSettings, ListType } from "../types";
 import { isValidDateListItem, isValidDateSettingsObject, sanitizeDateItem, sanitizeDateSettings } from "../components/date-lists/utils/validate";
 import { isValidTreeListItem, isValidTreeSettingsObject, sanitizeTreeItem, sanitizeTreeSettings } from "../components/tree-lists/utils/validate";
+import { DateListItem } from "../components/date-lists/types";
+import { FlattenedItem } from "../components/tree-lists/types";
 import { isObject } from "./utils";
-import { DateListItem } from "../components/date-lists/date-types";
-import { FlattenedItem } from "../components/tree-lists/tree-types";
 
 export const getListItemsByType = <Type extends ListType>(listType: string, state: Type[]): any[] => {
     // Returns a valid type object or false

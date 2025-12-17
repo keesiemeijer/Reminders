@@ -5,7 +5,7 @@ export default defineConfig({
     plugins: [react()],
     base: "/Reminders",
     esbuild: {
-        drop: ["console", "debugger"],
+        //drop: ["console", "debugger"],
     },
     resolve: {
         alias: {

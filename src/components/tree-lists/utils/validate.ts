@@ -1,7 +1,6 @@
 import { isObject } from "../../../utils/utils";
-import { FlattenedItem } from "../tree-types";
-import { TreeSettings } from "../tree-types";
-import { TreeSettingsDefault, FlattenedItemDefault } from "./default";
+import { TreeSettings, FlattenedItem } from "../types";
+import { TreeSettingsDefault, FlattenedItemDefault } from "../types-default";
 
 // User defined type guard
 export const isValidTreeListItem = (item: any): item is FlattenedItem => {

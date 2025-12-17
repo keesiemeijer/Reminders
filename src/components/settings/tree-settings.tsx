@@ -5,11 +5,12 @@ import { toast } from "react-toastify";
 
 import { useAppDispatch } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
-import { updateListSettings, ListSettings } from "../../features/lists-slice";
+import { updateListSettings } from "../../features/lists-slice";
 import { getGeneralSettings } from "./utils/general-settings";
 import { GeneralSettingsInputElements } from "./general-settings-Input-elements";
 import { isValidListSettingsObject } from "../../utils/type";
-import { TreeListSettings } from "../tree-lists/tree-types";
+import { TreeListSettings } from "../tree-lists/types";
+import { ListSettings } from "../../types";
 
 const TreeSettings = () => {
     const dispatch = useAppDispatch();

@@ -5,8 +5,8 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { useAppSelector } from "../../app/hooks";
 import { TypeSettingContext } from "../../contexts/type-setting-context";
-import { TreeListType } from "../tree-lists/tree-types";
-import { DateListType } from "../date-lists/date-types";
+import { TreeListType } from "../tree-lists/types";
+import { DateListType } from "../date-lists/types";
 import { getListItemsByType } from "../../utils/type";
 import { convertDateItemsForExport } from "../date-lists/utils/export";
 import { convertTreeItemsForExport } from "../tree-lists/utils/export";

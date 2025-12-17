@@ -1,4 +1,4 @@
-import { FlattenedItem } from "../tree-types";
+import { FlattenedItem } from "../types";
 import { isValidTreeListItem, sanitizeTreeItem } from "./validate";
 
 export const convertTreeItemsForExport = (items: FlattenedItem[]): FlattenedItem[] => {

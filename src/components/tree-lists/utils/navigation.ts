@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 
 import { getIDs } from "../../../utils/utils";
-import { FlattenedItem } from "../tree-types";
+import { FlattenedItem } from "../types";
 
 export const getTopLevelID = (items: FlattenedItem[]): number => {
     const [searchParams] = useSearchParams();

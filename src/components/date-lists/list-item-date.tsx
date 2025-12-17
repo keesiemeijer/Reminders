@@ -1,4 +1,4 @@
-import { DateListSettings } from "./date-types";
+import { DateListSettings } from "./types";
 import { FormattedDate } from "./utils/date";
 import { isValidHex } from "../../utils/utils";
 

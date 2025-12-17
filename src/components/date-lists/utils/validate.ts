@@ -1,9 +1,9 @@
 import { dateExists } from "./date";
 
 import { isObject } from "../../../utils/utils";
-import { DateListItem } from "../date-types";
-import { DateSettings } from "../date-types";
-import { DateSettingsDefault, DateListItemDefault } from "./default";
+import { DateListItem } from "../types";
+import { DateSettings } from "../types";
+import { DateSettingsDefault, DateListItemDefault } from "../types-default";
 
 import { isValidHex } from "../../../utils/utils";
 

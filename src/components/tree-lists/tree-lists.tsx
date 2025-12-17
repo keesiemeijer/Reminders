@@ -6,6 +6,7 @@ import objectHash from "object-hash";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useHistoryState } from "../../app/hooks";
+
 import { TypeSettingContext } from "../../contexts/type-setting-context";
 import { CollapseContext } from "../../contexts/collapse-context";
 
@@ -14,7 +15,7 @@ import { getListItemsByType, getHighesListItemID } from "../../utils/type";
 import HistoryNav from "../history-nav";
 import CollapseLink from "../collapseLink";
 
-import { TreeListType, TreeListSettings, FlattenedItem, TreeItem } from "./tree-types";
+import { TreeListType, TreeListSettings, FlattenedItem, TreeItem } from "./types";
 import { SortableTree } from "./SortableTree";
 import { getTopLevelID } from "./utils/navigation";
 import { buildTree, getFlattenedItem } from "./utils/tree";

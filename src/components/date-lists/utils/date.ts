@@ -6,8 +6,8 @@ import isToday from "dayjs/plugin/isToday";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
 
-import { DateSettingsDefault } from "./default";
-import { DateSettings } from "../date-types";
+import { DateSettingsDefault } from "../types-default";
+import { DateSettings } from "../types";
 import { isValidDate } from "./validate";
 
 // The next comment is used to trick the vscode i18n ally extension to use the right namespace

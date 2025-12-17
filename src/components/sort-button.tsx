@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { useTranslation } from "react-i18next";
 
-import { DateListSettings } from "./date-lists/date-types";
+import { DateListSettings } from "./date-lists/types";
 import { updateListSettings } from "../features/lists-slice";
 import { isValidListSettingsObject } from "../utils/type";
 

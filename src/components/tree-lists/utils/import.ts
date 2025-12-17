@@ -1,7 +1,7 @@
 import { getHighesListItemID } from "../../../utils/type";
 import { isObject } from "../../../utils/utils";
 
-import { TreeItem, FlattenedItem } from "../tree-types";
+import { TreeItem, FlattenedItem } from "../types";
 
 import { isValidTreeListItem, sanitizeTreeItem } from "./validate";
 import { getChildrenByID } from "./tree";

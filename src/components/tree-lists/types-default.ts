@@ -1,4 +1,4 @@
-import { TreeSettings, FlattenedItem } from "../tree-types";
+import { TreeSettings, FlattenedItem } from "./types";
 
 // No settinngs yet
 export const TreeSettingsDefault: TreeSettings = {};
