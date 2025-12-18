@@ -1,1 +1,0 @@
-import{j as o}from"./index-ECLa9pC-.js";import{u as t}from"./useTranslation-Do-q_iX9.js";const e=()=>{const{t:s}=t("common");return o.jsx("div",{className:"page-404",children:o.jsx("h3",{children:s("404-page-not-found")})})};export{e as default};
