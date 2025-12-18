@@ -1,1 +1,0 @@
-import{j as o}from"./index-D7qS9kn4.js";import{u as t}from"./useTranslation-B3iqB-Pm.js";const e=()=>{const{t:s}=t("common");return o.jsx("div",{className:"page-404",children:o.jsx("h3",{children:s("404-page-not-found")})})};export{e as default};
