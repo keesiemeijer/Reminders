@@ -194,6 +194,44 @@ export const ListsSlice = createSlice({
 
             return state;
         },
+        // Should only be used for upgrade purposes
+        addPropToSettings: (state, action: PayloadAction<{ propName: string; propValue: any }>) => {
+            state.map((listType) => {
+                const dateType = listType.hasOwnProperty("orderByDate") && listType.orderByDate;
+                if (!dateType) {
+                    return listType;
+                }
+
+                const settingsExists = listType.hasOwnProperty("settings");
+                const propExists = settingsExists && listType.settings.hasOwnProperty(action.payload.propName);
+                if (settingsExists && !propExists) {
+                    // Add Property that doesn't exist yet in date settings
+                    console.log("adding prop:", action.payload.propName);
+                    (listType.settings as any)[action.payload.propName] = action.payload.propValue;
+                }
+                return listType;
+            });
+
+            return state;
+        },
+        // Should only be used for upgrade purposes
+        removePropFromSettings: (state, action: PayloadAction<{ propName: string }>) => {
+            state.map((listType) => {
+                const dateType = listType.hasOwnProperty("orderByDate") && listType.orderByDate;
+                if (!dateType || !listType.hasOwnProperty("settings")) {
+                    return listType;
+                }
+
+                if (listType.settings.hasOwnProperty(action.payload.propName)) {
+                    // Remove Property that does exist in date settings
+                    console.log("deleting prop:", action.payload.propName);
+                    delete (listType.settings as any)[action.payload.propName];
+                }
+                return listType;
+            });
+
+            return state;
+        },
     },
 });
 
@@ -210,6 +248,9 @@ export const {
     updateTreeListItems,
     updateDateListItems,
     updateDateListItemText,
+    // Should only be used for upgrade purposes
+    addPropToSettings,
+    removePropFromSettings,
 } = ListsSlice.actions;
 
 // export reducer

@@ -6,4 +6,4 @@ export const APP_VERSION = "1.0.0";
 // The upgrade routine (in ../utils/upgrate.ts) will run if the stored version is lower than this number.
 // In the upgrade routine you can update the stored settings to pass all the (newer) validation checks.
 
-export const APP_SCHEMA_VERSION = 1;
+export const APP_SCHEMA_VERSION = 3;
