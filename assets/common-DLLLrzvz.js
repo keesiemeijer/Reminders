@@ -1,1 +1,0 @@
-const i="Annulla",o="Rifai",n="Liste",t={"404-page-not-found":"404 Pagina Non Trovata","add-items":"Aggiungi Elementi","hide-form":"Nascondi Modulo",undo:i,redo:o,"add-list":"Aggiungi Lista","sort-list":"Ordina Lista",lists:n};export{t as default,n as lists,o as redo,i as undo};

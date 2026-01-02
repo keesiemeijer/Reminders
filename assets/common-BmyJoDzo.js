@@ -1,1 +1,0 @@
-const o="تراجع",t="إعادة",s="القوائم",d={"404-page-not-found":"404 الصفحة غير موجودة","add-items":"إضافة عناصر","hide-form":"إخفاء النموذج",undo:o,redo:t,"add-list":"إضافة قائمة","sort-list":"ترتيب القائمة",lists:s};export{d as default,s as lists,t as redo,o as undo};

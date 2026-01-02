@@ -1,1 +1,0 @@
-const t="Instellingen",e={settings:t,"settings-for-list":"Instellingen voor lijst: <1>{{list}}</1>","update-settings":"Instellingen bijwerken","settings-updated":"Instellingen bijgewerkt","could-not-update-settings":"Kon instellingen niet bijwerken"};export{e as default,t as settings};

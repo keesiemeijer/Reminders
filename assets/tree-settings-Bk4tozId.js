@@ -1,1 +1,0 @@
-const t="सेटिंग्स",s={settings:t,"settings-for-list":"सूची के लिए सेटिंग्स: <1>{{list}}</1>","update-settings":"सेटिंग्स अपडेट करें","settings-updated":"सेटिंग्स अपडेट हो गईं","could-not-update-settings":"सेटिंग्स अपडेट नहीं की जा सकीं"};export{s as default,t as settings};

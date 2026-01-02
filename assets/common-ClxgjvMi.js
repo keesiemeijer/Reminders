@@ -1,1 +1,0 @@
-const e="Annuler",t="Refaire",s="Listes",o={"404-page-not-found":"404 Page Introuvable","add-items":"Ajouter des Éléments","hide-form":"Masquer le Formulaire",undo:e,redo:t,"add-list":"Ajouter une Liste","sort-list":"Trier la Liste",lists:s};export{o as default,s as lists,t as redo,e as undo};

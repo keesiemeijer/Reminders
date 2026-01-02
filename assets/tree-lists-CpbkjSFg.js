@@ -1,1 +1,0 @@
-const t="Settings",e="Home",i={"add-item":"Add Item",settings:t,"list-item":"List Item","add-list-item":"Add List Item","there-are-no-list-items-yet":"There are no list items yet","invalid-list-item-try-again":"Invalid List Item. Try again",home:e,"go-to-item-id":"Go to item {{id}}","delete-list-item":"Delete List Item"};export{i as default,e as home,t as settings};

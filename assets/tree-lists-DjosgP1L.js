@@ -1,1 +1,0 @@
-const t="सेटिंग्स",e="होम",i={"add-item":"आइटम जोड़ें",settings:t,"list-item":"सूची आइटम","add-list-item":"सूची आइटम जोड़ें","there-are-no-list-items-yet":"अभी तक कोई सूची आइटम नहीं हैं","invalid-list-item-try-again":"अमान्य सूची आइटम। पुनः प्रयास करें",home:e,"go-to-item-id":"आइटम {{id}} पर जाएं","delete-list-item":"सूची आइटम हटाएं"};export{i as default,e as home,t as settings};

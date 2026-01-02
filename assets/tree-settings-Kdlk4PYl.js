@@ -1,1 +1,0 @@
-const t="Configuraciones",s={settings:t,"settings-for-list":"Configuraciones para la lista: <1>{{list}}</1>","update-settings":"Actualizar Configuraciones","settings-updated":"Configuraciones Actualizadas","could-not-update-settings":"No se pudieron actualizar las configuraciones"};export{s as default,t as settings};
