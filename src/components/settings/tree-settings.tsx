@@ -15,9 +15,9 @@ import { ListSettings } from "../../types";
 const TreeSettings = () => {
     const dispatch = useAppDispatch();
     const typeSettings = useContext(TypeSettingContext);
-    const { t } = useTranslation("tree-settings");
+    const { t } = useTranslation(["settings", "common"]);
 
-    let pageTitle = t("settings");
+    let pageTitle = t("settings", { ns: "common" });
     let buttonText = t("update-settings");
 
     // HTML elements

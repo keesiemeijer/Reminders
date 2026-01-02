@@ -17,7 +17,7 @@ import { GeneralSettingsInputElements } from "./general-settings-Input-elements"
 
 const DateFormSettings = () => {
     const dispatch = useAppDispatch();
-    const { t } = useTranslation("date-settings");
+    const { t } = useTranslation(["date-settings", "settings"]);
 
     const typeSettings = useContext(TypeSettingContext);
 
@@ -25,7 +25,7 @@ const DateFormSettings = () => {
     const [todayColor, setTodayColor] = useState(typeSettings.settings.todayDateColor);
 
     let pageTitle = t("settings");
-    let buttonText = t("update-settings");
+    let buttonText = t("update-settings", { ns: "settings" });
 
     // HTML elements
     const titleInput = useRef<HTMLInputElement>(null);
@@ -101,10 +101,10 @@ const DateFormSettings = () => {
             // Update type settings
             dispatch(updateListSettings(dateTypeSettings));
             // Display message.
-            toast.info(t("settings-updated"));
+            toast.info(t("settings-updated", { ns: "settings" }));
         } else {
             // Something went wrong
-            toast.error(t("could-not-update-settings"));
+            toast.error(t("could-not-update-settings", { ns: "settings" }));
         }
     };
 

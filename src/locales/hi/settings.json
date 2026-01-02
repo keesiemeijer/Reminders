@@ -27,5 +27,9 @@
     "please-provide-a-title":"कृपया एक शीर्षक प्रदान करें",
     "date-ordered-list":"तारीख-क्रमित सूची",
     "manual-ordered-list":"मैनुअल-क्रमित सूची",
-    "list-style":"सूची शैली"
+    "list-style":"सूची शैली",
+    "settings-for-list": "सूची के लिए सेटिंग्स: <1>{{list}}</1>",
+    "update-settings": "सेटिंग्स अपडेट करें",
+    "settings-updated": "सेटिंग्स अपडेट हो गईं",
+    "could-not-update-settings": "सेटिंग्स अपडेट नहीं की जा सकीं"
 }

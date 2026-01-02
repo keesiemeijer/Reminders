@@ -27,5 +27,9 @@
     "please-provide-a-title":"Bitte geben Sie einen Titel an",
     "date-ordered-list":"Datumsgeordnete Liste",
     "manual-ordered-list":"Manuell geordnete Liste",
-    "list-style":"Listenstil"
+    "list-style":"Listenstil",
+    "settings-for-list": "Einstellungen für Liste: <1>{{list}}</1>",
+    "update-settings": "Einstellungen aktualisieren",
+    "settings-updated": "Einstellungen aktualisiert",
+    "could-not-update-settings": "Einstellungen konnten nicht aktualisiert werden"
 }

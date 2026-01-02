@@ -23,7 +23,7 @@ import TreeNav from "./tree-nav";
 
 const TreeLists = () => {
     const dispatch = useAppDispatch();
-    const { t } = useTranslation("tree-lists");
+    const { t } = useTranslation("common");
 
     const typeSettings: TreeListSettings = useContext(TypeSettingContext);
     const listType = typeSettings.type;

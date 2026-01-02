@@ -1,10 +1,6 @@
 {
     "date-options": "Параметры даты",
     "settings": "Настройки",
-    "settings-for-list": "Настройки для списка: <1>{{list}}</1>",
-    "update-settings": "Обновить настройки",
-    "settings-updated": "Настройки обновлены",
-    "could-not-update-settings": "Не удалось обновить настройки",
     "show-dates-with-date-format-below": "Показывать даты (с форматом даты ниже)",
     "show-relative-dates-eg-in-2-days": "Показывать относительные даты (например, \"через 2 дня\")",
     "date-format": "Формат даты",

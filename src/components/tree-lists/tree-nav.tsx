@@ -12,7 +12,7 @@ interface TreeNavProps {
 }
 
 const TreeNav = (props: TreeNavProps) => {
-    const { t } = useTranslation("tree-lists");
+    const { t } = useTranslation("common");
     const flattenedItems = flattenTree(props.items);
 
     let parents: FlattenedItem[] = [];

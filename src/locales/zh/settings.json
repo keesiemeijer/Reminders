@@ -27,5 +27,9 @@
     "please-provide-a-title":"请提供标题",
     "date-ordered-list":"日期排序列表",
     "manual-ordered-list":"手动排序列表",
-    "list-style":"列表样式"
+    "list-style":"列表样式",
+    "settings-for-list": "列表设置：<1>{{list}}</1>",
+    "update-settings": "更新设置",
+    "settings-updated": "设置已更新",
+    "could-not-update-settings": "无法更新设置"
 }

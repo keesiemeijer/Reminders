@@ -27,5 +27,9 @@
     "please-provide-a-title":"Por favor proporcione un título",
     "date-ordered-list":"Lista Ordenada por Fecha",
     "manual-ordered-list":"Lista Ordenada Manualmente",
-    "list-style":"Estilo de Lista"
+    "list-style":"Estilo de Lista",
+    "settings-for-list": "Configuraciones para la lista: <1>{{list}}</1>",
+    "update-settings": "Actualizar Configuraciones",
+    "settings-updated": "Configuraciones Actualizadas",
+    "could-not-update-settings": "No se pudieron actualizar las configuraciones"
 }

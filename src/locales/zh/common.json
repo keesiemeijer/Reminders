@@ -6,5 +6,16 @@
     "redo": "重做",
     "add-list": "添加列表",
     "sort-list": "排序列表",
-    "lists": "列表"
+    "lists": "列表",
+    "invalid-list-item-try-again": "无效的列表项目。请重试",
+    "list-item": "列表项目",
+    "settings": "设置",
+    "add-list-item": "添加列表项目",
+    "there-are-no-list-items-yet": "还没有列表项目",
+    "delete-list-item": "删除列表项目",
+    "edit-list-item": "编辑列表项目",
+    "save-list-item": "保存列表项目",
+    "add-item": "添加项目",
+    "home": "主页",
+    "go-to-item-id": "转到项目 {{id}}"
 }

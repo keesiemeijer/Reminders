@@ -6,5 +6,16 @@
     "redo": "Rehacer",
     "add-list": "Agregar Lista",
     "sort-list": "Ordenar Lista",
-    "lists": "Listas"
+    "lists": "Listas",
+    "invalid-list-item-try-again": "Elemento de lista inválido. Inténtalo de nuevo",
+    "list-item": "Elemento de Lista",
+    "settings": "Configuraciones",
+    "add-list-item": "Agregar Elemento de Lista",
+    "there-are-no-list-items-yet": "Aún no hay elementos de lista",
+    "delete-list-item": "Eliminar Elemento de Lista",
+    "edit-list-item": "Editar Elemento de Lista",
+    "save-list-item": "Guardar Elemento de Lista",
+    "add-item": "Agregar Elemento",
+    "home": "Inicio",
+    "go-to-item-id": "Ir al elemento {{id}}"
 }

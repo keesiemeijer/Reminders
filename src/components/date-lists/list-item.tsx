@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../app/hooks";
-import { removeListItems, updateDateListItemText } from "../../features/lists-slice";
+import { removeListItems, updateListItemText } from "../../features/lists-slice";
 import { DateListSettings } from "./types";
 import { DateListItem } from "./types";
 import ListItemDate from "./list-item-date";
@@ -16,7 +16,7 @@ interface ListItemProps {
 
 const ListItem = (props: ListItemProps) => {
     const dispatch = useAppDispatch();
-    const { t } = useTranslation("date-lists");
+    const { t } = useTranslation(["date-lists", "common"]);
 
     // Reference for contenteditable div
     const itemTextDiv = useRef<HTMLDivElement>(null);
@@ -73,7 +73,7 @@ const ListItem = (props: ListItemProps) => {
         if (itemTextDiv.current) {
             const editedItemText = itemTextDiv.current.textContent;
             if (typeof editedItemText === "string" && "" !== editedItemText.trim()) {
-                dispatch(updateDateListItemText({ type: props.settings.type, id: props.item.id, text: editedItemText.trim() }));
+                dispatch(updateListItemText({ type: props.settings.type, id: props.item.id, text: editedItemText.trim() }));
             } else {
                 // Revert to original text if empty
                 itemTextDiv.current.textContent = ListItemText;
@@ -108,16 +108,16 @@ const ListItem = (props: ListItemProps) => {
                 type="button"
                 className={`edit-item edit-item-id-${ListItemID} ${isEditing ? "visible" : "hide"}`}
                 tabIndex={0}
-                aria-label={t("edit-list-item")}
-                title={t("save-list-item")}
+                aria-label={t("edit-list-item", { ns: "common" })}
+                title={t("save-list-item", { ns: "common" })}
                 onClick={saveEditedListItemText}
             ></button>
             <button
                 type="button"
                 className="delete-item"
                 tabIndex={0}
-                aria-label={t("delete-list-item")}
-                title={t("delete-list-item")}
+                aria-label={t("delete-list-item", { ns: "common" })}
+                title={t("delete-list-item", { ns: "common" })}
                 onClick={deleteListItem}
             ></button>
         </li>

@@ -6,5 +6,16 @@
     "redo": "Redo",
     "add-list": "Add List",
     "sort-list": "Sort List",
-    "lists": "Lists"
+    "lists": "Lists",
+    "invalid-list-item-try-again": "Invalid List Item. Try again",
+    "list-item": "List Item",
+    "settings": "Settings",
+    "add-list-item": "Add List Item",
+    "there-are-no-list-items-yet": "There are no list items yet",
+    "delete-list-item": "Delete List Item",
+    "edit-list-item": "Edit List Item",
+    "save-list-item": "Save List Item",
+    "add-item": "Add Item",
+    "home": "Home",
+    "go-to-item-id": "Go to item {{id}}"
 }

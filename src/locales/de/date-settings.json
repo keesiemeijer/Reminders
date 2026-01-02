@@ -1,10 +1,6 @@
 {
     "date-options": "Datumsoptionen",
     "settings": "Einstellungen",
-    "settings-for-list": "Einstellungen für Liste: <1>{{list}}</1>",
-    "update-settings": "Einstellungen aktualisieren",
-    "settings-updated": "Einstellungen aktualisiert",
-    "could-not-update-settings": "Einstellungen konnten nicht aktualisiert werden",
     "show-dates-with-date-format-below": "Daten anzeigen (mit dem untenstehenden Datumsformat)",
     "show-relative-dates-eg-in-2-days": "Relative Daten anzeigen (z.B. \"in 2 Tagen\")",
     "date-format": "Datumsformat",

@@ -20,7 +20,7 @@ import DateList from "./list";
 
 const DateLists = () => {
     const dispatch = useAppDispatch();
-    const { t } = useTranslation("date-lists");
+    const { t } = useTranslation(["date-lists", "common"]);
     const [date, setDate] = useState("");
 
     const typeSettings: DateListSettings = useContext(TypeSettingContext);
@@ -129,7 +129,7 @@ const DateLists = () => {
             // Set list item added flag to true (for scrolling in useEffect).
             isNewListItemDispatched.current = true;
         } else {
-            alert(t("invalid-list-item-try-again"));
+            alert(t("invalid-list-item-try-again", { ns: "common" }));
         }
     };
 
@@ -160,7 +160,7 @@ const DateLists = () => {
                         <ul className="nav sub-navigation">
                             <li className="nav-item">
                                 <Link className="nav-link nav-settings" to={"/settings?type=" + listType}>
-                                    {t("settings")}
+                                    {t("settings", { ns: "common" })}
                                 </Link>
                             </li>
                             <li>
@@ -171,7 +171,7 @@ const DateLists = () => {
                         <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
                             <div className="form-section">
                                 <label htmlFor="list-item-text" className="form-label">
-                                    {t("list-item")}
+                                    {t("list-item", { ns: "common" })}
                                 </label>
                                 <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
                             </div>
@@ -197,7 +197,7 @@ const DateLists = () => {
                             </div>
                             <div className="form-section">
                                 <button type="submit" className="btn btn-success">
-                                    {t("add-list-item")}
+                                    {t("add-list-item", { ns: "common" })}
                                 </button>
                             </div>
                         </div>
@@ -208,7 +208,7 @@ const DateLists = () => {
                     {listItemCount > 1 && <SortButton settings={typeSettings} />}
                 </div>
                 <DateList listType={listType} settings={typeSettings} listItems={listItems} newListItem={newListItem} latestListItemID={latestListItemID} />
-                {listItemCount === 0 && <p>{t("there-are-no-list-items-yet")}</p>}
+                {listItemCount === 0 && <p>{t("there-are-no-list-items-yet", { ns: "common" })}</p>}
             </div>
         </CollapseContext.Provider>
     );

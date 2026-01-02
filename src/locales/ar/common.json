@@ -6,5 +6,16 @@
     "redo": "إعادة",
     "add-list": "إضافة قائمة",
     "sort-list": "ترتيب القائمة",
-    "lists": "القوائم"
+    "lists": "القوائم",
+    "invalid-list-item-try-again": "عنصر قائمة غير صالح. حاول مرة أخرى",
+    "list-item": "عنصر القائمة",
+    "settings": "الإعدادات",
+    "add-list-item": "إضافة عنصر قائمة",
+    "there-are-no-list-items-yet": "لا توجد عناصر قائمة حتى الآن",
+    "delete-list-item": "حذف عنصر القائمة",
+    "edit-list-item": "تحرير عنصر القائمة",
+    "save-list-item": "حفظ عنصر القائمة",
+    "add-item": "إضافة عنصر",
+    "home": "الرئيسية",
+    "go-to-item-id": "الذهاب إلى عنصر {{id}}"
 }

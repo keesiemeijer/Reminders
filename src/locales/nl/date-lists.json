@@ -1,13 +1,4 @@
 {
-    "invalid-list-item-try-again": "Ongeldig item. Probeer het opnieuw",
-    "list-item": "Item",
-    "settings": "Instellingen",
-    "list-item-date": "Datum",
-    "add-list-item": "Item toevoegen",
-    "there-are-no-list-items-yet": "Er zijn nog geen items",
-    "delete-list-item": "Item verwijderen",
-    "edit-list-item": "Edit List Item",
-    "save-list-item": "Item Opslaan",
     "pick-a-date": "Kies een datum",
     "quickly-pick-a-date-with-the-buttons-below": "Kies snel een datum met de knoppen hieronder",
     "relative-date-past": "{{date}} geleden",

@@ -1,13 +1,4 @@
 {
-    "invalid-list-item-try-again": "Недействительный элемент списка. Попробуйте снова",
-    "list-item": "Элемент списка",
-    "settings": "Настройки",
-    "list-item-date": "Дата элемента списка",
-    "add-list-item": "Добавить элемент списка",
-    "there-are-no-list-items-yet": "Пока нет элементов списка",
-    "delete-list-item": "Удалить элемент списка",
-    "edit-list-item": "Редактировать элемент списка",
-    "save-list-item": "Сохранить элемент списка",
     "pick-a-date": "Выбрать дату",
     "quickly-pick-a-date-with-the-buttons-below": "Быстро выберите дату с помощью кнопок ниже",
     "relative-date-past": "{{date}} назад",

@@ -6,5 +6,16 @@
     "redo": "Opnieuw uitvoeren",
     "add-list": "Lijst Toevoegen",
     "sort-list": "Lijst Sorteren",
-    "lists": "Lijsten"
+    "lists": "Lijsten",
+    "invalid-list-item-try-again": "Ongeldig item. Probeer het opnieuw",
+    "list-item": "Item",
+    "settings": "Instellingen",
+    "add-list-item": "Item toevoegen",
+    "there-are-no-list-items-yet": "Er zijn nog geen items",
+    "delete-list-item": "Item verwijderen",
+    "edit-list-item": "Item bewerken",
+    "save-list-item": "Item opslaan",
+    "add-item": "Item toevoegen",
+    "home": "Home",
+    "go-to-item-id": "Ga naar item {{id}}"
 }

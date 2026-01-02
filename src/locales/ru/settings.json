@@ -27,5 +27,9 @@
     "please-provide-a-title":"Пожалуйста, укажите название",
     "date-ordered-list":"Список, упорядоченный по дате",
     "manual-ordered-list":"Список, упорядоченный вручную",
-    "list-style":"Стиль списка"
+    "list-style":"Стиль списка",
+    "settings-for-list": "Настройки для списка: <1>{{list}}</1>",
+    "update-settings": "Обновить настройки",
+    "settings-updated": "Настройки обновлены",
+    "could-not-update-settings": "Не удалось обновить настройки"
 }

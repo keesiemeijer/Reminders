@@ -27,5 +27,9 @@
     "please-provide-a-title":"Veuillez fournir un titre",
     "date-ordered-list":"Liste Ordonnée par Date",
     "manual-ordered-list":"Liste Ordonnée Manuellement",
-    "list-style":"Style de Liste"
+    "list-style":"Style de Liste",
+    "settings-for-list": "Paramètres pour la liste : <1>{{list}}</1>",
+    "update-settings": "Mettre à Jour les Paramètres",
+    "settings-updated": "Paramètres Mis à Jour",
+    "could-not-update-settings": "Impossible de mettre à jour les paramètres"
 }

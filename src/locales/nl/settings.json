@@ -30,5 +30,9 @@
     "please-provide-a-title": "Geef een titel op",
     "date-ordered-list": "Datum geordende lijst",
     "manual-ordered-list": "Handmatig geordende lijst",
-    "list-style": "Lijststijl"
+    "list-style": "Lijststijl",
+    "settings-for-list": "Instellingen voor lijst: <1>{{list}}</1>",
+    "update-settings": "Instellingen bijwerken",
+    "settings-updated": "Instellingen bijgewerkt",
+    "could-not-update-settings": "Kon instellingen niet bijwerken"
 }

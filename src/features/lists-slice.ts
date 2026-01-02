@@ -129,12 +129,15 @@ export const ListsSlice = createSlice({
 
             return state;
         },
-        updateDateListItemText: (state, action: PayloadAction<{ type: string; id: number; text: string }>) => {
+        updateListItemText: (state, action: PayloadAction<{ type: string; id: number; text: string }>) => {
             const index = getIndexOfListType(action.payload, state);
             if (-1 === index) {
-                // Not an existing type
+                // Not an (valid) existing type
                 return state;
             }
+
+            // The function getIndexOfListType only returns true for valid list objects
+            // Meaning state[index] has all list type properties like items, orderByDate, etc.
 
             const itemIndex = state[index].items.findIndex((item) => item.id === action.payload.id);
             if (itemIndex === -1) {
@@ -144,11 +147,21 @@ export const ListsSlice = createSlice({
 
             let item = state[index].items[itemIndex];
             item.text = action.payload.text;
-            item = sanitizeDateItem(item);
 
-            // Ensure the updated item is still valid
-            if (!isValidDateListItem(item)) {
-                return state;
+            if (state[index].orderByDate) {
+                item = sanitizeDateItem(item);
+
+                // Ensure the updated item is still valid
+                if (!isValidDateListItem(item)) {
+                    return state;
+                }
+            } else {
+                item = sanitizeTreeItem(item);
+
+                // Ensure the updated item is still valid
+                if (!isValidTreeListItem(item)) {
+                    return state;
+                }
             }
 
             // Uptate the item
@@ -247,7 +260,7 @@ export const {
     DeleteListType,
     updateTreeListItems,
     updateDateListItems,
-    updateDateListItemText,
+    updateListItemText,
     // Should only be used for upgrade purposes
     addPropToSettings,
     removePropFromSettings,

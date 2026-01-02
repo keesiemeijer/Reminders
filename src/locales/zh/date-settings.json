@@ -1,10 +1,6 @@
 {
     "date-options": "日期选项",
     "settings": "设置",
-    "settings-for-list": "列表设置：<1>{{list}}</1>",
-    "update-settings": "更新设置",
-    "settings-updated": "设置已更新",
-    "could-not-update-settings": "无法更新设置",
     "show-dates-with-date-format-below": "显示日期（使用下面的日期格式）",
     "show-relative-dates-eg-in-2-days": "显示相对日期（例如，“2 天后”）",
     "date-format": "日期格式",

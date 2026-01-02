@@ -1,13 +1,4 @@
 {
-    "invalid-list-item-try-again": "Ungültiges Listenelement. Versuchen Sie es erneut",
-    "list-item": "Listenelement",
-    "settings": "Einstellungen",
-    "list-item-date": "Datum des Listenelements",
-    "add-list-item": "Listenelement hinzufügen",
-    "there-are-no-list-items-yet": "Es gibt noch keine Listenelemente",
-    "delete-list-item": "Listenelement löschen",
-    "edit-list-item": "Listenelement bearbeiten",
-    "save-list-item": "Listenelement speichern",
     "pick-a-date": "Datum auswählen",
     "quickly-pick-a-date-with-the-buttons-below": "Wählen Sie schnell ein Datum mit den Schaltflächen unten aus",
     "relative-date-past": "vor {{date}}",

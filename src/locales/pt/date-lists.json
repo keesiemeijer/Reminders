@@ -1,13 +1,4 @@
 {
-    "invalid-list-item-try-again": "Item de lista inválido. Tente novamente",
-    "list-item": "Item da Lista",
-    "settings": "Configurações",
-    "list-item-date": "Data do Item da Lista",
-    "add-list-item": "Adicionar Item da Lista",
-    "there-are-no-list-items-yet": "Ainda não há itens de lista",
-    "delete-list-item": "Excluir Item da Lista",
-    "edit-list-item": "Editar Item da Lista",
-    "save-list-item": "Salvar Item da Lista",
     "pick-a-date": "Escolher uma Data",
     "quickly-pick-a-date-with-the-buttons-below": "Escolha rapidamente uma data com os botões abaixo",
     "relative-date-past": "{{date}} atrás",

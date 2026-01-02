@@ -1,8 +1,10 @@
-import React, { forwardRef, HTMLAttributes } from "react";
+import React, { forwardRef, HTMLAttributes, useState, useRef } from "react";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 
 import { Action, Handle } from "../Item";
+import { updateListItemText } from "../../../../features/lists-slice";
+import { useAppDispatch } from "../../../../app/hooks";
 
 import styles from "./TreeItem.module.css";
 import { Link } from "react-router-dom";
@@ -55,7 +57,67 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
         },
         ref
     ) => {
-        const { t } = useTranslation("tree-lists");
+        const dispatch = useAppDispatch();
+        const { t } = useTranslation(["common"]);
+        // Reference for contenteditable div
+        const itemTextDiv = useRef<HTMLDivElement>(null);
+        // State for editing contenteditable div
+        const [isEditing, setIsEditing] = useState(false);
+
+        // List item properties
+        const ListItemText = value;
+        const ListItemID = id;
+
+        const handleFocus = () => {
+            if (itemTextDiv.current) {
+                // Set text to original text (in case it was edited)
+                itemTextDiv.current.textContent = ListItemText as string;
+            }
+
+            // Set editing state true
+            setIsEditing(true);
+        };
+
+        const handleBlur = (_e: React.FocusEvent<HTMLElement>) => {
+            // Check if button was clicked before blur
+            if (_e.relatedTarget?.className.includes("edit-item-id-" + ListItemID)) {
+                // Blur event triggers before click but the edit button was clicked because of relatedTarget
+                saveEditedListItemText();
+            } else {
+                if (itemTextDiv.current) {
+                    // Revert to original text if not saved by edit button
+                    itemTextDiv.current.textContent = ListItemText as string;
+                }
+            }
+            // Set editing state false
+            setIsEditing(false);
+        };
+
+        const handleKeyDown = (_e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (_e.key === "Enter") {
+                // Enter key pressed
+                _e.preventDefault();
+                // Save edited text on Enter key
+                saveEditedListItemText();
+                // Remove focus from div
+                if (itemTextDiv.current) {
+                    itemTextDiv.current.blur();
+                }
+            }
+        };
+
+        const saveEditedListItemText = () => {
+            if (itemTextDiv.current) {
+                const editedItemText = itemTextDiv.current.textContent;
+                if (typeof editedItemText === "string" && "" !== editedItemText.trim()) {
+                    dispatch(updateListItemText({ type: type, id: id as number, text: editedItemText.trim() }));
+                } else {
+                    // Revert to original text if empty
+                    itemTextDiv.current.textContent = ListItemText as string;
+                }
+            }
+        };
+
         return (
             <li
                 className={
@@ -90,10 +152,41 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
                             </Action>
                         )}
                     </div>
-                    <span className={styles.Text}>{value}</span>
+                    <div
+                        className={styles.Text}
+                        ref={itemTextDiv}
+                        contentEditable="plaintext-only"
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        onKeyDown={handleKeyDown}
+                        suppressContentEditableWarning={true}
+                        role="textbox"
+                    >
+                        {value}
+                    </div>
                     {/* {!clone && onRemove && <Remove onClick={onRemove} />} */}
                     {clone && childCount && childCount > 1 ? <span className={styles.Count}>{childCount}</span> : null}
-                    {!clone && <button type="button" className="delete-item" aria-label={t("delete-list-item")} tabIndex={0} onClick={onRemove}></button>}
+                    {!clone && (
+                        <button
+                            type="button"
+                            className={`edit-item edit-item-id-${ListItemID} ${isEditing ? "visible" : "hide"}`}
+                            tabIndex={0}
+                            aria-label={t("edit-list-item")}
+                            title={t("save-list-item")}
+                            onClick={saveEditedListItemText}
+                        ></button>
+                    )}
+
+                    {!clone && (
+                        <button
+                            type="button"
+                            className="delete-item"
+                            tabIndex={0}
+                            onClick={onRemove}
+                            aria-label={t("delete-list-item")}
+                            title={t("delete-list-item")}
+                        ></button>
+                    )}
                 </div>
             </li>
         );

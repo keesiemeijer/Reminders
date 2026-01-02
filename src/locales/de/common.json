@@ -6,5 +6,16 @@
     "redo": "Wiederholen",
     "add-list": "Liste hinzufügen",
     "sort-list": "Liste sortieren",
-    "lists": "Listen"
+    "lists": "Listen",
+    "invalid-list-item-try-again": "Ungültiges Listenelement. Versuchen Sie es erneut",
+    "list-item": "Listenelement",
+    "settings": "Einstellungen",
+    "add-list-item": "Listenelement hinzufügen",
+    "there-are-no-list-items-yet": "Es gibt noch keine Listenelemente",
+    "delete-list-item": "Listenelement löschen",
+    "edit-list-item": "Listenelement bearbeiten",
+    "save-list-item": "Listenelement speichern",
+    "add-item": "Element hinzufügen",
+    "home": "Startseite",
+    "go-to-item-id": "Zu Element {{id}} gehen"
 }

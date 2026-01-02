@@ -1,7 +1,0 @@
-{
-    "settings": "Settings",
-    "settings-for-list": "Settings for list: <1>{{list}}</1>",
-    "update-settings": "Update Settings",
-    "settings-updated": "Settings Updated",
-    "could-not-update-settings": "Could not update settings"
-}

@@ -1,13 +1,4 @@
 {
-    "invalid-list-item-try-again": "Élément de liste invalide. Réessayez",
-    "list-item": "Élément de Liste",
-    "settings": "Paramètres",
-    "list-item-date": "Date de l'Élément de Liste",
-    "add-list-item": "Ajouter un Élément de Liste",
-    "there-are-no-list-items-yet": "Il n'y a pas encore d'éléments de liste",
-    "delete-list-item": "Supprimer l'Élément de Liste",
-    "edit-list-item": "Modifier l'Élément de Liste",
-    "save-list-item": "Enregistrer l'Élément de Liste",
     "pick-a-date": "Choisir une Date",
     "quickly-pick-a-date-with-the-buttons-below": "Choisissez rapidement une date avec les boutons ci-dessous",
     "relative-date-past": "il y a {{date}}",

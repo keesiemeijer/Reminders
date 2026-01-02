@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 const TreeFooterNav = (props: { type: string; id: number }) => {
     const collapse = useContext(CollapseContext);
     const FooterLinkRef = useRef<HTMLAnchorElement>(null);
-    const { t } = useTranslation("tree-lists");
+    const { t } = useTranslation("common");
 
     let linkTo = "/?type=" + props.type;
     if (props.id > 0) {

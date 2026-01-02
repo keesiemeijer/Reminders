@@ -1,10 +1,6 @@
 {
     "date-options": "خيارات التاريخ",
     "settings": "الإعدادات",
-    "settings-for-list": "إعدادات القائمة: <1>{{list}}</1>",
-    "update-settings": "تحديث الإعدادات",
-    "settings-updated": "تم تحديث الإعدادات",
-    "could-not-update-settings": "تعذر تحديث الإعدادات",
     "show-dates-with-date-format-below": "عرض التواريخ (باستخدام تنسيق التاريخ أدناه)",
     "show-relative-dates-eg-in-2-days": "عرض التواريخ النسبية (مثل \"في غضون يومين\")",
     "date-format": "تنسيق التاريخ",
