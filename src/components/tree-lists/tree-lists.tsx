@@ -8,12 +8,14 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useHistoryState } from "../../app/hooks";
 
 import { TypeSettingContext } from "../../contexts/type-setting-context";
+import { EditModeContext } from "../../contexts/edit-mode-context";
 import { CollapseContext } from "../../contexts/collapse-context";
 
 import { addTreeListItem, updateTreeListItems } from "../../features/lists-slice";
 import { getListItemsByType, getHighesListItemID } from "../../utils/type";
 import HistoryNav from "../history-nav";
 import CollapseLink from "../collapseLink";
+import EditModeToggleLink from "../editModeToggleLink";
 
 import { TreeListType, TreeListSettings, FlattenedItem, TreeItem } from "./types";
 import { SortableTree } from "./SortableTree";
@@ -24,6 +26,8 @@ import TreeNav from "./tree-nav";
 const TreeLists = () => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation("common");
+
+    const { editMode } = useContext(EditModeContext);
 
     const typeSettings: TreeListSettings = useContext(TypeSettingContext);
     const listType = typeSettings.type;
@@ -190,37 +194,50 @@ const TreeLists = () => {
                         <h1>{typeSettings["title"]}</h1>
                         {typeSettings["description"] && <p className="type-desc">{typeSettings["description"]}</p>}
                         <ul className="nav sub-navigation">
-                            <li className="nav-item">
-                                <Link className="nav-link nav-settings" to={"/settings?type=" + listType}>
-                                    {t("settings")}
-                                </Link>
-                            </li>
-
                             <li>
-                                <CollapseLink listItemCount={listItemCount} />
+                                <EditModeToggleLink />
                             </li>
-                        </ul>
+                            {editMode && (
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link nav-settings" to={"/settings?type=" + listType}>
+                                            {t("settings")}
+                                        </Link>
+                                    </li>
 
-                        <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
-                            <div className="form-section">
-                                <label htmlFor="list-item-text" className="form-label">
-                                    {t("list-item")}
-                                </label>
-                                <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
+                                    <li>
+                                        <CollapseLink listItemCount={listItemCount} />
+                                    </li>
+                                </>
+                            )}
+                        </ul>
+                        {editMode && (
+                            <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
+                                <div className="form-section">
+                                    <label htmlFor="list-item-text" className="form-label">
+                                        {t("list-item")}
+                                    </label>
+                                    <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
+                                </div>
+                                <div className="form-section">
+                                    <button type="submit" className="btn btn-success">
+                                        {t("add-list-item")}
+                                    </button>
+                                </div>
                             </div>
-                            <div className="form-section">
-                                <button type="submit" className="btn btn-success">
-                                    {t("add-list-item")}
-                                </button>
-                            </div>
-                        </div>
+                        )}
                     </form>
                 </div>
 
                 <div className="list-nav">
-                    <TreeNav items={listItems} topLevelID={topLevelID} type={listType} clearHistory={resetHistoryState} />
-                    <HistoryNav updateHistory={handleHistoryUpdate} history={history} />
+                    {editMode && (
+                        <>
+                            <TreeNav items={listItems} topLevelID={topLevelID} type={listType} clearHistory={resetHistoryState} />
+                            <HistoryNav updateHistory={handleHistoryUpdate} history={history} />
+                        </>
+                    )}
                 </div>
+
                 {topLevelText && <h5 className="top-level-title">{topLevelText}</h5>}
                 {listItemCount > 0 && (
                     <SortableTree

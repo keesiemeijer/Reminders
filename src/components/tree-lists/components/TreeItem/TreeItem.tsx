@@ -1,6 +1,7 @@
-import React, { forwardRef, HTMLAttributes, useState, useRef } from "react";
+import React, { forwardRef, HTMLAttributes, useState, useRef, useContext } from "react";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import { EditModeContext } from "../../../../contexts/edit-mode-context";
 
 import { Action, Handle } from "../Item";
 import { updateListItemText } from "../../../../features/lists-slice";
@@ -58,6 +59,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
         ref
     ) => {
         const dispatch = useAppDispatch();
+        const { editMode } = useContext(EditModeContext);
         const { t } = useTranslation(["common"]);
         // Reference for contenteditable div
         const itemTextDiv = useRef<HTMLDivElement>(null);
@@ -140,33 +142,43 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
                 {...props}
             >
                 <div className={"tree-item " + styles.TreeItem} ref={ref} style={style}>
-                    <div className={"tree-item-actions"}>
-                        <Link to={"/?type=" + type + "&id=" + id} className="item-nav-link" aria-label={t("go-to-item-id", { id: id })} onClick={onNavigate}>
-                            <span className="sr-only">{t("go-to-item-id", { id: id })}</span>
-                        </Link>
-                        <Handle {...handleProps} />
+                    {editMode && (
+                        <div className={"tree-item-actions"}>
+                            <Link
+                                to={"/?type=" + type + "&id=" + id}
+                                className="item-nav-link"
+                                aria-label={t("go-to-item-id", { id: id })}
+                                onClick={onNavigate}
+                            >
+                                <span className="sr-only">{t("go-to-item-id", { id: id })}</span>
+                            </Link>
+                            <Handle {...handleProps} />
 
-                        {onCollapse && (
-                            <Action onClick={onCollapse} className={classNames(styles.Collapse, collapsed && styles.collapsed)}>
-                                {collapseIcon}
-                            </Action>
-                        )}
-                    </div>
-                    <div
-                        className={styles.Text}
-                        ref={itemTextDiv}
-                        contentEditable="plaintext-only"
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        onKeyDown={handleKeyDown}
-                        suppressContentEditableWarning={true}
-                        role="textbox"
-                    >
-                        {value}
-                    </div>
+                            {onCollapse && (
+                                <Action onClick={onCollapse} className={classNames(styles.Collapse, collapsed && styles.collapsed)}>
+                                    {collapseIcon}
+                                </Action>
+                            )}
+                        </div>
+                    )}
+                    {editMode && (
+                        <div
+                            className={styles.Text + " edit-mode"}
+                            ref={itemTextDiv}
+                            contentEditable="plaintext-only"
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            onKeyDown={handleKeyDown}
+                            suppressContentEditableWarning={true}
+                            role="textbox"
+                        >
+                            {value}
+                        </div>
+                    )}
+                    {!editMode && <div className={styles.Text + " view-mode"}>{value}</div>}
                     {/* {!clone && onRemove && <Remove onClick={onRemove} />} */}
                     {clone && childCount && childCount > 1 ? <span className={styles.Count}>{childCount}</span> : null}
-                    {!clone && (
+                    {!clone && editMode && (
                         <button
                             type="button"
                             className={`edit-item edit-item-id-${ListItemID} ${isEditing ? "visible" : "hide"}`}
@@ -177,7 +189,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
                         ></button>
                     )}
 
-                    {!clone && (
+                    {!clone && editMode && (
                         <button
                             type="button"
                             className="delete-item"

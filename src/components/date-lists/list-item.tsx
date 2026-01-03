@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 
+import { EditModeContext } from "../../contexts/edit-mode-context";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../app/hooks";
+
 import { removeListItems, updateListItemText } from "../../features/lists-slice";
 import { DateListSettings } from "./types";
 import { DateListItem } from "./types";
@@ -17,6 +19,7 @@ interface ListItemProps {
 const ListItem = (props: ListItemProps) => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation(["date-lists", "common"]);
+    const { editMode } = useContext(EditModeContext);
 
     // Reference for contenteditable div
     const itemTextDiv = useRef<HTMLDivElement>(null);
@@ -89,37 +92,45 @@ const ListItem = (props: ListItemProps) => {
     return (
         <li key={props.item.id} className={"list-group-item " + dateClass} ref={props.newListItem}>
             <div className="list-item">
-                <div
-                    ref={itemTextDiv}
-                    className="list-item-text"
-                    contentEditable="plaintext-only"
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    onKeyDown={handleKeyDown}
-                    suppressContentEditableWarning={true}
-                    role="textbox"
-                >
-                    {ListItemText}
-                </div>
+                {editMode && (
+                    <div
+                        ref={itemTextDiv}
+                        className="list-item-text"
+                        contentEditable="plaintext-only"
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        onKeyDown={handleKeyDown}
+                        suppressContentEditableWarning={true}
+                        role="textbox"
+                    >
+                        {ListItemText}
+                    </div>
+                )}
+
+                {!editMode && <div className="list-item-text">{ListItemText}</div>}
 
                 <ListItemDate date={props.item.date} settings={props.settings} dateType={dateClass} />
             </div>
-            <button
-                type="button"
-                className={`edit-item edit-item-id-${ListItemID} ${isEditing ? "visible" : "hide"}`}
-                tabIndex={0}
-                aria-label={t("edit-list-item", { ns: "common" })}
-                title={t("save-list-item", { ns: "common" })}
-                onClick={saveEditedListItemText}
-            ></button>
-            <button
-                type="button"
-                className="delete-item"
-                tabIndex={0}
-                aria-label={t("delete-list-item", { ns: "common" })}
-                title={t("delete-list-item", { ns: "common" })}
-                onClick={deleteListItem}
-            ></button>
+            {editMode && (
+                <>
+                    <button
+                        type="button"
+                        className={`edit-item edit-item-id-${ListItemID} ${isEditing ? "visible" : "hide"}`}
+                        tabIndex={0}
+                        aria-label={t("edit-list-item", { ns: "common" })}
+                        title={t("save-list-item", { ns: "common" })}
+                        onClick={saveEditedListItemText}
+                    ></button>
+                    <button
+                        type="button"
+                        className="delete-item"
+                        tabIndex={0}
+                        aria-label={t("delete-list-item", { ns: "common" })}
+                        title={t("delete-list-item", { ns: "common" })}
+                        onClick={deleteListItem}
+                    ></button>
+                </>
+            )}
         </li>
     );
 };

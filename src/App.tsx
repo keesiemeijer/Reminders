@@ -107,7 +107,7 @@ function App() {
         listStyle = listSettings.orderByDate ? "date" : "tree";
     }
 
-    console.log("type settings for this page", listSettings);
+    //console.log("type settings for this page", listSettings);
 
     return (
         <div className="App">

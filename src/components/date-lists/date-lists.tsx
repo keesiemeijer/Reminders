@@ -5,11 +5,15 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector, useHistoryState } from "../../app/hooks";
 
 import { CollapseContext } from "../../contexts/collapse-context";
+import { EditModeContext } from "../../contexts/edit-mode-context";
+
 import { TypeSettingContext } from "../../contexts/type-setting-context";
 import { addDateListItem, updateDateListItems } from "../../features/lists-slice";
 import { getListItemsByType, getHighesListItemID } from "../../utils/type";
 
 import CollapseLink from "../collapseLink";
+import EditModeToggleLink from "../editModeToggleLink";
+
 import SortButton from "../sort-button";
 import HistoryNav from "../history-nav";
 
@@ -22,6 +26,8 @@ const DateLists = () => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation(["date-lists", "common"]);
     const [date, setDate] = useState("");
+
+    const { editMode } = useContext(EditModeContext);
 
     const typeSettings: DateListSettings = useContext(TypeSettingContext);
     const listType = typeSettings.type;
@@ -158,55 +164,69 @@ const DateLists = () => {
                         <h1>{typeSettings["title"]}</h1>
                         {typeSettings["description"] && <p className="type-desc">{typeSettings["description"]}</p>}
                         <ul className="nav sub-navigation">
-                            <li className="nav-item">
-                                <Link className="nav-link nav-settings" to={"/settings?type=" + listType}>
-                                    {t("settings", { ns: "common" })}
-                                </Link>
-                            </li>
                             <li>
-                                <CollapseLink listItemCount={listItemCount} />
+                                <EditModeToggleLink />
                             </li>
+                            {editMode && (
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link nav-settings" to={"/settings?type=" + listType}>
+                                            {t("settings", { ns: "common" })}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <CollapseLink listItemCount={listItemCount} />
+                                    </li>
+                                </>
+                            )}
                         </ul>
-
-                        <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
-                            <div className="form-section">
-                                <label htmlFor="list-item-text" className="form-label">
-                                    {t("list-item", { ns: "common" })}
-                                </label>
-                                <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
-                            </div>
-                            <div className="form-section">
-                                <label htmlFor="list-item-date" className="form-label">
-                                    {t("list-item-date")}
-                                </label>
-                                <div className="date-container">
-                                    <input
-                                        type="date"
-                                        id="list-item-date"
-                                        className="form-control"
-                                        name="listItemDate"
-                                        ref={dateInput}
-                                        onChange={(e) => setDate(e.target.value)}
-                                        required={true}
-                                    />
-                                    <p className="date-preview" ref={datePreview}></p>
+                        {editMode && (
+                            <div className="form-group collapse" id="form-collapse" ref={collapseContainerRef}>
+                                <div className="form-section">
+                                    <label htmlFor="list-item-text" className="form-label">
+                                        {t("list-item", { ns: "common" })}
+                                    </label>
+                                    <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
+                                </div>
+                                <div className="form-section">
+                                    <label htmlFor="list-item-date" className="form-label">
+                                        {t("list-item-date")}
+                                    </label>
+                                    <div className="date-container">
+                                        <input
+                                            type="date"
+                                            id="list-item-date"
+                                            className="form-control"
+                                            name="listItemDate"
+                                            ref={dateInput}
+                                            onChange={(e) => setDate(e.target.value)}
+                                            required={true}
+                                        />
+                                        <p className="date-preview" ref={datePreview}></p>
+                                    </div>
+                                </div>
+                                <div className="form-section">
+                                    <DateButtons dateInput={dateInput} setDate={setDate} />
+                                </div>
+                                <div className="form-section">
+                                    <button type="submit" className="btn btn-success">
+                                        {t("add-list-item", { ns: "common" })}
+                                    </button>
                                 </div>
                             </div>
-                            <div className="form-section">
-                                <DateButtons dateInput={dateInput} setDate={setDate} />
-                            </div>
-                            <div className="form-section">
-                                <button type="submit" className="btn btn-success">
-                                    {t("add-list-item", { ns: "common" })}
-                                </button>
-                            </div>
-                        </div>
+                        )}
                     </form>
                 </div>
+
                 <div className="list-nav date-list-nav">
-                    <HistoryNav updateHistory={handleHistoryUpdate} history={history} />
-                    {listItemCount > 1 && <SortButton settings={typeSettings} />}
+                    {editMode && (
+                        <>
+                            <HistoryNav updateHistory={handleHistoryUpdate} history={history} />
+                            {listItemCount > 1 && <SortButton settings={typeSettings} />}
+                        </>
+                    )}
                 </div>
+
                 <DateList listType={listType} settings={typeSettings} listItems={listItems} newListItem={newListItem} latestListItemID={latestListItemID} />
                 {listItemCount === 0 && <p>{t("there-are-no-list-items-yet", { ns: "common" })}</p>}
             </div>
