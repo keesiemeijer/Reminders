@@ -7,6 +7,7 @@ export const FlattenedItemDefault: FlattenedItem = {
     id: 0,
     parentID: null,
     text: "",
+    textFormat: 1,
     hasChildren: false,
     collapsed: false,
     depth: 0,

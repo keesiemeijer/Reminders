@@ -31,6 +31,7 @@ function App() {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const lists = useAppSelector((state) => state.lists);
+    console.log(lists, "lists");
 
     const pathname = location.pathname;
     const sanitizedPathname = sanitizePathname(pathname);
@@ -107,7 +108,7 @@ function App() {
         listStyle = listSettings.orderByDate ? "date" : "tree";
     }
 
-    //console.log("type settings for this page", listSettings);
+    console.log("type settings for this page", listSettings);
 
     return (
         <div className="App">

@@ -13,7 +13,7 @@ export const isValidTreeListItem = (item: any): item is FlattenedItem => {
     // All properties from FlattenedItem interface
     const booleans = ["collapsed", "hasChildren"];
     const strings = ["text"];
-    const numbers = ["id", "depth", "index"];
+    const numbers = ["id", "depth", "index", "textFormat"];
     const mixed = ["parentID"];
 
     return strings.concat(booleans, numbers, mixed).every(function (key) {
@@ -45,9 +45,9 @@ export const isValidTreeListItem = (item: any): item is FlattenedItem => {
                     console.log(key + " - Number not equal or greater than 0");
                     return false;
                 }
-                if ("id" === key && !(typeValue >= 1)) {
-                    // IDs need to be equal or greater than 1
-                    console.log(key + " - ID not equal or greater than 1");
+                if (["id", "textFormat"].includes(key) && !(typeValue >= 1)) {
+                    // ID and Textformat need to be equal or greater than 1
+                    console.log(key + " - Number not equal or greater than 1");
                     return false;
                 }
             } else {

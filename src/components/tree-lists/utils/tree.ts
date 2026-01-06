@@ -75,7 +75,7 @@ function getMinDepth({ nextItem }: { nextItem: FlattenedItem }) {
 
 function flatten(items: TreeItems, parentID: UniqueIdentifier | null = null, depth = 0): FlattenedItem[] {
     return items.reduce<FlattenedItem[]>((acc, item, index) => {
-        return [...acc, { ...item, parentID, depth, index }, ...flatten(item.children, item.id, depth + 1)];
+        return [...acc, { ...item, parentID, depth, index } as FlattenedItem, ...flatten(item.children || [], item.id, depth + 1)];
     }, []);
 }
 
@@ -88,6 +88,7 @@ export function flattenTree(items: TreeItems): FlattenedItem[] {
         if (item.children && item.children.length) {
             item.hasChildren = true;
         }
+
         // Flattened items don't need/have property children
         delete item.children;
 

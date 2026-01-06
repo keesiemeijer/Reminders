@@ -172,13 +172,14 @@ export function SortableTree(props: Props) {
             {flattenedItems.length > 0 && (
                 <ul className={"tree-list-tree list-group list-group-flush" + listClass}>
                     <SortableContext items={sortedIDs} strategy={verticalListSortingStrategy}>
-                        {flattenedItems.map(({ id, text, collapsed, hasChildren, depth }) => (
+                        {flattenedItems.map(({ id, text, textFormat, collapsed, hasChildren, depth }) => (
                             <SortableTreeItem
                                 key={id}
                                 id={id}
                                 type={props.type}
                                 newListItem={id === props.latestListItemID ? props.newListItem : null}
                                 value={text}
+                                textFormat={textFormat}
                                 depth={id === activeID && projected ? projected.depth : depth}
                                 indentationWidth={indentationWidth}
                                 indicator={indicator}
@@ -199,6 +200,7 @@ export function SortableTree(props: Props) {
                                         clone
                                         childCount={getChildCount(items, activeID) + 1}
                                         value={activeItem.text.toString()}
+                                        textFormat={Number(activeItem.textFormat)}
                                         indentationWidth={indentationWidth}
                                     />
                                 ) : null}

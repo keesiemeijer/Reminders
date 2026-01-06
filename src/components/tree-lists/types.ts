@@ -17,6 +17,7 @@ export interface FlattenedItem {
     text: string;
     children?: TreeItem[];
     hasChildren?: boolean;
+    textFormat: number;
     collapsed?: boolean;
     depth: number;
     index: number;

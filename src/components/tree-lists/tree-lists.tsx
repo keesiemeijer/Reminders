@@ -28,6 +28,7 @@ const TreeLists = () => {
     const { t } = useTranslation("common");
 
     const { editMode } = useContext(EditModeContext);
+    const modeClass = editMode ? " edit-mode" : " view-mode";
 
     const typeSettings: TreeListSettings = useContext(TypeSettingContext);
     const listType = typeSettings.type;
@@ -58,6 +59,7 @@ const TreeLists = () => {
     // HTML elements
     const collapseLinkRef = useRef<HTMLAnchorElement>(null);
     const listItemInput = useRef<HTMLInputElement>(null);
+    const textFormatSelect = useRef<HTMLSelectElement>(null);
     const collapseContainerRef = useRef<HTMLDivElement>(null);
     const newListItem = useRef<HTMLLIElement | null>(null);
 
@@ -133,7 +135,7 @@ const TreeLists = () => {
         e.preventDefault();
 
         // this sucks
-        if (listItemInput.current) {
+        if (listItemInput.current && textFormatSelect.current) {
             let parentID: null | number = null;
             if (topLevelID > 0) {
                 parentID = topLevelID;
@@ -151,12 +153,14 @@ const TreeLists = () => {
                         depth: 0,
                         index: 0,
                         hasChildren: false,
+                        textFormat: parseInt(textFormatSelect.current.value, 10),
                     },
                 })
             );
 
             // Reset form values after adding new list item
             listItemInput.current.value = "";
+            textFormatSelect.current.value = "1";
 
             // Set list item added flag to true (for scrolling in useEffect).
             isNewListItemDispatched.current = true;
@@ -188,7 +192,7 @@ const TreeLists = () => {
 
     return (
         <CollapseContext.Provider value={collapse}>
-            <div className="tree-lists">
+            <div className={"tree-lists" + modeClass}>
                 <div className="list-item-form">
                     <form className="app-form" onSubmit={submitListItem}>
                         <h1>{typeSettings["title"]}</h1>
@@ -220,6 +224,16 @@ const TreeLists = () => {
                                     <input type="text" id="list-item-text" className="form-control" name="listItemText" ref={listItemInput} required={true} />
                                 </div>
                                 <div className="form-section">
+                                    <label htmlFor="textFormat" className="form-label">
+                                        Text Format
+                                    </label>
+                                    <select id="textFormat" className="form-select" name="textFormat" defaultValue="1" ref={textFormatSelect}>
+                                        <option value="1">normal</option>
+                                        <option value="2">heading 1</option>
+                                        <option value="3">heading 2</option>
+                                    </select>
+                                </div>
+                                <div className="form-section">
                                     <button type="submit" className="btn btn-success">
                                         {t("add-list-item")}
                                     </button>
@@ -238,7 +252,7 @@ const TreeLists = () => {
                     )}
                 </div>
 
-                {topLevelText && <h5 className="top-level-title">{topLevelText}</h5>}
+                {topLevelText && <p className="h3">{topLevelText}</p>}
                 {listItemCount > 0 && (
                     <SortableTree
                         treeItems={listItems}

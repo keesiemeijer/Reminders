@@ -23,6 +23,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
     indicator?: boolean;
     indentationWidth: number;
     value: string | number;
+    textFormat: number;
     id: number | string;
     type: string;
     newListItem: React.RefObject<HTMLLIElement | null> | null;
@@ -53,6 +54,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
             type,
             newListItem,
             value,
+            textFormat,
             wrapperRef,
             ...props
         },
@@ -68,6 +70,17 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
 
         // List item properties
         const ListItemText = value;
+
+        let textFormatClass = "";
+
+        if (typeof textFormat === "number") {
+            if (textFormat === 2) {
+                textFormatClass = " h3";
+            } else if (textFormat === 3) {
+                textFormatClass = " h5";
+            }
+        }
+
         const ListItemID = id;
 
         const handleFocus = () => {
@@ -163,7 +176,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
                     )}
                     {editMode && (
                         <div
-                            className={styles.Text + " edit-mode"}
+                            className={styles.Text + textFormatClass + " edit-mode"}
                             ref={itemTextDiv}
                             contentEditable="plaintext-only"
                             onFocus={handleFocus}
@@ -175,7 +188,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
                             {value}
                         </div>
                     )}
-                    {!editMode && <div className={styles.Text + " view-mode"}>{value}</div>}
+                    {!editMode && <div className={styles.Text + textFormatClass + " view-mode"}>{value}</div>}
                     {/* {!clone && onRemove && <Remove onClick={onRemove} />} */}
                     {clone && childCount && childCount > 1 ? <span className={styles.Count}>{childCount}</span> : null}
                     {!clone && editMode && (
