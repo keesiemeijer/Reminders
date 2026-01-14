@@ -1,12 +1,13 @@
 # Reminders
 ### This repository is archived
-Active development of this repository will continue at [Codeberg](https://codeberg.org/keesiemeijer/Lists).
+> [!NOTE]
+> Active development of this repository will continue at [Codeberg](https://codeberg.org/keesiemeijer/Lists).
 
-Date Lists app made with Vite, React, Typescript, Redux Toolkit, Redux Persist, i18next
+React Lists app made with Vite, Typescript, Redux Toolkit, Redux Persist, i18next
 
-Create date or manually ordered lists online.
+Create **date** or **manually** ordered lists online with this app.
 
-Check out the [Web app demo](https://keesiemeijer.codeberg.page/Lists).
+Check out the **[Web App](https://keesiemeijer.codeberg.page/Lists)** for this repository
 
 ### `npm run dev`
 
