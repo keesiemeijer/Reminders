@@ -1,4 +1,6 @@
 # Reminders
+### This repository is archived
+Active development of this repository will continue at [Codeberg](https://codeberg.org/keesiemeijer/Lists).
 
 Date Lists app made with Vite, React, Typescript, Redux Toolkit, Redux Persist, i18next
 
