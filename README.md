@@ -4,7 +4,7 @@ Date Lists app made with Vite, React, Typescript, Redux Toolkit, Redux Persist, 
 
 Create date or manually ordered lists online.
 
-Check out the [Web app demo](https://keesiemeijer.github.io/Reminders/).
+Check out the [Web app demo](https://keesiemeijer.codeberg.page/Lists).
 
 ### `npm run dev`
 
